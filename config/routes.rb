@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+
+  get 'pages/inputurl'
   get 'pages/user'
   #root 'tops#index'
   # get 'tops/show'
