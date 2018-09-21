@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'pages/user'
   #root 'tops#index'
   #get 'tops/show'
   #devise_for :users
