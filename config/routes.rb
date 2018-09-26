@@ -2,10 +2,11 @@ Rails.application.routes.draw do
 
   get 'pages/inputurl'
   get 'pages/user'
+  get 'users/index'
   #root 'tops#index'
   # get 'tops/show'
   #devise_for :users
-  root 'home#top'
+  root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   # root to: "home#index"
 end
