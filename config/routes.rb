@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'pages/inputurl'
-  get 'pages/user'
+  get 'projects/entry'
   get 'users/index'
   #root 'tops#index'
   # get 'tops/show'
