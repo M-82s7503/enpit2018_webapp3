@@ -288,5 +288,7 @@ Devise.setup do |config|
   #   include Turbolinks::Controller
   # end
 
-  config.omniauth :github, "Iv1.05741f0bc74e5aba", "f46af666a97e7b44aa42c50c90c3d11772dd6352"
+  config.omniauth :github, "Iv1.05741f0bc74e5aba", "f46af666a97e7b44aa42c50c90c3d11772dd6352", scope: 'user:email'
+
+
 end

@@ -8,8 +8,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     #   uid: auth.uid
     # )
     @user = User.from_omniauth(request.env["omniauth.auth"])
-
-    adka
     # remember_me(user)
 
     # sign_in_and_redirect user, event: :authentication
