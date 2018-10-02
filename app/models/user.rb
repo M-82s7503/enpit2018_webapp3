@@ -6,11 +6,21 @@ class User < ApplicationRecord
          :confirmable, :lockable, :timeoutable, :omniauthable, omniauth_providers: [:github]
 
     def self.from_omniauth(auth)
-        where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
-            user.provider = auth["provider"]
-            user.uid = auth["uid"]
-            user.username = auth["info"]["nickname"]
+        # where(provider: auth["provider"], uid: auth["uid"]).first_or_create do |user|
+        #     user.provider = auth["provider"]
+        #     user.uid = auth["uid"]
+        #     user.username = auth["info"]["nickname"]
+        # end
+        where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+          user.email = auth.info.email
+          user.password = Devise.friendly_token[0,20]
+          user.username = auth.info.name   # assuming the user model has a name
+          # user.image = auth.info.image # assuming the user model has an image
+          # If you are using confirmable and the provider(s) you use validate emails,
+          # uncomment the line below to skip the confirmation emails.
+          # user.skip_confirmation!
         end
+        # sign_in_and_redirect user, event: :authentication
     end
 
     def self.new_with_session(params, session)
