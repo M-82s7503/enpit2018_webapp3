@@ -1,0 +1,85 @@
+// 全ページに影響が出る
+//テキストの色
+$COLOR_TEXT : #abcbd3
+$COLOR_TEXTSUB : #7aa0a9
+
+//フォーム関連
+$COLOR_INPUT : rgba($COLOR_TEXT, 0.2)
+
+//基本色（黒）
+$COLOR_BLACK : #051e29 //背景メインの黒
+$COLOR_BLACKBODY : #062433 //Bodyの背景
+$COLOR_BLACKLIGHT : #031e29 //サイドバー
+$COLOR_BLACKGLASS : rgba($COLOR_BLACK, 0.95) //背景メインの黒（ちょっと透過）
+
+//基本色（グレー）
+$COLOR_GRAY : rgba($COLOR_TEXT, 0.15) // 灰色（薄い境界線など）
+$COLOR_GRAYLIGHT : rgba($COLOR_TEXT, 0.07) // 灰色（薄い境界線など）
+$COLOR_GRAYCLEAR : rgba($COLOR_TEXT, 0.025) // 灰色（薄い境界線など）
+
+//基本色（白）
+$COLOR_WHITE : #ECFCFF
+
+//テーマカラー
+$COLOR_MAIN : #04AFCD //メインカラー青（リンク色）
+$COLOR_MAINLIGHT : rgba($COLOR_MAIN, 0.05)
+
+//汎用カラー
+$COLOR_GREEN : #05d491 //緑
+$COLOR_RED : #e41717 //赤
+$COLOR_PURPLE : #9d7ae6 //紫
+$COLOR_YELLOW : #ffe200 //黄色
+
+$ANIMATION_FADE : 0.2s ease-in-out
+$HEIGHT_NAVI : 56px //ヘッダーのナビの高さ
+$WIDTH_SIDEBAR : 215px
+
+.hs-m--app
+  display: flex
+  height: 100%
+  position: relative
+
+.hs-m--app-main
+  flex: 1
+  min-width: 0
+  height: 100vh
+  overflow-y: auto
+
+.hs-m--body-header
+  padding: 76px 30px 22px 30px
+  border-bottom: 1px solid $COLOR_GRAY
+  display: flex
+  align-items: center
+  & > .title
+    flex: 1
+    font-size: 24px
+    font-weight: 400
+    & > .sub
+      font-size: 14px
+      color: $COLOR_TEXTSUB
+      margin-top: 8px
+      line-height: 1.4
+  & > .action
+    padding-left: 20px
+    display: flex
+  &.navi
+    border-bottom: 0
+    padding-bottom: 0
+
+.hs-m--body
+  margin-left: $WIDTH_SIDEBAR
+  padding: 86px 30px 30px 30px
+  max-width: 1800px
+  margin: 0 auto
+  &.single
+    margin-left: 0
+  &.gray
+    background-color: $COLOR_GRAYLIGHT
+  &.fullscreen
+    min-height: 100%
+  &.side
+    padding-left: $WIDTH_SIDEBAR + 54
+  &.hide
+    overflow: hidden
+    height: calc(100% - 230px)
+    position: relative
