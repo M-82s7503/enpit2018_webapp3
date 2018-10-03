@@ -18,16 +18,6 @@ development:
   username: has
   password: webapp3
 
-ubuntu:
-  <<: *default
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
-  database: has
-  username: has
-  password: webapp3
-  host: localhost
-
 production:
   url: <%= ENV['DATABASE_URL'] %>
 
