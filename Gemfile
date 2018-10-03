@@ -65,4 +65,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
 gem 'omniauth-github'
-gem 'mysql2'
+gem 'mysql2', group: [:default, :development]
+
+gem 'pg', group: :production
+
+##herokuで動かすためのおまじない
+gem 'therubyracer', platforms: :ruby
+#追加
+gem 'rails_12factor', group: :production
