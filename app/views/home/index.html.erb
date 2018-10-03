@@ -1,0 +1,25 @@
+
+<!-- <div class="hs-m--body"> -->
+<!-- <div class="hs-main"> -->
+<div class="hs-m--hero" >
+  <div class="hs-hero--header">
+    <div class="button-area">
+      <% if user_signed_in? %>
+          <strong><%= link_to current_user['username'], users_index_path %></strong>
+          <button class="ui button" >
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+          </button>
+      <% else %>
+        <button class="ui button" >
+          <%= link_to 'サインアップ', new_user_registration_path %>
+        </button>
+        <button class="ui button" >
+          <%= link_to 'ログイン', user_github_omniauth_authorize_path %>
+        </button>
+      <% end %>
+    </div>
+  </div>
+<div>
+<!-- </div> -->
+
+<!-- </div> -->

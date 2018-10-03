@@ -1,7 +1,6 @@
 class OmniauthCallbacksController < ApplicationController
   def github
     @user = User.from_omniauth(request.env["omniauth.auth"].except("extra"))
-    
     if @user.persisted?
       # flash.notice = "ログインしました！"
       # sign_in_and_redirect @user

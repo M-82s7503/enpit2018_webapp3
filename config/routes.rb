@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { :omniauth_callbacks => "users/omniauth_callbacks" }
-  root 'tops#index'
-  get 'tops/show'
-  # devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'devise/registrations',
+    sessions: 'devise/sessions',
+    confirmations: 'devise/confirmations',
+    password: 'devise/password',
+    omniauth_callbacks: 'users/omniauth_callbacks' }
+
+  get 'projects/entry'
+  get 'users/index'
+  root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  # root to: "home#index"
 end
