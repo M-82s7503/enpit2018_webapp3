@@ -9,28 +9,38 @@
 
   background-repeat: no-repeat
   background-size: cover
-  -webkit-box-orient: vertical
-  -webkit-box-direction: normal
-  -ms-flex-direction: column
-  flex-direction: column
-  -webkit-box-pack: justify
-  -ms-flex-pack: justify
-  justify-content: space-between
+
+
   margin: 0
   min-height: 100vh
   padding: 0
   position: relative
 
-.topbox
-  margin: auto
+.hs-hero--header
+  background-color: rgba(255,255,255,0.5)
+  margin: 0
+  padding: 2vh
 
-  .has-logo
-    margin: auto
+.button-area
+  margin-left: auto
+
+
+.has-logo
+    margin: 0
 
 .has-logo h1
   color: #fff
   font-family: 'Tahoma',sans-serif
-  font-size: 40vh
+  font-size: 4vh
+
+.topbox
+  margin: 30vh
+
+.has-catchphrase h1
+  color: #fff
+  font-size: 10vh
+  font-family: 'Tahoma',sans-serif
+
 
 .has-setumei
   margin: auto
@@ -40,25 +50,21 @@
   font-family: 'Tahoma',sans-serif
   font-size: 3vh
 
-.button-area
-  margin: auto
 
 .hs-m--yagi
-    background-image: image-url('coloryagi.png')
+  background-color: inherit
 
-    flex: 0 1 30%
+.yagi-gazou
+  background-image: image-url('Mojiyagi.png')
 
-    background-position: center 40%
-    background-repeat: no-repeat
-    background-size: cover
-    -webkit-box-orient: vertical
-    -webkit-box-direction: normal
-    -ms-flex-direction: column
-    flex-direction: column
-    -webkit-box-pack: justify
-    -ms-flex-pack: justify
-    justify-content: space-between
-    margin-top: 100vh
-    min-height: 100vh
-    padding: 0
-    position: relative
+  background-repeat: no-repeat
+  object-fit: contain
+
+  min-width: 100vh
+
+
+  margin: 10vh 30vh 0 30vh
+  min-height: 100vh
+.hs-m--yagi p
+  font-size: 3vh
+  margin: 0 30vh 30vh 30vh
