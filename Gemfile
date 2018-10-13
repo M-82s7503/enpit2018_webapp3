@@ -78,3 +78,6 @@ group :production do
 # gem 'therubyracer', platforms: :ruby
 #追加
 gem 'rails_12factor', group: :production
+
+## Githubのoauthを取得するREST framework
+gem 'rest-client'

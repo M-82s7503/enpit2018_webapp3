@@ -10,7 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_21_034619) do
+ActiveRecord::Schema.define(version: 2018_10_10_061630) do
+
+  create_table "github_commit_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "users_id"
+    t.bigint "github_projects_id"
+    t.string "name"
+    t.string "commit_id"
+    t.string "message"
+    t.integer "size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["github_projects_id"], name: "index_github_commit_logs_on_github_projects_id"
+    t.index ["users_id"], name: "index_github_commit_logs_on_users_id"
+  end
+
+  create_table "github_projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "users_id"
+    t.string "name"
+    t.integer "commit_num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["users_id"], name: "index_github_projects_on_users_id"
+  end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -41,4 +63,7 @@ ActiveRecord::Schema.define(version: 2018_09_21_034619) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "github_commit_logs", "github_projects", column: "github_projects_id"
+  add_foreign_key "github_commit_logs", "users", column: "users_id"
+  add_foreign_key "github_projects", "users", column: "users_id"
 end
