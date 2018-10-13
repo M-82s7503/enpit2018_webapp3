@@ -1,22 +1,11 @@
 
-<!-- <div class="hs-m--body"> -->
-<!-- <div class="hs-main"> -->
 <div class="hs-m--hero" >
-<div class="topbox">
-  <div class = "has-logo">
-    <h1>HAS</h1>
-  </div>
-
-  <div class = "has-setumei">
-    <p>開発を先延ばしにしてしまう状況を解決したい。<br>
-      琉球大学情報工学生の新しい物好き向けの 開発状況を管理して、<br>
-      開発を進めるように促すことができる HASです。 開発状況が管理ができ、<br>
-      Githubとは違って、 他のプロジェクトと進行状況を比較してプロジェクトが<br>
-      進んでいなければ開発を進めるように通知する機能が備わっています。</p>
-  </div>
-</div>
   <div class="hs-hero--header">
+    <div class = "has-logo">
+      <h1>HAS</h1>
+    </div>
     <div class="button-area">
+      <!--
       <% if user_signed_in? %>
           <strong><%= link_to current_user['username'], users_index_path %></strong>
           <button class="ui button" >
@@ -29,15 +18,44 @@
         <button class="ui button" >
           <%= link_to 'ログイン', user_github_omniauth_authorize_path %>
         </button>
+      -->
+        <div class="ui buttons">
+          <button class="ui button">
+            <%= link_to 'サインアップ', new_user_registration_path %>
+          </button>
+          <div class="or"></div>
+          <button class="ui  button">
+            <%= link_to 'ログイン', user_github_omniauth_authorize_path %>
+          </button>
+        </div>
       <% end %>
     </div>
   </div>
+  <div class="topbox">
+    <div class = "has-catchphrase">
+      <h1>Let's grow Projects & Goats</h1>
+    </div>
 
-  <div class = "hs-m--yagi">
-  <p>yagiyagi</p>
+    <div class = "has-setumei">
+      <p>開発を先延ばしにしてしまう状況を解決したい。<br>
+        琉球大学情報工学生の新しい物好き向けの 開発状況を管理して、<br>
+        開発を進めるように促すことができる HASです。 開発状況が管理ができ、<br>
+        Githubとは違って、 他のプロジェクトと進行状況を比較してプロジェクトが<br>
+        進んでいなければ開発を進めるように通知する機能が備わっています。</p>
+    </div>
   </div>
-
 <div>
+
+<div class = "hs-m--yagi">
+  <div class = "yagi-gazou">
+  </div>
+  <p>これはあなたのコミットを糧に生きるヤギです。<br>
+
+
+  </p>
+</div>
+
+
 
 
 <!-- </div> -->
