@@ -1,4 +1,4 @@
 <%= form_for @project, url: { controller: 'projects', action: "create" } do |f| %>
-  <%= f.text_field :name %>
+  <%= f.select :name, @form_repos %>
   <%= submit_tag 'Create' %>
 <% end %>

@@ -17,10 +17,9 @@
 
   <div class = "hs-users-sidebar-wrapper">
     <div class = "hs-users-sidebar">
-      <h1>Profile</h1>
+      <h1><%= current_user.username %></h1>
       <div class = "user-photo">
       </div>
-      <p><%= current_user.username %></p>
       <button class="ui  button" >
         <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
       </button>
@@ -29,7 +28,9 @@
       <h2>ProjectURL一覧</h2>
       <% @projects.each do |t| %>
         <div>
-          <a href="https://github.com//enpit2018_webapp3">https://github.com/M-82s7503/enpit2018_webapp3</a>
+          <a href="https://github.com/<%= current_user.username %>/<%= t.name %>/">
+            https://github.com/<%= current_user.username %>/<%= t.name %>
+          </a>
         </div>
       <% end %>
     </div>
