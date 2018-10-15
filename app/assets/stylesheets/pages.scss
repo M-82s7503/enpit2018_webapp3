@@ -1,10 +1,44 @@
 
-.hs-user--header h1{
+.hs-user--header {
+  background-color: #6cd8c5;
   color: #000;
+  display: flex;
+
+
+}
+.has-logo{
+  width: 10vw;
+
+}
+.button-project{
+  margin-left: auto;
+  //position: relative;
 }
 
 .hs-user{
-  background-color: #81e8d4;
+
   color: #285c76;
 
+}
+.user-photo{
+  background-image:url('Rerere.jpg');
+  background-size:contain;
+  height: 100px;
+  width: 100px;
+
+}
+
+.hs-users-sidebar-wrapper{
+  display: flex;
+}
+.hs-users-sidebar{
+  background-color: #6cd8c5;
+  border : solid 2px #5fbbc9 ;
+  //border-radius: 10px;/*角の丸み*/
+  color: #fff;
+  height: 90vh;
+}
+.hs-users-main_contents{
+
+  flex: 1;
 }

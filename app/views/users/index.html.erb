@@ -5,43 +5,45 @@
 <div class="hs-user--header">
   <div class = "has-logo">
     <h1>HAS</h1>
+
+  </div>
+  <div class = "button-project">
+    <button class="ui button" >
+      <a href="/projects/entry"> プロジェクトを追加する </a>
+    </button>
   </div>
 
 </div>
 
+<div class = "hs-users-sidebar-wrapper">
+  <div class = "hs-users-sidebar">
+    <h1>Profile</h1>
+    <div class = "user-photo">
 
-<h1>Profile</h1>
 
-<h1><%= current_user.username %> 's Profile</h1>
+    </div>
+    <p><%= current_user.username %></p>
 
 
-<img src="https://pbs.twimg.com/profile_images/1041472480521609216/ByV-guXG_400x400.jpg" alt="ProfileImage"　 width="200" height="200">
+    <button class="ui  button" >
+      <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+    </button>
 
-<h2>Name</h2>
-<p><%= current_user.username %></p>
+  </div>
+
+  <div class = "hs-users-main_contents">
+    <h2>ProjectURL一覧</h2>
+    <a href="https://github.com/M-82s7503/enpit2018_webapp3">https://github.com/M-82s7503/enpit2018_webapp3</a>
+  </div>
+</div>
 
 <!--h2>age</h2-->
 <!--p>21</p-->
-
+<!--
 <h2>email</h2>
 
-<p>e165754@ie.u-ryukyu.ac.jp</p>
-<h2>ProjectURL一覧</h2>
-<a href="https://github.com/M-82s7503/enpit2018_webapp3">https://github.com/M-82s7503/enpit2018_webapp3</a>
-<button class="ui button" >
-  <a href="/projects/entry"> プロジェクトを追加する </a>
-</button>
+<p><%= current_user.email %></p>
+-->
 
 
 </div>
-
-<p><%= current_user.email %></p>
-
-<!-- （未）「リレーション」 で、GitHub のプロジェクト一覧も取ってくる -->
-<!-- 1. MySQL 内に、GitHubプロジェクトの一覧を保存するテーブルを作る。 -->
-<!-- 2. models/users を用意する。 -->
-<!-- 3. models/users に、has_many を書く -->
-<h2>ProjectURL一覧</h2>
-<a href="https://github.com/M-82s7503/enpit2018_webapp3">・ https://github.com/M-82s7503/enpit2018_webapp3</a>
-<br>
-<a href="/projects/entry"> さらに追加する </a>
