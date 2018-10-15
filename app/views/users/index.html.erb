@@ -1,7 +1,7 @@
 
 <div class = "hs-user">
 
-
+  <!-- ヘッダー -->
   <div class="hs-user--header">
     <div class = "has-logo">
       <h1>HAS</h1>
@@ -16,6 +16,7 @@
   </div>
 
   <div class = "hs-users-sidebar-wrapper">
+    <!-- 左側：ユーザー情報 -->
     <div class = "hs-users-sidebar">
       <h1>Profile</h1>
       <div class = "user-photo">
@@ -25,13 +26,19 @@
         <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
       </button>
     </div>
+    <!-- 右側：プロジェクト一覧 -->
     <div class = "hs-users-main_contents">
       <h2>ProjectURL一覧</h2>
-      <% @projects.each do |t| %>
+      <!-- app/controllers/users_controller.rb に定義あり。
+          @projects = current_user.projects -->
+      <% @projects.each do |proj| %>
         <div>
-          <a href="https://github.com//enpit2018_webapp3">https://github.com/M-82s7503/enpit2018_webapp3</a>
+          <br>
+          <a href="https://github.com//enpit2018_webapp3"><%= proj.name %></a>
+          <p>コミット数：<%= proj.commit_num %></p>
         </div>
       <% end %>
     </div>
   </div>
+
 </div>
