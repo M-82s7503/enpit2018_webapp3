@@ -2,48 +2,36 @@
 <div class = "hs-user">
 
 
-<div class="hs-user--header">
-  <div class = "has-logo">
-    <h1>HAS</h1>
-
-  </div>
-  <div class = "button-project">
-    <button class="ui button" >
-      <a href="/projects/entry"> プロジェクトを追加する </a>
-    </button>
-  </div>
-
-</div>
-
-<div class = "hs-users-sidebar-wrapper">
-  <div class = "hs-users-sidebar">
-    <h1>Profile</h1>
-    <div class = "user-photo">
-
+  <div class="hs-user--header">
+    <div class = "has-logo">
+      <h1>HAS</h1>
 
     </div>
-    <p><%= current_user.username %></p>
-
-
-    <button class="ui  button" >
-      <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-    </button>
+    <div class = "button-project">
+      <button class="ui button" >
+        <a href="/projects/entry"> プロジェクトを追加する </a>
+      </button>
+    </div>
 
   </div>
 
-  <div class = "hs-users-main_contents">
-    <h2>ProjectURL一覧</h2>
-    <a href="https://github.com/M-82s7503/enpit2018_webapp3">https://github.com/M-82s7503/enpit2018_webapp3</a>
+  <div class = "hs-users-sidebar-wrapper">
+    <div class = "hs-users-sidebar">
+      <h1>Profile</h1>
+      <div class = "user-photo">
+      </div>
+      <p><%= current_user.username %></p>
+      <button class="ui  button" >
+        <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+      </button>
+    </div>
+    <div class = "hs-users-main_contents">
+      <h2>ProjectURL一覧</h2>
+      <% @projects.each do |t| %>
+        <div>
+          <a href="https://github.com//enpit2018_webapp3">https://github.com/M-82s7503/enpit2018_webapp3</a>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
-
-<!--h2>age</h2-->
-<!--p>21</p-->
-<!--
-<h2>email</h2>
-
-<p><%= current_user.email %></p>
--->
-
-
 </div>

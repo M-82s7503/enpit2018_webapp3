@@ -11,11 +11,11 @@ class ProjectsController < ApplicationController
     @project.commit_num = get_commit_num()
     if @project.save
       save_commit_log(@project)
-      redirect_to projects_entry_path
+      redirect_to users_index_path
     else
       # This line overrides the default rendering behavior, which
       # would have been to render the "create" view.
-      render 'projects/entry'
+      redirect_to project_entry_path
     end
   end
 
