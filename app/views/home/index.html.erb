@@ -5,27 +5,22 @@
       <h1>HAS</h1>
     </div>
     <div class="button-area">
-      <!--
+
       <% if user_signed_in? %>
+          <button class="ui button">
           <strong><%= link_to current_user['username'], users_index_path %></strong>
+          </button>
           <button class="ui button" >
           <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
           </button>
       <% else %>
-        <button class="ui button" >
-          <%= link_to 'サインアップ', new_user_registration_path %>
-        </button>
-        <button class="ui button" >
-          <%= link_to 'ログイン', user_github_omniauth_authorize_path %>
-        </button>
-      -->
         <div class="ui buttons">
           <button class="ui button">
             <%= link_to 'サインアップ', new_user_registration_path %>
           </button>
           <div class="or"></div>
           <button class="ui  button">
-            <%= link_to 'ログイン', user_github_omniauth_authorize_path %>
+            <%= link_to 'Github ログイン', user_github_omniauth_authorize_path %>
           </button>
         </div>
       <% end %>
