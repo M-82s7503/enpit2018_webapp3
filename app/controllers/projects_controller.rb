@@ -6,6 +6,11 @@ class ProjectsController < ApplicationController
     @form_repos = user_repos.map{|t| [t['name'], t['name']]}
   end
 
+  def show
+    id = params[:id]
+    @commit_logs = GithubCommitLog.where(project_id: id)
+  end
+
   def create
     @project = Project.new()
     @project.name = params[:project]["name"]
@@ -25,16 +30,16 @@ class ProjectsController < ApplicationController
 
   def get_commit_num(name)
     commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{name}/commits`)
-    if commit_logs['message'] == 'Git Repository is empty.'
+    if commit_logs.class != Array
       0
     else
       commit_logs.length
     end
   end
-  
+
   def save_commit_log(project)
     commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{project.name}/commits`)
-    return 0 if commit_logs['message'] == 'Git Repository is empty.'
+    return 0 if commit_logs.class != Array
     for log in commit_logs do
       params = {}
       params['id'] = log['id']

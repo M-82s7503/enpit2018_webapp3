@@ -1,18 +1,18 @@
 
 <div class = "hs-user">
-
-
   <div class="hs-user--header">
     <div class = "has-logo">
-      <h1>HAS</h1>
-
+      <a href="<%= url_for(root_path) %>">
+        <h1>HAS</h1>
+      </a>
     </div>
     <div class = "button-project">
-      <button class="ui button" >
-        <a href="/projects/entry"> プロジェクトを追加する </a>
-      </button>
+      <a href="<%= url_for(projects_entry_path) %>">
+        <button class="ui button" >
+          プロジェクトを追加する
+        </button>
+      </a>
     </div>
-
   </div>
 
   <div class = "hs-users-sidebar-wrapper">
@@ -20,19 +20,40 @@
       <h1><%= current_user.username %></h1>
       <div class = "user-photo">
       </div>
-      <button class="ui  button" >
-        <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
-      </button>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <button class="ui button" >
+          Log out
+        </button>
+      <% end %>
     </div>
     <div class = "hs-users-main_contents">
-      <h2>ProjectURL一覧</h2>
-      <% @projects.each do |t| %>
-        <div>
-          <a href="https://github.com/<%= current_user.username %>/<%= t.name %>/">
-            https://github.com/<%= current_user.username %>/<%= t.name %>
-          </a>
-        </div>
-      <% end %>
+      <div class="hs-m--table normal">
+        <h2>Your Projects</h2>
+
+          <table>
+            <thead>
+              <tr>
+                <th width="100">Project</th>
+                <th width="150">Commit数</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% @projects.reverse_each do |t| %>
+                <tr>
+                  <td><a href="https://github.com/<%= current_user.username %>/<%= t.name %>/">
+                    <%= t.name %>
+                  </a>
+                  </td>
+                  <td>
+                    <%= link_to t.commit_num, projects_show_path(id: t.id) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+      </div>
     </div>
   </div>
 </div>
