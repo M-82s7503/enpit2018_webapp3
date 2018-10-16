@@ -14,6 +14,6 @@ Pitch:	開発を先延ばしにしてしまう状況を解決したい。
         Githubとは違って、
         他のプロジェクトと進行状況を比較してプロジェクトが進んでいなければ開発を進めるように通知する機能が備わっています。
 
-GitHub:	https://github.com/M-82s7503/enpit2018_webapp3
+GitHub:  https://github.com/M-82s7503/enpit2018_webapp3
 
-Backlog:	https://trello.com/enpitwebapp3_original
+Backlog:  https://trello.com/b/dpkpEYEy/pblsbl
