@@ -1,8 +1,9 @@
 
 .hs-user--header {
-  background-color: #6cd8c5;
+  background-color: #b6ece2;
   color: #000;
   display: flex;
+  padding: 2vh;
 
 
 }
@@ -13,6 +14,9 @@
 .button-project{
   margin-left: auto;
   //position: relative;
+  margin-top: 1px;
+  margin-right: 1px;
+  margin-bottom: 1px
 }
 
 .hs-user{
@@ -24,6 +28,12 @@
   background-size:contain;
   height: 100px;
   width: 100px;
+  margin:auto;
+
+}
+.button-logout{
+  margin: auto;
+  padding: 2vw;
 
 }
 
@@ -32,12 +42,18 @@
 }
 .hs-users-sidebar{
   background-color: #6cd8c5;
-  border : solid 2px #5fbbc9 ;
+  //border : solid 2px #5fbbc9 ;
   //border-radius: 10px;/*角の丸み*/
   color: #fff;
   height: 90vh;
+  padding: 13px;
+  width: 20vw;
 }
 .hs-users-main_contents{
 
   flex: 1;
+}
+.hs-users-table-project{
+  width: 30vw;
+  margin: 2vh  2vh ;
 }
