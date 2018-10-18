@@ -1,27 +1,42 @@
 
-<div class="hs-m--hero" >
+<div class="hs-m--hero">
   <div class="hs-hero--header">
     <div class = "has-logo">
-      <h1>HAS</h1>
+      <a href="<%= url_for(root_path) %>">
+        <h1>HAS</h1>
+      </a>
+    </div>
+    <div class = "hs-header-home">
+      <a href="<%= url_for(root_path) %>">
+        <h1>HOME</h1>
+      </a>
+    </div>
+    <div class = "hs-header-release">
+      <h1>RELEASE</h1>
     </div>
     <div class="button-area">
 
       <% if user_signed_in? %>
-          <button class="ui button">
-          <strong><%= link_to current_user['username'], users_index_path %></strong>
-          </button>
+        <div class="ui buttons">
+          <a href="<%= url_for(users_index_path) %>">
+            <button class="ui button">
+              <%= current_user.username %>
+            </button>
+          </a>
+          <div class="or"></div>
+          <%= link_to destroy_user_session_path, method: :delete do %>
           <button class="ui button" >
-          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+            ログアウト
           </button>
+          <% end %>
+        </div>
       <% else %>
         <div class="ui buttons">
-          <button class="ui button">
-            <%= link_to 'サインアップ', new_user_registration_path %>
-          </button>
-          <div class="or"></div>
-          <button class="ui  button">
-            <%= link_to 'Github ログイン', user_github_omniauth_authorize_path %>
-          </button>
+          <a href="<%= url_for(user_github_omniauth_authorize_path) %>">
+            <button class="ui button">
+              Github ログイン
+            </button>
+          <a>
         </div>
       <% end %>
     </div>
@@ -32,27 +47,15 @@
     </div>
 
     <div class = "has-setumei">
-      <p>開発を先延ばしにしてしまう状況を解決したい。<br>
-        琉球大学情報工学生の新しい物好き向けの 開発状況を管理して、<br>
-        開発を進めるように促すことができる HASです。 開発状況が管理ができ、<br>
-        Githubとは違って、 他のプロジェクトと進行状況を比較してプロジェクトが<br>
-        進んでいなければ開発を進めるように通知する機能が備わっています。</p>
+      <p>ヤギを飼うように、あなたの趣味を大切にする</p>
     </div>
   </div>
-<div>
-
-<div class = "hs-m--yagi">
-  <div class = "yagi-gazou">
-  </div>
-  <p>これはあなたのコミットを糧に生きるヤギです。<br>
-
-
-  </p>
 </div>
 
-
-
-
-<!-- </div> -->
-
-<!-- </div> -->
+<div class="hs-m--yagi">]
+  <div class="hs-m--yagi-exam">
+    <p>ヤギはあなたに際限なくコミットを求めるでしょう<br>
+  </div>
+  <div class="yagi-gazou">
+  </div>
+</div>

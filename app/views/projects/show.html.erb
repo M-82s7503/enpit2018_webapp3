@@ -1,0 +1,33 @@
+<a href="<%= url_for(root_path) %>">
+  <h1>HAS</h1>
+</a>
+<div class="hs-m--table normal">
+  <h2>Your Rpository commits</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th width="100">ID</th>
+          <th width="150">Message</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @commit_logs.reverse_each do |t| %>
+          <tr>
+            <td>
+              <div style="color:black;">
+                <%= t.id %>
+              </div>
+            </td>
+            <td>
+              <div style="color:black;">
+                <%= t.message %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+</div>

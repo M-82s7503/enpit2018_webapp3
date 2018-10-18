@@ -2,13 +2,20 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
   def entry
     @project = Project.new
+    user_repos = JSON.parse(`curl https://api.github.com/users/#{current_user.username}/repos`)
+    @form_repos = user_repos.map{|t| [t['name'], t['name']]}
+  end
+
+  def show
+    id = params[:id]
+    @commit_logs = GithubCommitLog.where(project_id: id)
   end
 
   def create
     @project = Project.new()
     @project.name = params[:project]["name"]
     @project.users_id = current_user.id
-    @project.commit_num = get_commit_num()
+    @project.commit_num = get_commit_num(params[:project]["name"])
     if @project.save
       save_commit_log(@project)
       redirect_to users_index_path
@@ -21,12 +28,18 @@ class ProjectsController < ApplicationController
 
   private
 
-  def get_commit_num
-    commit_logs = JSON.parse(`curl https://api.github.com/repos/TakumiNomura/challing_web2/commits`)
-    commit_logs.length
+  def get_commit_num(name)
+    commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{name}/commits`)
+    if commit_logs.class != Array
+      0
+    else
+      commit_logs.length
+    end
   end
+
   def save_commit_log(project)
-    commit_logs = JSON.parse(`curl https://api.github.com/repos/TakumiNomura/challing_web2/commits`)
+    commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{project.name}/commits`)
+    return 0 if commit_logs.class != Array
     for log in commit_logs do
       params = {}
       params['id'] = log['id']
