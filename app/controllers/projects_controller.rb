@@ -1,24 +1,12 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   def entry
-    # ↓ これがないと、「ArgumentError in Projects#entry」になる。
-    @project = Project.new
+    @project = Project.new    # これがないと、「ArgumentError in Projects#entry」になる。
     @c_proj = current_user.projects
     user_repos = JSON.parse(`curl https://api.github.com/users/#{current_user.username}/repos`)
     @form_repos = user_repos.map{|t| [t['name'], t['name']]}
-=begin
-    print( "\n\n【@form_repos】\n")
-    print(@form_repos)
-    print( "\n\n【current_user.projects】\n" )
-    print( @c_proj.map{|t| [t.name, t.name]} )
-=end
     # DB から登録済みのプロジェクトを取得し、一覧から削除する。
     @form_repos = @form_repos - @c_proj.map{|t| [t.name, t.name]}
-=begin
-    print( "\n\n【@form_repos 改】\n" )
-    print(@form_repos)
-    print( "\n\n" )
-=end
   end
 
   def show
