@@ -49,6 +49,19 @@
     <div class = "has-setumei">
       <p>ヤギを飼うように、あなたのプロジェクトを育てる</p>
     </div>
+    <div class="button-area2">
+
+      <% if user_signed_in? %>
+          <a href="<%= url_for(users_index_path) %>">
+            <button class="ui inverted button">
+              User page
+            </button>
+          </a>
+
+
+
+      <% end %>
+    </div>
   </div>
 </div>
 
@@ -68,3 +81,7 @@
 ヤギを満足させるために，プロジェクトを進めましょう。</p>
   </div>
 </div>
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
