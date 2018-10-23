@@ -32,6 +32,7 @@ class ProjectsController < ApplicationController
 
   def destroy
     project = Project.find(params[:project_id])
+    project.github_commit_logs.destroy_all()
     project.destroy()
     redirect_to users_index_path
   end
