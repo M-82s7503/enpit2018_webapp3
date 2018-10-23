@@ -57,9 +57,12 @@
               User page
             </button>
           </a>
-
-
-
+      <% else %>
+        <a href="<%= url_for(user_github_omniauth_authorize_path) %>">
+          <button class="ui inverted button">
+            Githubログインではじめる
+          </button>
+        </a>
       <% end %>
     </div>
   </div>
