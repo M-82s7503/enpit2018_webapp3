@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
     @project.commit_num = get_commit_num(params[:project]["name"])
     if @project.save
       save_commit_log(@project)
+      NotificationMailer.add_project_notification(@project).deliver_now
       redirect_to users_index_path
     else
       # This line overrides the default rendering behavior, which

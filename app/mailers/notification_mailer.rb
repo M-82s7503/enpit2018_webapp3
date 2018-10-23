@@ -9,4 +9,8 @@ class NotificationMailer < ApplicationMailer
     @user = project.user
     mail(to: @user.email, from:'from@example.com', subject: "HASに新たなプロジェクトが追加されました")
   end
+
+  def alert()
+    mail(to: 'yoshi.pellow.tomo@gmail.com', subject: 'テスト確認メール')
+  end
 end
