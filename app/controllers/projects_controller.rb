@@ -30,6 +30,12 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def destroy
+    project = Project.find(params[:project_id])
+    project.destroy()
+    redirect_to users_index_path
+  end
+
   private
 
   def get_commit_num(name)

@@ -42,6 +42,7 @@
                 <tr>
                   <th width="100">Project</th>
                   <th width="150">Commit数</th>
+                  <th width="50">Delete</th>
                 </tr>
               </thead>
 
@@ -54,6 +55,9 @@
                     </td>
                     <td>
                       <%= link_to t.commit_num, projects_show_path(id: t.id) %>
+                    </td>
+                    <td>
+                      <%= link_to "削除する", projects_entry_path(project_id: t.id), method: :delete %>
                     </td>
                   </tr>
                 <% end %>
