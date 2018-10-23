@@ -21,38 +21,44 @@
       <div class = "user-photo">
       </div>
       <%= link_to destroy_user_session_path, method: :delete do %>
-        <button class="ui button" >
-          Log out
-        </button>
+      <div class = "button-area">
+        <div class = "button-logout">
+          <button class="ui button" >
+            Log out
+          </button>
+        </div>
+      </div>
       <% end %>
     </div>
     <div class = "hs-users-main_contents">
-      <div class="hs-m--table normal">
-        <h2>Your Projects</h2>
+      <div class  ="hs-users-table-project">
+        <div class="hs-m--table normal">
+          <h2>Your Projects</h2>
 
-          <table>
-            <thead>
-              <tr>
-                <th width="100">Project</th>
-                <th width="150">Commit数</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <% @projects.reverse_each do |t| %>
+            <table>
+              <thead>
                 <tr>
-                  <td><a href="https://github.com/<%= current_user.username %>/<%= t.name %>/">
-                    <%= t.name %>
-                  </a>
-                  </td>
-                  <td>
-                    <%= link_to t.commit_num, projects_show_path(id: t.id) %>
-                  </td>
+                  <th width="100">Project</th>
+                  <th width="150">Commit数</th>
                 </tr>
-              <% end %>
-            </tbody>
-          </table>
+              </thead>
 
+              <tbody>
+                <% @projects.reverse_each do |t| %>
+                  <tr>
+                    <td><a href="https://github.com/<%= current_user.username %>/<%= t.name %>/">
+                      <%= t.name %>
+                    </a>
+                    </td>
+                    <td>
+                      <%= link_to t.commit_num, projects_show_path(id: t.id) %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+        </div>
       </div>
     </div>
   </div>
