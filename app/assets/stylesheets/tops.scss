@@ -1,3 +1,57 @@
 // Place all the styles related to the Tops controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.hs-m--project{
+
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+}
+
+.button-area{
+  margin-left: auto;
+}
+.hs-project{
+  width: 60vw;
+  height: 100vh;
+  margin:auto;
+  background-color: #eefffc;
+  p{
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 15px;
+    font-weight: bold;
+  }
+}
+
+.hs-project--commit-add{
+  margin-top: 20px;
+  margin-bottom:20px;
+  select#project_name{
+    width: 40vw;
+  }
+  .ui.button{
+    width: 100px;
+    margin-left: 10vw;
+
+  }
+}
+.hs-project--commit-speed{
+  color: rgba(0, 0, 0, 0.87);
+  p{
+    font-size: 15px;
+    font-weight: bold;
+  }
+}
+.hs-project--commit-inform-type{
+  margin-top: 20px;
+  margin-bottom:20px;
+}
+.hs-project--commit-inform-model{
+  margin-top: 20px;
+  margin-bottom:20px;
+}
+
+.ui.dropdown{
+  width: 40vw;
+}

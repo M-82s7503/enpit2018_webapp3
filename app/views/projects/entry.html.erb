@@ -1,8 +1,62 @@
-  <a href="<%= url_for(root_path) %>">
-    <h1>HAS</h1>
-  </a>
-<%= form_for @project, url: { controller: 'projects', action: "create" } do |f| %>
-    <%= f.select(:name, @form_repos, class: "ui selection")%>
+<div class = "hs-m--project">
+  <div class="hs-user--header">
+    <div class = "has-logo">
+      <a href="<%= url_for(root_path) %>">
+        <h1>HAS</h1>
+      </a>
+    </div>
+    <div class="button-area">
+        <div class="ui buttons">
+          <a href="<%= url_for(users_index_path) %>">
+            <button class="ui button">
+              ユーザーページへ戻る
+            </button>
+          </a>
+        </div>
+    </div>
+  </div>
 
-  <%= submit_tag('Create', class: "ui button") %>
-<% end %>
+
+  <div class = "hs-project">
+    <p>追加するプロジェクト</p>
+    <div class = "hs-project--commit-add">
+      <%= form_for @project, url: { controller: 'projects', action: "create" } do |f| %>
+          <%= f.select(:name, @form_repos, class: "ui selection")%>
+
+        <%= submit_tag('Create', class: "ui button") %>
+      <% end %>
+    </div>
+    <div class = "hs-project--commit-speed">
+
+      <p>ヤギが一週間に食べるコミットの数</p>
+
+      <select class="ui dropdown">
+
+        <option value="5">5</option>
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2">2</option>
+        <option value="1">1</option>
+        <option value="0">0</option>
+      </select>
+    </div>
+    <div class = "hs-project--commit-inform-model">
+          <p>通知モデル</p>
+            <select class="ui dropdown">
+              <option value="1">ヤギ</option>
+              <option value="0">予測モデル（グラフ）</option>
+            </select>
+    </div>
+    <div class = "hs-project--commit-inform-type">
+
+          <p>通知タイプ</p>
+          <select class="ui dropdown">
+            <option value="1">メール</option>
+            <option value="0">twitter</option>
+          </select>
+    </div>
+    ※twitterアカウントを登録していない方はコチラ<!--なんかリンク貼って-->
+  </div>
+
+
+</div>
