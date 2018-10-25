@@ -50,6 +50,9 @@ class ProjectsController < ApplicationController
 
   def save_commit_log(project)
     commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{project.name}/commits`)
+    print()
+    print(commit_logs)
+    print()
     return 0 if commit_logs.class != Array
     for log in commit_logs do
       params = {}

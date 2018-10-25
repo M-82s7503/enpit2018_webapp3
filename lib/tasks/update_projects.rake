@@ -4,16 +4,38 @@ namespace :update_projects do
     # で、実行できる。
     task update_and_mail: :environment do
         puts "Hello World"
-        @users = User.all
+        Rake::Task["update_projects:update_commit_logs"].invoke()
+    end
 
+    task update_commit_logs: :environment do
+        @users = User.all
         @users.each do |user|
             print "\n【", user.username, "】\n"
             @projects = user.projects
             @projects.each do |project|
                 puts project.name
+                Rake::Task["update_projects:add_commit_num"].invoke(user, project)
+                Rake::Task["update_projects:goat_eat_commit"].invoke(user, project)
+                Rake::Task["update_projects:send_mail"].invoke(user, project)
             end
-            TestMailer.say_hello_test(user).deliver
-            #UserMailer.say_hello(user).deliver
         end
+    end
+
+    task :add_commit_num, ['user', 'proj'] => :environment do |t, args|
+        #args.user, args.proj
+        
+    end
+
+    task :goat_eat_commit, ['user', 'proj'] => :environment do |t, args|
+        
+    end
+
+    task :send_mail, ['user', 'proj'] => :environment do |t, args|
+        if proj.commit_num == 0
+            
+        end
+        puts "メールを送ります！"
+        TestMailer.say_hello_test(args.user, args.proj).deliver
+        #UserMailer.say_hello(user).deliver
     end
 end
