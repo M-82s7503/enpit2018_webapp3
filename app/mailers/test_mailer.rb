@@ -5,9 +5,10 @@ class TestMailer < ApplicationMailer
   layout "mailer"
 
   def say_hello_test(user, project)
-    if user.email == "e165738@ie.u-ryukyu.ac.jp"
+    @user = user
+    # テスト用
+    if @user.email == "e165738@ie.u-ryukyu.ac.jp"
       puts "\n   → メール送信"
-      @user = user
       @project = project
       mail(to: @user.email, from:'from@example.com', subject: "HASが更新されました。")
     end
