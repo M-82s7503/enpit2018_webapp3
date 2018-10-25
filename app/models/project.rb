@@ -7,8 +7,14 @@ class Project < ApplicationRecord
 
   def update_commit_num(user, project)
     # ヤギが食べる
-    project.commit_num -= project.goat_eat_speed
+    if user.email == "e165738@ie.u-ryukyu.ac.jp"
+      project.commit_num -= project.goat_eat_speed
+    end
     # エサを追加
+    # 0以下は 0にする。
+    if project.commit_num < 0
+      project.commit_num = 0
+    end
     project.save
   end
 

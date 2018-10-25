@@ -10,14 +10,16 @@ namespace :update_projects do
     task update: :environment do
         @users = User.all
         @users.each do |user|
-            print "\n【", user.username, "】\n"
+            print "\n\n【", user.username, "】"
             @projects = user.projects
             @projects.each do |project|
-                puts project.name
-                Project.update_commit_num(user, project)
+                print "\n・ ", project.name
+                print "\n    interval : ", project.day_interval
+                print "\n    eat_speed : ", project.goat_eat_speed
+                project.update_commit_num(user, project)
                 #Rake::Task["update_projects:update_commit_num"].invoke(user, project)
-                print "    commit_num : ", project.commit_num, "\n"
-                TestMailer.say_hello_test(user, proj).deliver
+                print "\n    commit_num : ", project.commit_num
+                TestMailer.say_hello_test(user, project).deliver
                 #Rake::Task["update_projects:send_mail"].invoke(user, project)
             end
         end
