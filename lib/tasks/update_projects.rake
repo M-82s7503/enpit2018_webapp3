@@ -23,7 +23,8 @@ namespace :update_projects do
 
     task :add_commit_num, ['user', 'proj'] => :environment do |t, args|
         #args.user, args.proj
-        
+        args.proj.commit_num -= args.proj.goat_eat_speed
+        args.proj.save
     end
 
     task :goat_eat_commit, ['user', 'proj'] => :environment do |t, args|
@@ -31,11 +32,10 @@ namespace :update_projects do
     end
 
     task :send_mail, ['user', 'proj'] => :environment do |t, args|
-        if proj.commit_num == 0
-            
+        # コミット数：0 になったプロジェクトに、メールを送る。
+        if args.proj.commit_num == 0
+            #puts "メールを送ります！"
+            TestMailer.say_hello_test(args.user, args.proj).deliver
         end
-        puts "メールを送ります！"
-        TestMailer.say_hello_test(args.user, args.proj).deliver
-        #UserMailer.say_hello(user).deliver
     end
 end
