@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
     @project.users_id = current_user.id
     @project.commit_num = get_commit_num(params[:project]["name"])
     if @project.save
-      save_commit_log(@project)
+      save_commit_log(current_user, @project)
       NotificationMailer.add_project_notification(@project).deliver_now
       redirect_to users_index_path
     else
@@ -48,17 +48,22 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def save_commit_log(project)
-    commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{project.name}/commits`)
+  public  #にしないと、rake taak から呼び出せない。
+  def save_commit_log(user, project)
+    # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
+    # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
+    commit_logs = JSON.parse(`curl https://api.github.com/repos/#{user.username}/#{project.name}/commits`)
     print()
     print(commit_logs)
     print()
     return 0 if commit_logs.class != Array
     for log in commit_logs do
       params = {}
+      # DB の内容が変わるので、取得し直す必要あり。→ 一括更新のメソッド書く：rake init_github_commit_log:init 
+      params['commit_id'] = log['sha']
       params['id'] = log['id']
-      params['message'] = log['commit']['message']
-      params['users_id'] = current_user.id
+      params['message'] = log['commit']['message'][0, 244]
+      params['users_id'] = user.id
       params['project_id'] = project.id
       github_commit_logs = GithubCommitLog.new(params)
       github_commit_logs.save
