@@ -5,7 +5,7 @@ namespace :update_projects do
     task update_and_mail: :environment do
         @users = User.all
         @users.each do |user|
-            print "\n【", user.username, "】", user.email
+            print("\n【#{user.username}】  #{user.email}\n")
             @projects = user.projects
             @projects.each do |project|
                 print "\n・ #{project.name}"
