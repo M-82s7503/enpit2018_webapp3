@@ -1,4 +1,4 @@
-namespace :recreate_DB do
+namespace :recreateDB do
     desc "DBの内容に変更が入って、取得し直したいときに使う。 github_commit_logs の全データを再取得（createし直し）する。"
     task :github_commit_log => :environment do
         # github_commit_logs を再構築する。
