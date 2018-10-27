@@ -1,8 +1,8 @@
-namespace :update_projects do
+namespace :update_and_mail do
     desc "github_commit_log を初期化するスクリプト"
     # $ rake update_projects:update_and_mail 
     # で、実行できる。
-    task update_and_mail: :environment do
+    task run: :environment do
         @users = User.all
         @users.each do |user|
             print("\n【#{user.username}】  #{user.email}\n")

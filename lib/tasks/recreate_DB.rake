@@ -1,6 +1,6 @@
-namespace :recreate_github_commit_log do
+namespace :recreate_DB do
     desc "DBの内容に変更が入って、取得し直したいときに使う。 github_commit_logs の全データを再取得（createし直し）する。"
-    task :run => :environment do
+    task :github_commit_log => :environment do
         # project を初期化
         projects_controller = ProjectsController.new()
 
