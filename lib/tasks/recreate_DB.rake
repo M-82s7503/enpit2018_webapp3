@@ -10,7 +10,8 @@ namespace :recreate_DB do
                 # 一旦削除
                 project.github_commit_logs.destroy_all()
                 # 取得し直す
-                project.save_commit_log(user, project)
+                commit_logs = JSON.parse(`curl https://api.github.com/repos/#{user.username}/#{project.name}/commits`)
+                project.save_commit_log(commit_logs)
             end
         end
     end

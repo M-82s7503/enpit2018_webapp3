@@ -11,12 +11,12 @@ class TestMailer < ApplicationMailer
     if @user.email == "e165738@ie.u-ryukyu.ac.jp"
       # コミット数：0 になったプロジェクトに、メールを送る。
       if @project.commit_num == 0
-        print "\n        →  メール送信 (0なので)"
+        puts "          →  メール送信 (0なので)\n\n"
         @attach_name = 'ゴートの叫び.png'
         attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/yagis/#{@attach_name}")
         mail(to: @user.email, from:'from@example.com', subject: "【HAS】Project : #{@project.name} のヤギから手紙が届きました！")
       else
-        print "\n        →  メール送信"
+        puts "          →  メール送信\n\n"
         @attach_name = 'futu_yagi.png'
         attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/yagis/#{@attach_name}")
         mail(to: @user.email, from:'from@example.com', subject: "【HAS】Project : #{@project.name} のヤギから手紙が届きました！")
