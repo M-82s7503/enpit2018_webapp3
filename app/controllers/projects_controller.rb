@@ -18,9 +18,12 @@ class ProjectsController < ApplicationController
     @project = Project.new()
     @project.name = params[:project]["name"]
     @project.users_id = current_user.id
-    @project.commit_num = get_commit_num(params[:project]["name"])
+    # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
+    # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
+    commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{@project.name}/commits`)
+    @project.commit_num = get_commit_num(commit_logs)
     if @project.save
-      save_commit_log(current_user, @project)
+      @project.save_commit_log(commit_logs)
       NotificationMailer.add_project_notification(@project).deliver_now
       redirect_to users_index_path
     else
@@ -39,34 +42,11 @@ class ProjectsController < ApplicationController
 
   private
 
-  def get_commit_num(name)
-    commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{name}/commits`)
+  def get_commit_num(commit_logs)
     if commit_logs.class != Array
       0
     else
       commit_logs.length
-    end
-  end
-
-  public  #にしないと、rake taak から呼び出せない。
-  def save_commit_log(user, project)
-    # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
-    # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
-    commit_logs = JSON.parse(`curl https://api.github.com/repos/#{user.username}/#{project.name}/commits`)
-    print()
-    print(commit_logs)
-    print()
-    return 0 if commit_logs.class != Array
-    for log in commit_logs do
-      params = {}
-      # DB の内容が変わるので、取得し直す必要あり。→ 一括更新のメソッド書く：rake init_github_commit_log:init 
-      params['commit_id'] = log['sha']
-      params['id'] = log['id']
-      params['message'] = log['commit']['message'][0, 244]
-      params['users_id'] = user.id
-      params['project_id'] = project.id
-      github_commit_logs = GithubCommitLog.new(params)
-      github_commit_logs.save
     end
   end
 end
