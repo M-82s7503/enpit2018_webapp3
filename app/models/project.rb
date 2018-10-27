@@ -9,14 +9,16 @@ class Project < ApplicationRecord
   # commit数：ヤギのエサの量を更新する
   def update_commit_num
     ###  ヤギが食べる  ###
-    if self.user.email == "e165738@ie.u-ryukyu.ac.jp"  # テスト用。
-      self.commit_num -= self.goat_eat_speed
-    end
+    self.commit_num -= self.goat_eat_speed
 
     ###  エサを追加  ###
     @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{self.name}/commits`)
     # webhook までのつなぎ。
     # 30までしか取得できないため、30以上は追加できない。
+    puts "\n    出力テスト"
+    puts "\n    commit_logs.class : #{commit_logs.class}"
+    puts "    commit_logs.class != Array : #{commit_logs.class != Array}"
+    puts "    commit_logs.class == Array : #{commit_logs.class == Array}\n"
     added_commit_num = get_added_commit_num(@new_commit_logs)
     self.commit_num += added_commit_num
     # github_commit_log を差分更新
@@ -31,7 +33,7 @@ class Project < ApplicationRecord
   
 
   def get_added_commit_num(commit_logs)
-    return 0 if commit_logs.class != Array  # ないと思うけど一応。
+    return 0 if commit_logs.class != Array
     # 新 → 旧　の順。
     counter = 0
     for log in commit_logs do
@@ -47,6 +49,7 @@ class Project < ApplicationRecord
   end
 
   def save_commit_log(commit_logs)
+    return 0 if commit_logs.class != Array
     #print()
     #print(commit_logs)
     #print()
@@ -59,7 +62,6 @@ class Project < ApplicationRecord
       github_commit_logs.save
     end
     # 最新（最初）の commit の id をメモする
-    puts("\ncommit_logs : #{commit_logs}")
     self.newest_commit_id = commit_logs[0]['sha']
     self.save
     puts("\nself.newest_commit_id : #{self.newest_commit_id}\n\n\n")

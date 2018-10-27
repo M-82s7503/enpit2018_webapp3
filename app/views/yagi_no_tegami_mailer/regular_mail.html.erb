@@ -1,5 +1,10 @@
 <h1>YagiNoTegami#regular_mail</h1>
 
 <p>
-  <%= @greeting %>, find me in app/views/yagi_no_tegami_mailer/regular_mail.html.erb
+    <br>
+    こんにちは、<%= @user.username %>様 <br>
+    あなたの Project： <%= @project.name %> のヤギから、メッセージが届きました！ <br>
+    <br>
+    現在のエサの量は、 <%= @project.commit_num %> です。 <br>
 </p>
+

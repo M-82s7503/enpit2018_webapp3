@@ -7,6 +7,10 @@ namespace :test_hello_world do
         @users = User.all
         @users.each do |user|
             puts "【#{user.username}】  #{user.email}"
+            @projects = user.projects
+            @projects.each do |project|
+                puts "      ● #{project.name},   commit_num : #{project.commit_num}"
+            end
         end
         puts
     end

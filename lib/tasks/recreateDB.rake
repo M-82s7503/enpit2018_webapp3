@@ -11,6 +11,7 @@ namespace :recreateDB do
                 project.github_commit_logs.destroy_all()
                 # 取得し直す
                 commit_logs = JSON.parse(`curl https://api.github.com/repos/#{user.username}/#{project.name}/commits`)
+                puts commit_logs
                 project.save_commit_log(commit_logs)
             end
         end
