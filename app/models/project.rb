@@ -11,6 +11,12 @@ class Project < ApplicationRecord
     ###  ヤギが食べる  ###
     self.commit_num -= self.goat_eat_speed
 
+    ###  0以下は 0にする。  ###
+    # 「食べられなかった」を再現するために、ここで0にする。
+    if self.commit_num < 0
+      self.commit_num = 0
+    end
+    
     ###  エサを追加  ###
     @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{self.name}/commits`)
     # webhook までのつなぎ。
@@ -22,10 +28,6 @@ class Project < ApplicationRecord
       save_commit_log(@new_commit_logs[0, added_commit_num])
     end
 
-    ###  0以下は 0にする。  ###
-    if self.commit_num < 0
-      self.commit_num = 0
-    end
     self.save
   end
   
@@ -54,7 +56,7 @@ class Project < ApplicationRecord
     if commit_logs.length == 0  # 空なら飛ばす。
       return
     end
-    for log in commit_logs do
+    for log in commit_logs.reverse do
       params = choose_log_data(log)
       github_commit_logs = GithubCommitLog.new(params)
       github_commit_logs.save
@@ -62,7 +64,7 @@ class Project < ApplicationRecord
     # 最新（最初）の commit の id をメモする
     self.newest_commit_id = commit_logs[0]['sha']
     self.save
-    puts("\nself.newest_commit_id : #{self.newest_commit_id}\n\n\n")
+    puts("\nself.newest_commit_id（更新後） : #{self.newest_commit_id}\n\n\n")
   end
 
   def choose_log_data(log)
