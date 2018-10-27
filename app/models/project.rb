@@ -15,10 +15,6 @@ class Project < ApplicationRecord
     @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{self.name}/commits`)
     # webhook までのつなぎ。
     # 30までしか取得できないため、30以上は追加できない。
-    puts "\n    出力テスト"
-    puts "\n    commit_logs.class : #{commit_logs.class}"
-    puts "    commit_logs.class != Array : #{commit_logs.class != Array}"
-    puts "    commit_logs.class == Array : #{commit_logs.class == Array}\n"
     added_commit_num = get_added_commit_num(@new_commit_logs)
     self.commit_num += added_commit_num
     # github_commit_log を差分更新
