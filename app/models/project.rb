@@ -16,9 +16,11 @@ class Project < ApplicationRecord
     # webhook までのつなぎ。
     # 30までしか取得できないため、30以上は追加できない。
     added_commit_num = get_added_commit_num(@new_commit_logs)
-    self.commit_num += added_commit_num
-    # github_commit_log を差分更新
-    save_commit_log(@new_commit_logs[0, added_commit_num])
+    if added_commit_num > 0
+      self.commit_num += added_commit_num
+      # github_commit_log を差分更新
+      save_commit_log(@new_commit_logs[0, added_commit_num])
+    end
 
     ###  0以下は 0にする。  ###
     if self.commit_num < 0
