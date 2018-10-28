@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
     if @project.save
       @project.save_commit_log(commit_logs)
       NotificationMailer.add_project_notification(@project).deliver_now
-      redirect_to users_index_path
+      redirect_to users_path
     else
       # This line overrides the default rendering behavior, which
       # would have been to render the "create" view.
@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
     project = Project.find(params[:project_id])
     project.github_commit_logs.destroy_all()
     project.destroy()
-    redirect_to users_index_path
+    redirect_to users_path
   end
 
   private
