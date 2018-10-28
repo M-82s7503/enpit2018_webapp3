@@ -288,5 +288,5 @@ Devise.setup do |config|
   #   include Turbolinks::Controller
   # end
 
-  config.omniauth :github, ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], scope: 'user:email,repo,public_repo,read:repo_hook'
+  config.omniauth :github, ENV['CLIENT_ID'], ENV['CLIENT_SECRET'], scope: 'user:email,repo,read:repo_hook'
 end
