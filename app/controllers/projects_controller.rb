@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
   def entry
-    @project = Project.new    # これがないと、「ArgumentError in Projects#entry」になる。
+    @project = Project.new # これがないと、「ArgumentError in Projects#entry」になる。
     @c_proj = current_user.projects
     user_repos = JSON.parse(`curl https://api.github.com/users/#{current_user.username}/repos`)
     @form_repos = user_repos.map{|t| [t['name'], t['name']]}
@@ -15,6 +15,10 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    if params[:project]['name'].nil?
+      redirect_to users_path
+      return
+    end
     @project = Project.new()
     @project.name = params[:project]["name"]
     @project.users_id = current_user.id

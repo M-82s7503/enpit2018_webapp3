@@ -19,43 +19,40 @@
 
   <div class = "hs-project">
     <p>追加するプロジェクト</p>
-    <div class = "hs-project--commit-add">
+      <div class = "hs-project--commit-add">
       <%= form_for @project, url: { controller: 'projects', action: "create" } do |f| %>
-          <%= f.select(:name, @form_repos, {}, { class: "ui dropdown"} )%>
+        <%= f.select(:name, @form_repos, {}, { class: "ui dropdown"} )%>
 
-        <%= submit_tag('Create', class: "ui button") %>
-      <% end %>
-    </div>
+
+      </div>
     <div class = "hs-project--commit-speed">
 
-      <p>ヤギが一週間に食べるコミットの数</p>
-
-      <select class="ui dropdown">
-
-        <option value="5">5</option>
-        <option value="4">4</option>
-        <option value="3">3</option>
-        <option value="2">2</option>
-        <option value="1">1</option>
-        <option value="0">0</option>
-      </select>
+      <p>ヤギが一度に食べるコミットの数</p>
+      <%= f.select :goat_eat_speed, (0..5).to_a.map{|n| [n, n]}, {}, { class: "ui dropdown"} %>
+    </div>
+    <div class = "hs-project--commit-inform-model">
+      <p>通知の間隔</p>
+      <%= f.select :day_interval, (0..7).to_a.map{|n| [n.to_s + '日', n]}, {}, { class: "ui dropdown"} %>
     </div>
     <div class = "hs-project--commit-inform-model">
           <p>通知モデル</p>
-            <select class="ui dropdown">
-              <option value="1">ヤギ</option>
-              <option value="0">予測モデル（グラフ）</option>
-            </select>
+          <!-- <%= f.select(:name, @form_repos, {}, { class: "ui dropdown"} )%> -->
+          <select class="ui dropdown">
+            <option value="1">ヤギ</option>
+            <option value="0">ヤギ</option>
+          </select>
     </div>
     <div class = "hs-project--commit-inform-type">
 
           <p>通知タイプ</p>
           <select class="ui dropdown">
             <option value="1">メール</option>
-            <option value="0">twitter</option>
+            <option value="0">メール</option>
           </select>
     </div>
-    ※twitterアカウントを登録していない方はコチラ<!--なんかリンク貼って-->
+    <!-- ※twitterアカウントを登録していない方はコチラ　なんかリンク貼って -->
+    <%= submit_tag('Create', class: "ui button") %>
+  <% end %>
   </div>
 
 
