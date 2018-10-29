@@ -18,13 +18,11 @@ class User < ApplicationRecord
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
     end
-      # sign_in_and_redirect user, event: :authentication
   end
 
   def self.new_with_session(params, session)
-    if session["devise.user_attributes"]
-      # new(session["devise.user_attributes"], without_protection: true) do |user|
-      new(session["devise.user_attributes"]) do |user|
+    if session['devise.user_attributes']
+      new(session['devise.user_attributes']) do |user|
         user.attributes = params
         user.valid?
       end
