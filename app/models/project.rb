@@ -10,9 +10,9 @@ class Project < ApplicationRecord
       self.day_counter = day_interval
       save!
     else
-      self.day_counter -= day_counter
+      self.day_counter = day_counter - 1
       save!
-      False
+      false
     end
   end
 
