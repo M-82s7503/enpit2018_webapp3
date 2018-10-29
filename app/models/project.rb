@@ -5,6 +5,16 @@ class Project < ApplicationRecord
 
   belongs_to :user, foreign_key: :users_id
 
+  def update_count_and_check
+    if day_counter.zero?
+      self.day_counter = day_interval
+      save!
+    else
+      self.day_counter -= day_counter
+      save!
+      False
+    end
+  end
 
   # commit数：ヤギのエサの量を更新する
   def update_commit_num
@@ -16,7 +26,7 @@ class Project < ApplicationRecord
     if self.commit_num < 0
       self.commit_num = 0
     end
-    
+
     ###  エサを追加  ###
     @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{self.name}/commits`)
     # webhook までのつなぎ。
@@ -30,7 +40,7 @@ class Project < ApplicationRecord
 
     self.save
   end
-  
+
 
   def get_added_commit_num(commit_logs)
     return 0 if commit_logs.class != Array
@@ -47,6 +57,8 @@ class Project < ApplicationRecord
     end
     return counter
   end
+
+  private
 
   def save_commit_log(commit_logs)
     return 0 if commit_logs.class != Array
@@ -69,7 +81,7 @@ class Project < ApplicationRecord
 
   def choose_log_data(log)
     # ここをいじると DB の内容が変わるので、github_commit_log を create し直す必要あり。
-    #   → 一括更新するメソッド書いた：rake init_github_commit_log:init 
+    #   → 一括更新するメソッド書いた：rake init_github_commit_log:init
     params = {}
     params['id'] = log['id']  # ?
     params['commit_id'] = log['sha']
