@@ -22,6 +22,8 @@ class ProjectsController < ApplicationController
     @project = Project.new()
     @project.name = params[:project]["name"]
     @project.users_id = current_user.id
+    @project.day_interval = params[:project]["day_interval"]
+    @project.goat_eat_speed = params[:project]["goat_eat_speed"]
     # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
     # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
     commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{@project.name}/commits`)
