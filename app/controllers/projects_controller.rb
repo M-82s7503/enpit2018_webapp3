@@ -4,9 +4,9 @@ class ProjectsController < ApplicationController
     @project = Project.new # これがないと、「ArgumentError in Projects#entry」になる。
     @c_proj = current_user.projects
     user_repos = JSON.parse(`curl https://api.github.com/users/#{current_user.username}/repos`)
-    @form_repos = user_repos.map{|t| [t['name'], t['name']]}
+    @form_repos = user_repos.map { |t| [t['name'], t['name']] }
     # DB から登録済みのプロジェクトを取得し、一覧から削除する。
-    @form_repos = @form_repos - @c_proj.map{|t| [t.name, t.name]}
+    @form_repos -= @c_proj.map { |t| [t.name, t.name] }
   end
 
   def show
@@ -41,8 +41,8 @@ class ProjectsController < ApplicationController
 
   def destroy
     project = Project.find(params[:project_id])
-    project.github_commit_logs.destroy_all()
-    project.destroy()
+    project.github_commit_logs.destroy_all
+    project.destroy
     redirect_to users_path
   end
 

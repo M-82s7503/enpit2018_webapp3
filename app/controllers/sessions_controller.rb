@@ -1,8 +1,6 @@
 class SessionsController < Devise::SessionsController
   def new
-    # unless Rails.env.test?
-      redirect_to  root_url
-    # end
+    redirect_to root_url
   end
 
   # def destroy
