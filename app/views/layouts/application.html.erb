@@ -8,25 +8,18 @@
   </head>
 
   <body>
+
+    <header>
+       <hgroup>
+
+       </hgroup>
+
+    </header>
     <div class="hs-m--app">
       <div class="hs-m--app-main">
         <%= yield %>
       </div>
     </div>
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-    <script type="text/javascript">
-    $(function () {
-
-      $(window).on("scroll", function () {
-        if ($(this).scrollTop() > 0) {
-          $(".cb-header").slideDown();
-        } else {
-          $(".cb-header").slideUp();
-        }
-      });
-
-    });
-    </script>
   </body>
 </html>

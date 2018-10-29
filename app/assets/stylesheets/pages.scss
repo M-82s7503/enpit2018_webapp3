@@ -1,10 +1,11 @@
 
 .hs-user--header {
-  background-color: #b6ece2;
+  background-color: #98e4d6;
   color: #000;
   display: flex;
   padding: 2vh;
 
+  width: 100vw;
 
 }
 .has-logo{
@@ -26,15 +27,18 @@
 .user-photo{
   background-image: image-url('Rerere.jpg');
   background-size:contain;
-  height: 100px;
-  width: 100px;
+  height: 180px;
+  width: 180px;
   margin:auto;
 
 }
 .button-logout{
   margin: auto;
   padding: 2vw;
-
+  .ui.button{
+    width: 100%;
+    color:#e85a8e;
+  }
 }
 
 .hs-users-sidebar-wrapper{

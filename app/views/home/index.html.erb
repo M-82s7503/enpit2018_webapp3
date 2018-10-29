@@ -87,4 +87,22 @@
 
 
 
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+var _window = $(window),
+    _header = $('.hs-hero--header'),
+    heroBottom;
+
+_window.on('scroll',function(){
+    //heroBottom = $('.hs-m--hero').height();
+    if(_window.scrollTop() > 100){
+        _header.addClass('transform');
+    }
+    else{
+        _header.removeClass('transform');
+    }
+});
+
+_window.trigger('scroll');
+</script>
