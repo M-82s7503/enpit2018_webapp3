@@ -58,8 +58,6 @@ class Project < ApplicationRecord
     return counter
   end
 
-  private
-
   def save_commit_log(commit_logs)
     return 0 if commit_logs.class != Array
     #print()

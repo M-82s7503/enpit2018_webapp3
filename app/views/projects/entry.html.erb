@@ -28,11 +28,11 @@
     <div class = "hs-project--commit-speed">
 
       <p>ヤギが一度に食べるコミットの数</p>
-      <%= f.select :goat_eat_speed, (0..5).to_a.map{|n| [n, n]}, {}, { class: "ui dropdown"} %>
+      <%= f.select :goat_eat_speed, (1..5).to_a.map{|n| [n, n]}, {}, { class: "ui dropdown"} %>
     </div>
     <div class = "hs-project--commit-inform-model">
       <p>通知の間隔</p>
-      <%= f.select :day_interval, (0..7).to_a.map{|n| [n.to_s + '日', n]}, {}, { class: "ui dropdown"} %>
+      <%= f.select :day_interval, (1..7).to_a.map{|n| [n.to_s + '日ごと', n-1]}, {}, { class: "ui dropdown"} %>
     </div>
     <div class = "hs-project--commit-inform-model">
           <p>通知モデル</p>
