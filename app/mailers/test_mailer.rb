@@ -4,12 +4,23 @@ class TestMailer < ApplicationMailer
 
   layout "mailer"
 
-  def say_hello_test(user)
-    if user.email == "e165738@ie.u-ryukyu.ac.jp"
-      puts "メールを送ります！"
-      @user = user
-      @project = user.projects
-      mail(to: @user.email, from:'from@example.com', subject: "HASが更新されました。")
+  def say_hello_test(user, project)
+    @user = user
+    @project = project
+    # テスト用
+    if @user.email == "e165738@ie.u-ryukyu.ac.jp"
+      # コミット数：0 になったプロジェクトに、メールを送る。
+      if @project.commit_num == 0
+        puts "          →  メール送信 (0なので)\n\n"
+        @attach_name = 'ゴートの叫び.png'
+        attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/yagis/#{@attach_name}")
+        mail(to: @user.email, from:'from@example.com', subject: "【HAS】Project : #{@project.name} のヤギから手紙が届きました！")
+      else
+        puts "          →  メール送信\n\n"
+        @attach_name = 'futu_yagi.png'
+        attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/yagis/#{@attach_name}")
+        mail(to: @user.email, from:'from@example.com', subject: "【HAS】Project : #{@project.name} のヤギから手紙が届きました！")
+      end
     end
   end
 end
