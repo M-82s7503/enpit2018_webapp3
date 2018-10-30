@@ -18,13 +18,12 @@
 
 
   <div class = "hs-project">
+    <%= form_for @project, url: { controller: 'projects', action: "create" } do |f| %>
     <p>追加するプロジェクト</p>
       <div class = "hs-project--commit-add">
-      <%= form_for @project, url: { controller: 'projects', action: "create" } do |f| %>
         <%= f.select(:name, @form_repos, {}, { class: "ui dropdown"} )%>
-
-
       </div>
+
     <div class = "hs-project--commit-speed">
 
       <p>ヤギが一度に食べるコミットの数</p>

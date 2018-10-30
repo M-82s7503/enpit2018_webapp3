@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
       return
     end
     @project = Project.new()
-    @project.name = params[:project]["name"]
+    @project.name = params[:project]['name']
     @project.users_id = current_user.id
     @project.day_interval = params[:project]["day_interval"]
     @project.goat_eat_speed = params[:project]["goat_eat_speed"]
