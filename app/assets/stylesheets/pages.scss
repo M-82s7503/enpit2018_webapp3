@@ -4,9 +4,13 @@
   color: #000;
   display: flex;
   padding: 2vh;
-
+  position: fixed;
   width: 100vw;
 
+}
+.hs-user--header--blank{
+  padding: 2vh;
+  color: inherit;
 }
 .has-logo{
   width: 10vw;
