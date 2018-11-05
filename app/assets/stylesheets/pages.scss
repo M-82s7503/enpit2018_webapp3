@@ -58,7 +58,10 @@
   width: 20vw;
 }
 .hs-users-main_contents{
-
+  display: flex;
+  flex: 1;
+}
+.hs-user-main_contents-right{
   flex: 1;
 }
 .hs-users-table-project{
