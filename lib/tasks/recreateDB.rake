@@ -11,7 +11,8 @@ namespace :recreateDB do
                 # 一旦削除
                 project.github_commit_logs.destroy_all()
                 # 取得し直す
-                commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
+                commit_logs = JSON.parse(`curl https://api.github.com/repos/#{user.username}/#{project.name}/commits`)
+
                 puts commit_logs
                 project.save_commit_log(commit_logs)
             end
@@ -37,7 +38,8 @@ namespace :recreateDB do
                 project = Project.new()
                 project.name = proj_name
                 project.users_id = user.id
-                commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
+                commit_logs = JSON.parse(`curl https://api.github.com/repos/#{user.username}/#{project.name}/commits`)
+                # commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
                 # get_commit_num()
                 if commit_logs.class != Array
                     project.commit_num = 0

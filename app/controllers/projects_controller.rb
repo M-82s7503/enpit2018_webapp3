@@ -3,10 +3,10 @@ class ProjectsController < ApplicationController
   def entry
     @project = Project.new # これがないと、「ArgumentError in Projects#entry」になる。
     @c_proj = current_user.projects
-    user_repos = JSON.parse(`curl -H "Authorization: token #{current_user.github_token}" https://api.github.com/user/repos`)
-    @form_repos = user_repos.map { |t| [t['name'], t['full_name']]}
+    user_repos = JSON.parse(`curl https://api.github.com/users/#{current_user.username}/repos`)
+    @form_repos = user_repos.map { |t| [t['name'], t['name']] }
     # DB から登録済みのプロジェクトを取得し、一覧から削除する。
-    @form_repos -= @c_proj.map { |t| [t.name, t.owner + '/' + t.name] }
+    @form_repos = user_repos.map { |t| [t['name'], t['name']] }
   end
 
   def show
@@ -21,19 +21,17 @@ class ProjectsController < ApplicationController
     end
 
     @project = Project.new()
-    own_pro_name_list = params[:project]['name'].split('/')
-    @project.name = own_pro_name_list[1]
-    @project.owner = own_pro_name_list[0]
+    @project.name = params[:project]['name']
     @project.users_id = current_user.id
     @project.day_interval = params[:project]["day_interval"]
     @project.goat_eat_speed = params[:project]["goat_eat_speed"]
     # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
     # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
-    commit_logs = JSON.parse(`curl -H "Authorization: token #{current_user.github_token}" https://api.github.com/repos/#{params[:project]['name']}/commits`)
-    @project.commit_num = get_commit_num(commit_logs)
+    commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{@project.name}/commits`)
+
     if @project.save
       @project.save_commit_log(commit_logs)
-      # NotificationMailer.add_project_notification(@project).deliver
+      NotificationMailer.add_project_notification(@project).deliver
       redirect_to users_path
     else
       # This line overrides the default rendering behavior, which
