@@ -1,8 +1,4 @@
 class NotificationMailer < ApplicationMailer
-  default to: "yoshi.pellow.tomo@gmail.com"
-  default from: "from@example.com"
-
-  layout "mailer"
 
   def add_project_notification(project)
     @project = project

@@ -26,7 +26,7 @@ class Project < ApplicationRecord
     self.commit_num = 0 if self.commit_num.negative?
 
     ###  エサを追加  ###
-    @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{name}/commits`)
+    @new_commit_logs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" https://api.github.com/repos/#{owner}/#{name}/commits`)
     # webhook までのつなぎ。
     # 30までしか取得できないため、30以上は追加できない。
     added_commit_num = get_added_commit_num(@new_commit_logs)
