@@ -28,16 +28,25 @@
           width: 80%;
           margin-left: 10%;
       }
+      .image {
+        text-align: center;
+        color:white;
+        text-shadow: 1px 1px 2px #80a7a3;
+        line-height:1.5;
+        font-family: 'Verdana',sans-serif;
+        width: 80%;
+        margin-left: 10%;
+      }
 
     </style>
   </head>
 
   <body>
-    
+
 
 <div class ="bg">
   <div class ="canvas">
-<p>
+
         <br>
         <div class="mail">
         Dear:<%= @user.username %> From:Ya Goat<br></div>
@@ -48,12 +57,14 @@
         <div class="mail">
         ※食べないで下さい</div>
         <br><br>
-        現在のエサの量は、 <%= @project.commit_num %> です。 <br>
-        <%= image_tag attachments[@attach_name].url %>
-        <img src="/ゴートの叫び_修正版.png">
+        <% @sentences.each do |sentence| %>
+          <%= sentence %> <br>
+        <% end %>
+        <div class="image">
+          <%= image_tag attachments[@attach_name].url %>
+        </div>
 </div>
 </div>
 
-    </p>
   </body>
 </html>
