@@ -19,7 +19,9 @@
   <div class = "hs-users-sidebar-wrapper">
     <!-- 左側：ユーザー情報 -->
     <div class = "hs-users-sidebar">
-      <h1><%= current_user.username %></h1>
+      <div class = "user-name">
+        <h1><%= current_user.username %></h1>
+      </div>
       <div class = "user-photo">
       </div>
       <%= link_to destroy_user_session_path, method: :delete do %>
