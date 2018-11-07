@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
     user_repos = JSON.parse(`curl https://api.github.com/users/#{current_user.username}/repos`)
     @form_repos = user_repos.map { |t| [t['name'], t['name']] }
     # DB から登録済みのプロジェクトを取得し、一覧から削除する。
-    @form_repos -= @c_proj.map { |t| [t.name, t.name] }
+    @form_repos = user_repos.map { |t| [t['name'], t['name']] }
   end
 
   def show
@@ -19,6 +19,7 @@ class ProjectsController < ApplicationController
       redirect_to users_path
       return
     end
+
     @project = Project.new()
     @project.name = params[:project]['name']
     @project.users_id = current_user.id
@@ -27,10 +28,10 @@ class ProjectsController < ApplicationController
     # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
     # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
     commit_logs = JSON.parse(`curl https://api.github.com/repos/#{current_user.username}/#{@project.name}/commits`)
-    @project.commit_num = get_commit_num(commit_logs)
+
     if @project.save
       @project.save_commit_log(commit_logs)
-      NotificationMailer.add_project_notification(@project).deliver_now
+      NotificationMailer.add_project_notification(@project).deliver
       redirect_to users_path
     else
       # This line overrides the default rendering behavior, which

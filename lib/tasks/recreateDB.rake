@@ -12,6 +12,7 @@ namespace :recreateDB do
                 project.github_commit_logs.destroy_all()
                 # 取得し直す
                 commit_logs = JSON.parse(`curl https://api.github.com/repos/#{user.username}/#{project.name}/commits`)
+
                 puts commit_logs
                 project.save_commit_log(commit_logs)
             end
@@ -38,12 +39,13 @@ namespace :recreateDB do
                 project.name = proj_name
                 project.users_id = user.id
                 commit_logs = JSON.parse(`curl https://api.github.com/repos/#{user.username}/#{project.name}/commits`)
+                # commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
                 # get_commit_num()
                 if commit_logs.class != Array
                     project.commit_num = 0
                 else
                     project.commit_num = commit_logs.length #上限30
-                end              
+                end
                 if project.save
                   project.save_commit_log(commit_logs)
                   #NotificationMailer.add_project_notification(project).deliver_now

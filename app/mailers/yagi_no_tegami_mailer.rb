@@ -13,6 +13,7 @@ class YagiNoTegamiMailer < ApplicationMailer
         #puts "mail_pattern : #{mail_pattern}"  #=> mail_pattern : 0,ゴートの叫び（マイルド）.png,ヤギはふとエサ箱を覗くとエサがなくなっていた。どうにかしなければならないとヤギにもわかったが、不安を押さえきれずただただ叫んだ。
         #puts "mail_pattern[:yagi_img] : #{mail_pattern[:yagi_img]}"  #=> @attach_name : ゴートの叫び（マイルド）.png
         @attach_name = mail_pattern[:yagi_img]
+        @sentences = mail_pattern[:yagi_message].split('\n')
         attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/yagis/#{@attach_name}")
         mail(to: @user.email, from:'from@example.com', subject: "【HAS】Project : #{@project.name} のヤギから手紙が届きました！")
     end

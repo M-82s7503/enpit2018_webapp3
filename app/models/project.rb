@@ -27,6 +27,7 @@ class Project < ApplicationRecord
 
     ###  エサを追加  ###
     @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{name}/commits`)
+
     # webhook までのつなぎ。
     # 30までしか取得できないため、30以上は追加できない。
     added_commit_num = get_added_commit_num(@new_commit_logs)
