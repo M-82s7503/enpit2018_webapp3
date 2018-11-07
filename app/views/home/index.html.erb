@@ -112,26 +112,28 @@
 ヤギを満足させるために，プロジェクトを進めましょう。</p>
   </div>
 </div>
+<script
+type="text/javascript"
+src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+</script>
+<script type="text/javascript">
+  jquery(function() {
+    var _window = $(window),
+    _header = $('.hs-hero--header');
 
+    　
 
+    _window.on('scroll',function(){
 
+        if(_window.scrollTop() > 30){
+            _header.addClass('transform');
+        }
+        else{
+            _header.removeClass('transform');
+        }
+    });
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    _window.trigger('scroll');
 
-<script>
-var _window = $(window),
-    _header = $('.hs-hero--header'),
-    heroBottom;
-
-_window.on('scroll',function(){
-    //heroBottom = $('.hs-m--hero').height();
-    if(_window.scrollTop() > 100){
-        _header.addClass('transform');
-    }
-    else{
-        _header.removeClass('transform');
-    }
-});
-
-_window.trigger('scroll');
+  });
 </script>

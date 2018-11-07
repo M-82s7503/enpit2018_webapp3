@@ -4,7 +4,7 @@
   color: #000;
   display: flex;
   padding: 2vh;
-  
+
   width: 100vw;
 
 }
@@ -61,10 +61,21 @@
   display: flex;
   flex: 1;
 }
-.hs-user-main_contents-right{
-  flex: 1;
-}
+
 .hs-users-table-project{
   width: 30vw;
   margin: 2vh  2vh ;
+}
+
+.hs-users-renewal{
+  flex: 1;
+  margin: 2vh;
+  
+  h1{
+    font-size: 2vh;
+  }
+  p{
+    border: solid 2px #99e8da;
+    border-radius: 10px;
+  }
 }
