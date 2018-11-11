@@ -10,17 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_27_042829) do
+ActiveRecord::Schema.define(version: 2018_11_11_060348) do
 
   create_table "github_commit_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "users_id"
     t.bigint "project_id"
-    t.string "name"
     t.string "commit_id"
     t.string "message"
     t.integer "size"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "stats_total"
+    t.integer "stats_add"
+    t.integer "stats_del"
     t.index ["project_id"], name: "index_github_commit_logs_on_project_id"
     t.index ["users_id"], name: "index_github_commit_logs_on_users_id"
   end

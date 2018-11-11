@@ -78,10 +78,19 @@ class Project < ApplicationRecord
     params['id'] = log['id'] # ?
     params['commit_id'] = log['sha']
     params['message'] = log['commit']['message'][0, 244] # 文字数上限を追加。
+    # 空なら取得しない。
+    if log['parents'] != []
+      @c_diffs_url = log['parents'][0]['url']
+      # 差分情報を取得
+      @commit_diffs = JSON.parse(`curl #{@c_diffs_url}`)
+      puts(@commit_diffs)
+      puts("\n@commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n\n")
+      params['stats_total'] = @commit_diffs['stats']['total']
+      params['stats_add'] = @commit_diffs['stats']['additions']
+      params['stats_del'] = @commit_diffs['stats']['deletions']
+    end
     params['users_id'] = user.id
     params['project_id'] = id
-    # テスト用
-    #params['name'] = log['committer']['date']
-    params
+    return params
   end
 end
