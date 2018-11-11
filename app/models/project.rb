@@ -28,7 +28,7 @@ class Project < ApplicationRecord
     ###  エサを追加  ###
     @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{name}/commits`)
     # webhook までのつなぎ。
-    # 30までしか取得できないため、30以上は追加できない。
+    # 30以上も取得しようと思えばできるが、めんどくさくてやってない。（えさの鮮度的に、30でよくね？説はある）
     added_commit_num = get_added_commit_num(@new_commit_logs)
     if added_commit_num > 0
       self.commit_num += added_commit_num
@@ -73,7 +73,7 @@ class Project < ApplicationRecord
 
   def choose_log_data(log)
     # ここをいじると DB の内容が変わるので、github_commit_log を create し直す必要あり。
-    #   → 一括更新するメソッド書いた：rake init_github_commit_log:init
+    #   → 一括更新するメソッド書いた： $ rake init_github_commit_log:init
     params = {}
     params['id'] = log['id'] # ?
     params['commit_id'] = log['sha']
