@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2018_11_11_060348) do
+
 
   create_table "github_commit_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "users_id"
@@ -30,6 +32,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_060348) do
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "users_id"
     t.string "name"
+    t.string "owner"
     t.integer "commit_num"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
