@@ -3,39 +3,42 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style type="text/css">
+
+      p {
+        text-shadow: 1px 1px 2px #80a7a3;
+        font-size: 4vh;
+        line-height:1.5;
+        font-family: 'Verdana',sans-serif;
+        }
       .bg {
         background-color: #5dc8b5;
         text-align: center;
       }
       .canvas {
         width: 80%;
-        background-color: rgba(255,255,255,0.2);
+        background-color: rgba(255,255,255,1);
         text-align: center;
         margin-left: 10%;
       }
-      img {
+      image {
         width: 70%;
         height: 50%;
         border : solid 10px #FFF ;
       }
       .mail {
-        border-bottom: solid 2px #FFF ;
-        color:white;
-          text-shadow: 1px 1px 2px #80a7a3;
+
+        color:#535353;
+          //text-shadow: 1px 1px 2px #80a7a3;
           font-size: 4vh;
           line-height:1.5;
-          font-family: 'Verdana',sans-serif;
+          font-family: 'Yukyokasho',sans-serif;
           width: 80%;
           margin-left: 10%;
+          text-decoration: underline #5dc8b5;
       }
-      .image {
-        text-align: center;
-        color:white;
-        text-shadow: 1px 1px 2px #80a7a3;
-        line-height:1.5;
-        font-family: 'Verdana',sans-serif;
-        width: 80%;
-        margin-left: 10%;
+
+      .mail- {
+        font-size: 3vh;
       }
 
     </style>
@@ -47,23 +50,22 @@
 <div class ="bg">
   <div class ="canvas">
 
-        <br>
-        <div class="mail">
-        Dear:<%= @user.username %> From:Ya Goat<br></div>
-        <div class="mail">
-        あなたの Project： <%= @project.name %> のヤギから<br></div>
-        <div class="mail">
-        お手紙が届きました！ </div>
-        <div class="mail">
-        ※食べないで下さい</div>
-        <br><br>
+    <br>
+    <div class="mail">
+      <div class = "mail-">
+      Dear:<%= @user.username %> From:<%= @project.name %>Goat
+      </div>
+      <div class="image">
+        <%= image_tag attachments[@attach_name].url %>
+      </div>
         <% @sentences.each do |sentence| %>
           <%= sentence %> <br>
         <% end %>
-        <div class="image">
-          <%= image_tag attachments[@attach_name].url %>
-        </div>
-</div>
+    </div>
+
+
+        <br>
+  </div>
 </div>
 
   </body>
