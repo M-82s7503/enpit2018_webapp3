@@ -29,7 +29,7 @@ class Project < ApplicationRecord
     @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{name}/commits`)
 
     # webhook までのつなぎ。
-    # 30までしか取得できないため、30以上は追加できない。
+    # 30以上も取得しようと思えばできるが、めんどくさくてやってない。（えさの鮮度的に、30でよくね？説はある）
     added_commit_num = get_added_commit_num(@new_commit_logs)
     if added_commit_num > 0
       self.commit_num += added_commit_num
@@ -74,15 +74,24 @@ class Project < ApplicationRecord
 
   def choose_log_data(log)
     # ここをいじると DB の内容が変わるので、github_commit_log を create し直す必要あり。
-    #   → 一括更新するメソッド書いた：rake init_github_commit_log:init
+    #   → 一括更新するメソッド書いた： $ rake init_github_commit_log:init
     params = {}
     params['id'] = log['id'] # ?
     params['commit_id'] = log['sha']
     params['message'] = log['commit']['message'][0, 244] # 文字数上限を追加。
+    # 空なら取得しない。
+    if log['parents'] != []
+      @c_diffs_url = log['parents'][0]['url']
+      # 差分情報を取得
+      @commit_diffs = JSON.parse(`curl #{@c_diffs_url}`)
+      puts(@commit_diffs)
+      puts("\n@commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n\n")
+      params['stats_total'] = @commit_diffs['stats']['total']
+      params['stats_add'] = @commit_diffs['stats']['additions']
+      params['stats_del'] = @commit_diffs['stats']['deletions']
+    end
     params['users_id'] = user.id
     params['project_id'] = id
-    # テスト用
-    #params['name'] = log['committer']['date']
-    params
+    return params
   end
 end
