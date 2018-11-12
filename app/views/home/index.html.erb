@@ -1,4 +1,3 @@
-<link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/semantic-ui/0.16.1/css/semantic.min.css'>
 <div class="hs-m--hero">
   <div class="hs-hero--header">
     <div class = "has-logo">
@@ -9,6 +8,7 @@
     <div class = "hs-header-home">
       <a href="<%= url_for(root_path) %>">
         <h1>HOME</h1>
+
       </a>
     </div>
     <div class = "hs-header-release">
@@ -112,28 +112,3 @@
 ヤギを満足させるために，プロジェクトを進めましょう。</p>
   </div>
 </div>
-<script
-type="text/javascript"
-src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-</script>
-<script type="text/javascript">
-  jquery(function() {
-    var _window = $(window),
-    _header = $('.hs-hero--header');
-
-    　
-
-    _window.on('scroll',function(){
-
-        if(_window.scrollTop() > 30){
-            _header.addClass('transform');
-        }
-        else{
-            _header.removeClass('transform');
-        }
-    });
-
-    _window.trigger('scroll');
-
-  });
-</script>
