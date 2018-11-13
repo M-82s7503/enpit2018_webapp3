@@ -83,7 +83,7 @@ class Project < ApplicationRecord
     if log['parents'] != []
       @c_diffs_url = log['parents'][0]['url']
       # 差分情報を取得
-      @commit_diffs = JSON.parse(`curl #{@c_diffs_url}`)
+      @commit_diffs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" #{@c_diffs_url}`)
       puts(@commit_diffs)
       puts("\n@commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n\n")
       params['stats_total'] = @commit_diffs['stats']['total']
