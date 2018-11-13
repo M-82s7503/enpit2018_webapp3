@@ -51,7 +51,7 @@
               <tbody>
                 <% @projects.reverse_each do |t| %>
                   <tr>
-                    <td><a href="https://github.com/<%= current_user.username %>/<%= t.name %>/">
+                    <td><a href="https://github.com/<%= t.owner %>/<%= t.name %>/">
                       <%= t.name %>
                     </a>
                     </td>
