@@ -1,4 +1,3 @@
-
 <div class = "hs-user">
 
   <div class="hs-user--header">
@@ -15,11 +14,13 @@
       </a>
     </div>
   </div>
-  
+
   <div class = "hs-users-sidebar-wrapper">
     <!-- 左側：ユーザー情報 -->
     <div class = "hs-users-sidebar">
-      <h1><%= current_user.username %></h1>
+      <div class = "user-name">
+        <h1><%= current_user.username %></h1>
+      </div>
       <div class = "user-photo">
       </div>
       <%= link_to destroy_user_session_path, method: :delete do %>
@@ -33,8 +34,8 @@
       <% end %>
     </div>
     <!-- 右側：プロジェクト一覧 -->
-    <div class = "hs-users-main_contents">
-      <div class  ="hs-users-table-project">
+      <div class = "hs-users-main_contents">
+        <div class  ="hs-users-table-project">
         <div class="hs-m--table normal">
           <h2>Your Projects</h2>
 
@@ -67,20 +68,14 @@
 
         </div>
       </div>
+        <div class = "hs-users-renewal">
+          <h2>更新状況</h2>
+          <p><br><br><br><br></p>
 
+          <!--ここに更新状況を書く-->
+        </div>
       </div>
     </div>
   </div>
 
 </div>
-<script>
-$('.ui.accordion')
-  .accordion()
-;
-$('.dropdown')
-  .dropdown({
-    // you can use any ui transition
-    transition: 'drop'
-  })
-;
-</script>
