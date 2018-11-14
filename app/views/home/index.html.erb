@@ -19,7 +19,7 @@
 
       <% if user_signed_in? %>
         <div class="ui buttons">
-          <a href="<%= url_for(users_index_path) %>">
+          <a href="<%= url_for(users_path) %>">
             <button class="ui button">
               <%= current_user.username %>
             </button>
@@ -59,7 +59,7 @@
     <div class="button-area2">
 
       <% if user_signed_in? %>
-          <a href="<%= url_for(users_index_path) %>">
+          <a href="<%= url_for(users_path) %>">
             <button class="ui inverted button">
               User page
             </button>
