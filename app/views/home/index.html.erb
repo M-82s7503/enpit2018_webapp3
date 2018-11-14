@@ -2,12 +2,12 @@
 <div class="hs-m--hero">
   <div class="hs-hero--header">
     <div class = "has-logo">
-      <a href="<%= url_for(root_path) %>">
+      <a href="<%= url_for(home_path) %>">
         <h1>HAS</h1>
       </a>
     </div>
     <div class = "hs-header-home">
-      <a href="<%= url_for(root_path) %>">
+      <a href="<%= url_for(home_path) %>">
         <h1>HOME</h1>
 
       </a>
@@ -19,7 +19,7 @@
 
       <% if user_signed_in? %>
         <div class="ui buttons">
-          <a href="<%= url_for(users_path) %>">
+          <a href="<%= url_for(users_index_path) %>">
             <button class="ui button">
               <%= current_user.username %>
             </button>
@@ -59,7 +59,7 @@
     <div class="button-area2">
 
       <% if user_signed_in? %>
-          <a href="<%= url_for(users_path) %>">
+          <a href="<%= url_for(users_index_path) %>">
             <button class="ui inverted button">
               User page
             </button>

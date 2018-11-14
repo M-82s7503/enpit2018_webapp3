@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   delete 'projects/entry' => 'projects#destroy'
   get 'projects/:id', to: 'projects#show', as: 'projects_show'
 
-  get 'users', to: 'users#index'
-  root 'home#index'
+  # get 'users', to: 'users#index'
+  # root 'home#index'
+  get 'home', to: 'home#index'
+  root 'users#index'
+  get 'users/index'
+  # get 'users', to 'users#index', as:'users'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

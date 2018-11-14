@@ -11,6 +11,10 @@ class ProjectsController < ApplicationController
 
   end
 
+  def edit
+    @project = Project.find(params[:project_id])
+  end
+
   def show
     id = params[:id]
     @commit_logs = GithubCommitLog.where(project_id: id)
@@ -18,7 +22,7 @@ class ProjectsController < ApplicationController
 
   def create
     if params[:project]['name'].nil?
-      redirect_to users_path
+      redirect_to users_index_path
       return
     end
 
@@ -39,7 +43,7 @@ class ProjectsController < ApplicationController
     if @project.save
       @project.save_commit_log(commit_logs)
       NotificationMailer.add_project_notification(@project).deliver
-      redirect_to users_path
+      redirect_to users_index_path
     else
       # This line overrides the default rendering behavior, which
       # would have been to render the "create" view.
@@ -51,7 +55,7 @@ class ProjectsController < ApplicationController
     project = Project.find(params[:project_id])
     project.github_commit_logs.destroy_all
     project.destroy
-    redirect_to users_path
+    redirect_to users_index_path
   end
 
   private
