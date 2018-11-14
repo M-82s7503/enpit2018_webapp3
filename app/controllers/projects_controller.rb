@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:project_id])
+    @project = Project.find(params[:id])
   end
 
   def show
@@ -55,6 +55,12 @@ class ProjectsController < ApplicationController
     project = Project.find(params[:project_id])
     project.github_commit_logs.destroy_all
     project.destroy
+    redirect_to users_path
+  end
+
+  def update
+    project = Project.find(params[:id])
+    project.update(day_interval: params[:project][:day_interval], goat_eat_speed: params[:project][:goat_eat_speed])
     redirect_to users_path
   end
 
