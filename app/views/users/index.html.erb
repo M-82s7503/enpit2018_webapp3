@@ -2,7 +2,7 @@
 
   <div class="hs-user--header">
     <div class = "has-logo">
-      <a href="<%= url_for(root_path) %>">
+      <a href="<%= url_for(home_path) %>">
         <h1>HAS</h1>
       </a>
     </div>
@@ -23,6 +23,27 @@
       </div>
       <div class = "user-photo">
       </div>
+
+      <div class = "button-area">
+        <div class = "button-logout">
+          <%= link_to users_setting_path  do %>
+          <button class="ui button" >
+            Setting
+          </button>
+          <% end %>
+        </div>
+      </div>
+
+      <div class = "button-area">
+        <div class = "button-logout">
+          <a href="https://docs.google.com/forms/d/1mc3KoMz5BBqCpp3uJmdY8phnxNnFovQPVGSf7GV2hsQ">
+          <button class="ui button" >
+            Review
+          </button>
+          </a>
+        </div>
+      </div>
+
       <%= link_to destroy_user_session_path, method: :delete do %>
       <div class = "button-area">
         <div class = "button-logout">
@@ -45,13 +66,14 @@
                   <th width="100">Project</th>
                   <th width="150">Commit数</th>
                   <th width="50">Delete</th>
+                  <th width="50">Edit</th>
                 </tr>
               </thead>
 
               <tbody>
                 <% @projects.reverse_each do |t| %>
                   <tr>
-                    <td><a href="https://github.com/<%= current_user.username %>/<%= t.name %>/">
+                    <td><a href="https://github.com/<%= t.owner %>/<%= t.name %>/">
                       <%= t.name %>
                     </a>
                     </td>
@@ -60,6 +82,9 @@
                     </td>
                     <td>
                       <%= link_to "削除する", projects_entry_path(project_id: t.id), method: :delete %>
+                    </td>
+                    <td>
+                      <%= link_to "変更する", projects_edit_path(id: t.id) %>
                     </td>
                   </tr>
                 <% end %>

@@ -18,11 +18,7 @@
 
 
   <div class = "hs-project">
-    <%= form_for @project, url: { controller: 'projects', action: "create" } do |f| %>
-    <p>追加するプロジェクト</p>
-      <div class = "hs-project--commit-add">
-        <%= f.select(:name, @form_repos, {}, { class: "ui dropdown"} )%>
-      </div>
+    <%= form_for @project, url: { controller: 'projects', action: "update" } do |f| %>
 
     <div class = "hs-project--commit-speed">
 
@@ -35,7 +31,7 @@
     </div>
     <div class = "hs-project--commit-inform-model">
           <p>通知モデル</p>
-          <!-- <%= f.select(:name, @form_repos, {}, { class: "ui dropdown"} )%> -->
+          
           <select class="ui dropdown">
             <option value="1">ヤギ</option>
             <option value="0">ヤギ</option>
@@ -50,7 +46,7 @@
           </select>
     </div>
     <!-- ※twitterアカウントを登録していない方はコチラ　なんかリンク貼って -->
-    <%= submit_tag('Create', class: "ui button") %>
+    <%= submit_tag('Update', class: "ui button") %>
   <% end %>
   </div>
 

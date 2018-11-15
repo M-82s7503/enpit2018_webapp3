@@ -3,7 +3,6 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style type="text/css">
-
       p {
         text-shadow: 1px 1px 2px #80a7a3;
         font-size: 4vh;
@@ -26,7 +25,6 @@
         border : solid 10px #FFF ;
       }
       .mail {
-
         color:#535353;
           //text-shadow: 1px 1px 2px #80a7a3;
           font-size: 4vh;
@@ -36,7 +34,6 @@
           margin-left: 10%;
           text-decoration: underline #5dc8b5;
       }
-
       .mail- {
         font-size: 3vh;
       }
@@ -50,22 +47,24 @@
 <div class ="bg">
   <div class ="canvas">
 
-    <br>
-    <div class="mail">
-      <div class = "mail-">
-      Dear:<%= @user.username %> From:<%= @project.name %>Goat
-      </div>
-      <div class="image">
+        <br>
+        <div class="mail">
+        <div class = "mail-">
+        Dear:<%= @user.username %> From:<%= @project.name %>Goat
+        </div>
+        <div class="image">
         <%= image_tag attachments[@attach_name].url %>
-      </div>
+        </div>
+
         <% @sentences.each do |sentence| %>
           <%= sentence %> <br>
         <% end %>
-    </div>
+      </div>
 
 
-        <br>
+    <br>
   </div>
+
 </div>
 
   </body>

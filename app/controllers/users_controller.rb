@@ -7,4 +7,5 @@ class UsersController < ApplicationController
   end
 
   def show; end
+  def setting; end
 end

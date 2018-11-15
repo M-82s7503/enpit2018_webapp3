@@ -26,11 +26,10 @@ class Project < ApplicationRecord
     self.commit_num = 0 if self.commit_num.negative?
 
     ###  エサを追加  ###
-    @new_commit_logs = JSON.parse(`curl https://api.github.com/repos/#{self.user.username}/#{name}/commits`)
-
+    @new_commit_logs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" https://api.github.com/repos/#{owner}/#{name}/commits`)
     # webhook までのつなぎ。
     # 30以上も取得しようと思えばできるが、めんどくさくてやってない。（えさの鮮度的に、30でよくね？説はある）
-    added_commit_num = get_added_commit_num(@new_commit_logs)
+    added_commit_num = get_added_commit_num(@new_commit_logs, self.user.username)
     if added_commit_num > 0
       self.commit_num += added_commit_num
       # github_commit_log を差分更新
@@ -40,18 +39,19 @@ class Project < ApplicationRecord
   end
 
 
-  def get_added_commit_num(commit_logs)
+  def get_added_commit_num(commit_logs, name)
     return 0 if commit_logs.class != Array
     # 新 → 旧　の順。
     counter = 0
     for log in commit_logs do
       if log['sha'] == newest_commit_id
         puts "      ● self.newest_commit_id  :  #{newest_commit_id}"
+        puts "      ●  commiter              :  #{log['commit']['committer']['name']}"
         puts "      ●  log['sha']            :  #{log['sha']}"
         puts "      ●  added_commit_num      :  #{counter}"
         break
       end
-      counter += 1
+      counter += 1 if log['commit']['committer']['name'] == name
     end
     counter
   end
@@ -83,7 +83,7 @@ class Project < ApplicationRecord
     if log['parents'] != []
       @c_diffs_url = log['parents'][0]['url']
       # 差分情報を取得
-      @commit_diffs = JSON.parse(`curl #{@c_diffs_url}`)
+      @commit_diffs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" #{@c_diffs_url}`)
       puts(@commit_diffs)
       puts("\n@commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n\n")
       params['stats_total'] = @commit_diffs['stats']['total']

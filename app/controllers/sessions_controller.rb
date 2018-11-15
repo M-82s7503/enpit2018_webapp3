@@ -1,6 +1,6 @@
 class SessionsController < Devise::SessionsController
   def new
-    redirect_to root_url
+    redirect_to home_path
   end
 
   # def destroy

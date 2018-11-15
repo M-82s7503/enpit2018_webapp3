@@ -1,0 +1,32 @@
+<div class = "hs-user">
+
+  <div class="hs-user--header">
+    <div class = "has-logo">
+      <a href="<%= url_for(home_path) %>">
+        <h1>HAS</h1>
+      </a>
+    </div>
+    <div class="button-area">
+        <div class="ui buttons">
+          <a href="<%= url_for(users_path) %>">
+            <button class="ui button">
+              ユーザーページへ戻る
+            </button>
+          </a>
+        </div>
+    </div>
+  </div>
+
+  <div class = "hs-project">
+    <p> 通知先のメールアドレス </p>
+    <div> <%= current_user.email %> </div>
+
+    <p> HASを解約する　</p>
+    <button class="ui button">
+      解約する
+    </button>
+
+  </div>
+
+
+</div>
