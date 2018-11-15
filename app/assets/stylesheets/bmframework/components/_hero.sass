@@ -14,12 +14,22 @@
   padding: 0
   position: relative
 
-.hs-hero--header
+#hs-hero--header
   background-color: rgba(255,255,255,0.3)
   margin: 0
   padding: 2vh
   position: fixed
   width: 100vw
+
+#hs-hero--header.scrolled
+  background-color: rgba(0,0,0,1)
+  margin: 0
+  padding: 2vh
+  position: fixed
+  width: 100vw
+  z-index: 1
+
+
 
 .hs-hero--header.transform
   background-color: #000
@@ -79,17 +89,6 @@
   margin-bottom: 35px
   text-shadow: 2px 2px 3px #7d9a97
 
-.has-setumei2
-  color: #fff
-  font-size: 30px
-  margin: auto
-  margin-top: 35px
-  margin-bottom: 35px
-  text-shadow: 2px 2px 3px #7d9a97
-  //background-color: rgba(255,255,255,0.2)
-  //border-top: solid 2px white
-  //border-bottom: solid 2px white
-  //text-shadow: 1px 1px 6px #000000
 
 .has-setumei p
   color: #fff
@@ -111,6 +110,46 @@
   color: #fff
   font-size: 4vh
   margin-top: 50px
+
+
+.hs-m--has_what
+  height: 100vh
+
+  background-image: image-url('haikeisample.png')
+  background-repeat: no-repeat
+  background-size: cover
+
+.has_what_title
+  padding-top: 5%
+  color: rgb(115, 115, 115)
+  font-size: 50px
+  text-align: center
+
+
+.has-setumei2
+  color: rgb(115, 115, 115)
+  font-size: 30px
+  margin: auto
+  margin-top: 35px
+  margin-bottom: 35px
+  text-align: center
+  //text-shadow: 2px 2px 3px #7d9a97
+  //background-color: rgba(255,255,255,0.2)
+  //border-top: solid 2px white
+  //border-bottom: solid 2px white
+  //text-shadow: 1px 1px 6px #000000
+
+.hs-m--feature
+  height: 100vh
+
+  background-image: image-url('haikeisample.png')
+  background-repeat: no-repeat
+  background-size: cover
+
+.has_feature_title
+  color: rgb(115, 115, 115)
+  font-size: 50px
+  text-align: center
 
 .hs-m--commit
   height: 100vh
@@ -168,10 +207,16 @@
   background-image: image-url('haikeisample.png')
   background-repeat: no-repeat
   background-size: cover
-.learnmore-button
-  .massive.angle.double.down.icon
-    color: rgb(255, 255, 255)
 
+.learnmore-button
+  margin-top: 20vh
+  color: rgb(255, 255, 255)
+
+.goat_button
+    color: rgb(71, 106, 113)
+
+.Github_link_img
+  height: 30vh
 
 .learnmore-exam
 
