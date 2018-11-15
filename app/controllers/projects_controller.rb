@@ -38,7 +38,7 @@ class ProjectsController < ApplicationController
     # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
     # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
     commit_logs = JSON.parse(`curl -H "Authorization: token #{current_user.github_token}" https://api.github.com/repos/#{params[:project]['name']}/commits`)
-    @project.commit_num = get_commit_num(commit_logs)
+    @project.commit_num = get_commit_num(commit_logs, current_user.username)
 
     if @project.save
       @project.save_commit_log(commit_logs)
@@ -66,11 +66,12 @@ class ProjectsController < ApplicationController
 
   private
 
-  def get_commit_num(commit_logs)
+  def get_commit_num(commit_logs, name)
     if commit_logs.class != Array
       0
     else
-      commit_logs.length
+      commit_name_list = commit_logs.map{ |t| t['commit']['committer']['name']}
+      commit_name_list.select{|t| t == name}.length
     end
   end
 end
