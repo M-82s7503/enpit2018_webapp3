@@ -58,18 +58,36 @@ namespace :recreateDB do
         end
     end
 
-    task :project_delete_all => :environment do
+    task :project__delete_all => :environment do
         # 全ユーザーの全プロジェクトを削除・初期化する。
         @users = User.all
         @users.each do |user|
             print("\n【#{user.username}】  #{user.email}\n")
             @projects = user.projects
             @projects.each do |project|
-                proj_name = project.name
                 # 削除
                 project.github_commit_logs.destroy_all()
                 project.delete()
             end
+        end
+    end
+
+    desc "引数で、削除したいユーザーのユーザー名を指定する。"
+    task :user__delete_one, ['name'] => :environment do |task, args|
+        # 引数で指定したユーザーの全プロジェクトを削除・初期化し、その後、ユーザー情報も削除する。
+        @users = User.all
+        @users.each do |user|
+            # ユーザー名が違う場合は 飛ばす。
+            next if user.username != args[:name]
+            print("\n  delete for user : #{user.username}  #{user.email}\n")
+            @projects = user.projects
+            @projects.each do |project|
+                # 削除
+                print("\n    project : #{project}    delete \n")
+                project.github_commit_logs.destroy_all()
+                project.delete()
+            end
+            user.delete()
         end
     end
 end
