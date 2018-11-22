@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/destroy'
   devise_for :users, controllers: {
     registrations: 'devise/registrations',
     sessions: 'sessions',
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   root 'users#index'
   get 'users', to: 'users#index'
   get 'users/setting', to: 'users#setting'
+  delete 'users/setting' => 'users#destroy'
   # get 'users', to: 'users#index', as:'users'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
