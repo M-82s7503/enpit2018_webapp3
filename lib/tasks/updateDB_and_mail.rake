@@ -1,3 +1,5 @@
+# coding: utf-8
+
 namespace :updateDB_and_mail do
   desc "github_commit_log を差分更新して、メールを送る。Heroku の定期スクリプト"
     # $ bundle exec rake updateDB_and_mail:run

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 namespace :recreateDB do
     desc "DBの内容に変更が入って、取得し直したいときに使う。"
     task :github_commit_log => :environment do
@@ -90,4 +92,34 @@ namespace :recreateDB do
             user.delete()
         end
     end
+
+
+    desc "CSV を Trophy テーブルに取り込む。"
+    task :trophies => :environment do
+        require 'csv'
+
+        @trophies = Trophy.all
+        @trophies.each do |trophy|
+            # 削除しないtrophyの場合は 飛ばす。
+            # next if trophy. != 
+            print("  delete for trophy : #{trophy.id}:  #{trophy.name}\n")
+            trophy.delete()
+        end
+
+        @mail_patterns = CSV.table("#{Rails.root}/app/assets/mail_contents.csv")
+        @mail_patterns.each do |row|
+            puts
+            puts( "#{row[:type]} : #{row[:title]}" )
+            puts( "#{row[:yagi_message]}" )
+            puts( "#{row[:yagi_img]}" )
+            Trophy.create!(
+                mail_type: row[:type],
+                name: row[:title],
+                sentence: row[:yagi_message],
+                img_path: row[:yagi_img]
+            )
+        end
+        puts
+    end
+
 end
