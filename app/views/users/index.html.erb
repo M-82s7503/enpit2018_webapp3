@@ -17,97 +17,104 @@
 
   <div class = "hs-users-sidebar-wrapper">
     <!-- 左側：ユーザー情報 -->
-    <div class = "hs-users-sidebar">
-      <div class = "user-name">
-        <h1><%= current_user.username %></h1>
-      </div>
-      <div class = "user-photo">
-      </div>
+      <div class = "hs-users-sidebar">
 
-      <div class = "button-area">
-        <div class = "button-logout">
-          <%= link_to users_setting_path  do %>
-          <button class="ui button" >
-            設定
-          </button>
-          <% end %>
+        <div class = "user-photo">
         </div>
-      </div>
+        <div class = "user-name">
+          <h1><%= current_user.username %></h1>
+        </div>
 
-      <div class = "button-area">
-        <div class = "button-logout">
-          <a href="https://docs.google.com/forms/d/1mc3KoMz5BBqCpp3uJmdY8phnxNnFovQPVGSf7GV2hsQ">
-          <button class="ui button" >
-            レビュー
-          </button>
-          </a>
+        <div class = "button-area">
+          <div class = "button-logout">
+            <%= link_to users_setting_path  do %>
+            <button class="ui button" >
+              設定
+            </button>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <%= link_to destroy_user_session_path, method: :delete do %>
-      <div class = "button-area">
-        <div class = "button-logout">
-          <button class="ui button logout" >
-            ログアウト
-          </button>
+        <div class = "button-area">
+          <div class = "button-logout">
+            <a href="https://docs.google.com/forms/d/1mc3KoMz5BBqCpp3uJmdY8phnxNnFovQPVGSf7GV2hsQ">
+            <button class="ui button" >
+              レビュー
+            </button>
+            </a>
+          </div>
         </div>
+
+        <%= link_to destroy_user_session_path, method: :delete do %>
+        <div class = "button-area">
+          <div class = "button-logout">
+            <button class="ui button logout" >
+              ログアウト
+            </button>
+          </div>
+        </div>
+        <% end %>
       </div>
-      <% end %>
-    </div>
     <!-- 右側：プロジェクト一覧 -->
       <div class = "hs-users-main_contents">
-        <div class  ="hs-users-table-project">
-        <div class="hs-m--table normal">
-          <h2>Your Projects</h2>
-
-            <table>
-              <thead>
-                <tr>
-                  <th width="100">Project</th>
-                  <th width="150">残りコミット</th>
-                  <th width="50">Delete</th>
-                  <th width="50">Edit</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <% @projects.reverse_each do |t| %>
-                  <tr>
-                    <td><a href="https://github.com/<%= t.owner %>/<%= t.name %>/">
-                      <%= t.name %>
-                    </a>
-                    </td>
-                    <td>
-                      <%= link_to t.commit_num, projects_show_path(id: t.id) %>
-                    </td>
-                    <td>
-                      <%= link_to projects_entry_path(project_id: t.id), method: :delete do %>
-                        <div class="delete">
-                          削除する
-                        </div>
-                      <% end %>
-                    </td>
-                    <td>
-                      <%= link_to projects_edit_path(id: t.id) do %>
-                      <div class="change">
-                        変更する
-                      </div>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-
-        </div>
-      </div>
         <div class = "hs-users-renewal">
           <h2>更新状況</h2>
           <p><br><br><br><br></p>
 
           <!--ここに更新状況を書く-->
         </div>
-      </div>
+
+        <div class = "hs-project-pictures-wrapper">
+          <div class = "hs-users-table-project">
+            <div class="hs-m--table normal">
+              <h2 class="list_title">プロジェクト一覧</h2>
+
+                <table class="protects_TB">
+                  <thead>
+                    <tr>
+                      <th width="260">プロジェクト名</th>
+                      <th width="30">エサ</th>
+                      <th width="30">削除</th>
+                      <th width="30">編集</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <% @projects.reverse_each do |t| %>
+                      <tr>
+                        <td><a href="https://github.com/<%= t.owner %>/<%= t.name %>/">
+                          <%= t.name %>
+                        </a>
+                        </td>
+                        <td>
+                          <%= link_to t.commit_num, projects_show_path(id: t.id) %>
+                        </td>
+                        <td>
+                          <%= link_to projects_entry_path(project_id: t.id), method: :delete do %>
+                            <div class="delete">
+                              <i class="trash alternate icon"></i>
+                            </div>
+                          <% end %>
+                        </td>
+                        <td>
+                          <%= link_to projects_edit_path(id: t.id) do %>
+                          <div class="change">
+                            <i class="edit icon"></i>
+                          </div>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+          <div class = "hs-users-pictures">
+            <h2 class="list_title">獲得絵画</h2>
+
+              <%= image_tag('Mojiyagi.png') %>
+          </div>
+        </div>
     </div>
   </div>
 
