@@ -1,3 +1,5 @@
+# coding: utf-8
+
 namespace :recreateDB do
     desc "DBの内容に変更が入って、取得し直したいときに使う。"
     task :github_commit_log => :environment do
@@ -62,18 +64,66 @@ namespace :recreateDB do
         end
     end
 
-    task :project_delete_all => :environment do
+    task :project__delete_all => :environment do
         # 全ユーザーの全プロジェクトを削除・初期化する。
         @users = User.all
         @users.each do |user|
             print("\n【#{user.username}】  #{user.email}\n")
             @projects = user.projects
             @projects.each do |project|
-                proj_name = project.name
                 # 削除
                 project.github_commit_logs.destroy_all()
                 project.delete()
             end
         end
     end
+
+    desc "引数で、削除したいユーザーのユーザー名を指定する。"
+    task :user__delete_one, ['name'] => :environment do |task, args|
+        # 引数で指定したユーザーの全プロジェクトを削除・初期化し、その後、ユーザー情報も削除する。
+        @users = User.all
+        @users.each do |user|
+            # ユーザー名が違う場合は 飛ばす。
+            next if user.username != args[:name]
+            print("\n  delete for user : #{user.username}  #{user.email}\n")
+            @projects = user.projects
+            @projects.each do |project|
+                # 削除
+                print("\n    project : #{project}    delete \n")
+                project.github_commit_logs.destroy_all()
+                project.delete()
+            end
+            user.delete()
+        end
+    end
+
+
+    desc "CSV を Trophy テーブルに取り込む。"
+    task :trophies => :environment do
+        require 'csv'
+
+        @trophies = Trophy.all
+        @trophies.each do |trophy|
+            # 削除しないtrophyの場合は 飛ばす。
+            # next if trophy. != 
+            print("  delete for trophy : #{trophy.id}:  #{trophy.name}\n")
+            trophy.delete()
+        end
+
+        @mail_patterns = CSV.table("#{Rails.root}/app/assets/mail_contents.csv")
+        @mail_patterns.each do |row|
+            puts
+            puts( "#{row[:type]} : #{row[:title]}" )
+            puts( "#{row[:yagi_message]}" )
+            puts( "#{row[:yagi_img]}" )
+            Trophy.create!(
+                mail_type: row[:type],
+                name: row[:title],
+                sentence: row[:yagi_message],
+                img_path: row[:yagi_img]
+            )
+        end
+        puts
+    end
+
 end

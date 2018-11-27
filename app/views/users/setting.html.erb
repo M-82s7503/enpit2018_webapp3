@@ -21,10 +21,24 @@
     <p> 通知先のメールアドレス </p>
     <div> <%= current_user.email %> </div>
 
-    <p> HASを解約する　</p>
-    <button class="ui button">
+    <br><br>
+    
+    <p> アカウントを削除する </p>
+    <div>
+      ユーザー情報を全て削除、初期化します。<br>
+      一度削除すると、元には戻せません。
+    </div>
+    <br>
+    <!-- ただのダイアログで見てくれが悪いので、UI を少しいじってほしい！
+        良さそうな参考：https://qiita.com/ihatov08/items/a0b3b043ba809fdc2cd6 -->
+    <%= link_to "削除する", users_setting_path, method: :delete, 
+        data: { 
+          title: "削除の確認", 
+          confirm: "一度削除すると、元には戻せません。\n本当によろしいですか？"
+        } %>
+    <!--button class="ui button">
       解約する
-    </button>
+    </button-->
 
   </div>
 

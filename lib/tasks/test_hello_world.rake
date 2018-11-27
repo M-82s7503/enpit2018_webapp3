@@ -1,3 +1,5 @@
+# coding: utf-8
+
 namespace :test_hello_world do
     desc "heroku 等で、rake taskを実行できるか確かめるための、テスト用スクリプト"
     # $ heroku run bundle exec rake test_hello_world:run
