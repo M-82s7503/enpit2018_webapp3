@@ -35,7 +35,12 @@
 
 .user-name{
   text-align: center;
+  margin:auto;
   margin-bottom: 1vh;
+  width: 180px;
+  background-color: white;
+  color: rgb(125, 125, 125);
+  border: solid 1px #D9D9D9;
 }
 
 .user-photo{
@@ -44,6 +49,7 @@
   height: 180px;
   width: 180px;
   margin:auto;
+  border: solid 1px #D9D9D9;
 
 }
 .button-logout{
@@ -73,13 +79,7 @@
   width: 20vw;
 }
 .hs-users-main_contents{
-  display: flex;
   flex: 1;
-}
-
-.hs-users-table-project{
-  width: 30vw;
-  margin: 2vh  2vh ;
 }
 
 .hs-users-renewal{
@@ -92,6 +92,37 @@
   p{
     border: solid 2px #99e8da;
     border-radius: 10px;
+  }
+}
+
+.hs-project-pictures-wrapper{
+  display:　flex;
+  display: -webkit-flex;
+}
+
+.hs-users-table-project{
+  width: 45vw;
+  margin: 2vh  2vh ;
+  border: solid 1px #D9D9D9;
+  padding: auto;
+}
+
+.list_title{
+  padding-top: 9px;
+  padding-left: 9px;
+}
+.protects_TB{
+  border: solid 1px #D9D9D9;
+
+}
+.hs-users-pictures{
+  border: solid 1px #D9D9D9;
+  display: block;
+  flex: 1;
+  margin: 2vh  2vh ;
+  width: 15vw;
+  img{
+    width: 10vw;
   }
 }
 
