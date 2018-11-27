@@ -27,26 +27,23 @@ class ProjectsController < ApplicationController
       redirect_to users_path
       return
     end
-
-    @project = Project.new()
-    own_pro_name_list = params[:project]['name'].split('/')
-    @project.name = own_pro_name_list[1]
-    @project.owner = own_pro_name_list[0]
-
-    # @project.name = params[:project]['name']
-    @project.users_id = current_user.id
-    @project.day_interval = params[:project]["day_interval"]
-    @project.goat_eat_speed = params[:project]["goat_eat_speed"]
     # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
     # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
-    # commit_logs = JSON.parse(`curl -H "Authorization: token #{current_user.github_token}" https://api.github.com/repos/#{params[:project]['name']}/commits`)
     commit_logs = JSON.parse(RestClient.get('https://api.github.com/repos/' + params[:project]['name'] + '/commits',
                               {:params => {:access_token => current_user.github_token}}))
-    @project.commit_num = get_commit_num(commit_logs, current_user.username)
 
-    if @project.save
-      @project.save_commit_log(commit_logs)
-      NotificationMailer.add_project_notification(@project).deliver
+    project = Project.new()
+    own_pro_name_list = params[:project]['name'].split('/')
+    project.name = own_pro_name_list[1]
+    project.owner = own_pro_name_list[0]
+    project.users_id = current_user.id
+    project.day_interval = params[:project]["day_interval"]
+    project.goat_eat_speed = params[:project]["goat_eat_speed"]
+    project.commit_num = get_commit_num(commit_logs, current_user.username)
+
+    if project.save
+      project.save_commit_log(commit_logs)
+      NotificationMailer.add_project_notification(project).deliver_later
       redirect_to users_path
     else
       # This line overrides the default rendering behavior, which

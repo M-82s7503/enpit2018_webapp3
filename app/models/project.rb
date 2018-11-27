@@ -60,13 +60,11 @@ class Project < ApplicationRecord
 
   def save_commit_log(commit_logs)
     return 0 if commit_logs.class != Array
-
     return if commit_logs.length.zero? # 空なら飛ばす。
 
     for log in commit_logs.reverse do
       params = choose_log_data(log)
-      github_commit_logs = GithubCommitLog.new(params)
-      github_commit_logs.save
+      GithubCommitLog.create(params)
     end
     # 最新（最初）の commit の id をメモする
     self.newest_commit_id = commit_logs[0]['sha']

@@ -15,7 +15,7 @@ class YagiNoTegamiMailer < ApplicationMailer
         @attach_name = mail_pattern[:yagi_img]
         @sentences = mail_pattern[:yagi_message].split('\n')
         attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/yagis/#{@attach_name}")
-        mail(to: @user.email, from:'from@example.com', subject: "【HAS】Project : #{@project.name} のヤギから手紙が届きました！")
+        mail(to: @user.email, from:'from@example.com', subject: "【HAS】Project : #{@project.name} のヤギがコミットを求めています！")
     end
   end
   # mail_type に従って、画像をランダムに選ぶ
