@@ -26,7 +26,9 @@ class Project < ApplicationRecord
     self.commit_num = 0 if self.commit_num.negative?
 
     ###  エサを追加  ###
-    @new_commit_logs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" https://api.github.com/repos/#{owner}/#{name}/commits`)
+    @new_commit_logs = JSON.parse(RestClient.get('https://api.github.com/repos/' + owner + '/' + name + '/commits',
+                              {:params => {:access_token => self.user.github_token}}))
+    # @new_commit_logs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" https://api.github.com/repos/#{owner}/#{name}/commits`)
     # webhook までのつなぎ。
     # 30以上も取得しようと思えばできるが、めんどくさくてやってない。（えさの鮮度的に、30でよくね？説はある）
     added_commit_num = get_added_commit_num(@new_commit_logs, self.user.username)
@@ -83,7 +85,9 @@ class Project < ApplicationRecord
     if log['parents'] != []
       @c_diffs_url = log['parents'][0]['url']
       # 差分情報を取得
-      @commit_diffs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" #{@c_diffs_url}`)
+      # @commit_diffs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" #{@c_diffs_url}`)
+      @commit_diffs = JSON.parse(RestClient.get(@c_diffs_url,
+                                {:params => {:access_token => self.user.github_token}}))
       puts(@commit_diffs)
       puts("\n@commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n\n")
       params['stats_total'] = @commit_diffs['stats']['total']

@@ -17,7 +17,8 @@ namespace :test_hello_world do
 
     task :print_GitHubAPI_test do
         #print(`curl https://api.github.com/repos/M-82s7503/shrc/commits`)
-        @commit_logs = JSON.parse(`curl https://api.github.com/repos/M-82s7503/shrc/commits`)
+        @commit_logs = JSON.parse(RestClient.get('https://api.github.com/repos/M-82s7503/shrc/commits'))
+        # @commit_logs = JSON.parse(`curl https://api.github.com/repos/M-82s7503/shrc/commits`)
         #print(@commit_logs)
 
         for log in @commit_logs.reverse do
@@ -31,6 +32,7 @@ namespace :test_hello_world do
                 puts("log['parents'][0]['url'] : #{log['parents'][0]['url']}")
 
                 @c_diffs_url = log['parents'][0]['url']
+                @commit_diffs = JSON.parse(RestClient.get(@c_diffs_url))
                 @commit_diffs = JSON.parse(`curl #{@c_diffs_url}`)
                 puts("\n@commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n\n")
             end

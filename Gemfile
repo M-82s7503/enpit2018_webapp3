@@ -80,6 +80,6 @@ group :production do
 gem 'rails_12factor', group: :production
 
 ## Githubのoauthを取得するREST framework
-#gem 'rest-client'
+gem 'rest-client'
 
 gem 'whenever', require: false

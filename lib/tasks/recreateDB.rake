@@ -14,7 +14,9 @@ namespace :recreateDB do
                 # stats も取得すると、Projectの数によっては一発でアクセス制限にかかるので注意。
                 # ※ 一応、回避方法もないわけではなさそう？ → https://developer.github.com/v3/#rate-limiting
                 puts("URL  :  https://api.github.com/repos/#{project.owner}/#{project.name}/commits")
-                commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
+                commit_logs = JSON.parse(RestClient.get('https://api.github.com/repos/' + project.owner + '/' + project.name + '/commits',
+                                          {:params => {:access_token => user.github_token}}))
+                # commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
 
                 puts commit_logs
                 project.save_commit_log(commit_logs)
@@ -41,7 +43,9 @@ namespace :recreateDB do
                 project = Project.new()
                 project.name = proj_name
                 project.users_id = user.id
-                commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
+                commit_logs = JSON.parse(RestClient.get('https://api.github.com/repos/' + project.owner + '/' + project.name + '/commits',
+                                          {:params => {:access_token => user.github_token}}))
+                # commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
                 # commit_logs = JSON.parse(`curl -H "Authorization: token #{user.github_token}" https://api.github.com/repos/#{project.owner}/#{project.name}/commits`)
                 # get_commit_num()
                 if commit_logs.class != Array
