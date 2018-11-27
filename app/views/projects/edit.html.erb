@@ -8,7 +8,7 @@
     <div class="button-area">
         <div class="ui buttons">
           <a href="<%= url_for(users_path) %>">
-            <button class="ui button">
+            <button class="ui button return">
               ユーザーページへ戻る
             </button>
           </a>
@@ -20,18 +20,18 @@
   <div class = "hs-project">
     <%= form_for @project, url: { controller: 'projects', action: "update" } do |f| %>
 
-    <div class = "hs-project--commit-speed">
+      <div class = "hs-project--commit-speed">
+        <p>ヤギが一度に食べるコミットの数</p>
+        <%= f.select :goat_eat_speed, (1..5).to_a.map{|n| [n, n]}, {}, { class: "ui dropdown"} %>
+      </div>
 
-      <p>ヤギが一度に食べるコミットの数</p>
-      <%= f.select :goat_eat_speed, (1..5).to_a.map{|n| [n, n]}, {}, { class: "ui dropdown"} %>
-    </div>
-    <div class = "hs-project--commit-inform-model">
-      <p>通知の間隔</p>
-      <%= f.select :day_interval, (1..7).to_a.map{|n| [n.to_s + '日ごと', n-1]}, {}, { class: "ui dropdown"} %>
-    </div>
-    <div class = "hs-project--commit-inform-model">
+      <div class = "hs-project--commit-inform-model">
+        <p>通知の間隔</p>
+        <%= f.select :day_interval, (1..7).to_a.map{|n| [n.to_s + '日ごと', n-1]}, {}, { class: "ui dropdown"} %>
+      </div>
+      <div class = "hs-project--commit-inform-model">
           <p>通知モデル</p>
-          
+
           <select class="ui dropdown">
             <option value="1">ヤギ</option>
             <option value="0">ヤギ</option>
@@ -46,7 +46,7 @@
           </select>
     </div>
     <!-- ※twitterアカウントを登録していない方はコチラ　なんかリンク貼って -->
-    <%= submit_tag('Update', class: "ui button") %>
+    <%= submit_tag('更新する', class: "ui button") %>
   <% end %>
   </div>
 

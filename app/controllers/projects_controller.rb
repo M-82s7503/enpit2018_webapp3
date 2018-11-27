@@ -3,7 +3,9 @@ class ProjectsController < ApplicationController
   def entry
     @project = Project.new # これがないと、「ArgumentError in Projects#entry」になる。
     @c_proj = current_user.projects
-    user_repos = JSON.parse(`curl -H "Authorization: token #{current_user.github_token}" https://api.github.com/user/repos`)
+    user_repos = JSON.parse(RestClient.get('https://api.github.com/user/repos',
+                              {:params => {:access_token => current_user.github_token}}))
+    # user_repos = JSON.parse(`curl -H "Authorization: token #{current_user.github_token}" https://api.github.com/user/repos`)
     @form_repos = user_repos.map { |t| [t['name'], t['full_name']]}
     # DB から登録済みのプロジェクトを取得し、一覧から削除する。
     # @form_repos -= @c_proj.map { |t| [t.name, t.name] }
@@ -37,7 +39,9 @@ class ProjectsController < ApplicationController
     @project.goat_eat_speed = params[:project]["goat_eat_speed"]
     # https://api.github.com/repos/M-82s7503/enpit2018_webapp3/commits/develop
     # みたく、最後に /develop 追加すると、developブランチ のを取得できた。
-    commit_logs = JSON.parse(`curl -H "Authorization: token #{current_user.github_token}" https://api.github.com/repos/#{params[:project]['name']}/commits`)
+    # commit_logs = JSON.parse(`curl -H "Authorization: token #{current_user.github_token}" https://api.github.com/repos/#{params[:project]['name']}/commits`)
+    commit_logs = JSON.parse(RestClient.get('https://api.github.com/repos/' + params[:project]['name'] + '/commits',
+                              {:params => {:access_token => current_user.github_token}}))
     @project.commit_num = get_commit_num(commit_logs, current_user.username)
 
     if @project.save

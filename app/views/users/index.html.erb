@@ -18,17 +18,17 @@
   <div class = "hs-users-sidebar-wrapper">
     <!-- 左側：ユーザー情報 -->
     <div class = "hs-users-sidebar">
+      <div class = "user-photo">
+      </div>
       <div class = "user-name">
         <h1><%= current_user.username %></h1>
-      </div>
-      <div class = "user-photo">
       </div>
 
       <div class = "button-area">
         <div class = "button-logout">
           <%= link_to users_setting_path  do %>
           <button class="ui button" >
-            Setting
+            設定
           </button>
           <% end %>
         </div>
@@ -38,7 +38,7 @@
         <div class = "button-logout">
           <a href="https://docs.google.com/forms/d/1mc3KoMz5BBqCpp3uJmdY8phnxNnFovQPVGSf7GV2hsQ">
           <button class="ui button" >
-            Review
+            レビュー
           </button>
           </a>
         </div>
@@ -47,8 +47,8 @@
       <%= link_to destroy_user_session_path, method: :delete do %>
       <div class = "button-area">
         <div class = "button-logout">
-          <button class="ui button" >
-            Log out
+          <button class="ui button logout" >
+            ログアウト
           </button>
         </div>
       </div>
@@ -64,7 +64,7 @@
               <thead>
                 <tr>
                   <th width="100">Project</th>
-                  <th width="150">Commit数</th>
+                  <th width="150">残りコミット</th>
                   <th width="50">Delete</th>
                   <th width="50">Edit</th>
                 </tr>
@@ -81,10 +81,18 @@
                       <%= link_to t.commit_num, projects_show_path(id: t.id) %>
                     </td>
                     <td>
-                      <%= link_to "削除する", projects_entry_path(project_id: t.id), method: :delete %>
+                      <%= link_to projects_entry_path(project_id: t.id), method: :delete do %>
+                        <div class="delete">
+                          削除する
+                        </div>
+                      <% end %>
                     </td>
                     <td>
-                      <%= link_to "変更する", projects_edit_path(id: t.id) %>
+                      <%= link_to projects_edit_path(id: t.id) do %>
+                      <div class="change">
+                        変更する
+                      </div>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %>

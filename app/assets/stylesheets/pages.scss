@@ -1,6 +1,6 @@
-@charset "UTF-8";
+
 .hs-user--header {
-  background-color: #98e4d6;
+  background-color: #6cd8c5;
   color: #000;
   display: flex;
   padding: 2vh;
@@ -20,6 +20,13 @@
   margin-left: auto;
   //position: relative;
   margin: 10px;
+  .ui.button{
+    background-color: white;
+  }
+  .ui.button:hover{
+    color: #696969;
+    background-color: #f5f5f5;
+  }
 }
 
 .hs-user{
@@ -41,10 +48,15 @@
 }
 .button-logout{
   margin: auto;
-  padding: 2vw;
+  padding-top: 2vw;
   .ui.button{
     width: 100%;
-    color:#e85a8e;
+    color:#FFFFFF;
+    background-color: rgb(68, 165, 203);
+  }
+  .ui.button:hover{
+    color:#FFFFFF;
+    background-color: rgb(123, 207, 229);
   }
 }
 
@@ -52,7 +64,7 @@
   display: flex;
 }
 .hs-users-sidebar{
-  background-color: #6cd8c5;
+  background-color: #98e4d6;
   //border : solid 2px #5fbbc9 ;
   //border-radius: 10px;/*角の丸み*/
   color: #fff;
@@ -81,4 +93,8 @@
     border: solid 2px #99e8da;
     border-radius: 10px;
   }
+}
+
+.ui.button.sidebar{
+
 }

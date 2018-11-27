@@ -14,12 +14,22 @@
   padding: 0
   position: relative
 
-.hs-hero--header
+#hs-hero--header
   background-color: rgba(255,255,255,0.3)
   margin: 0
   padding: 2vh
   position: fixed
   width: 100vw
+
+#hs-hero--header.scrolled
+  background-color: rgba(0,0,0,1)
+  margin: 0
+  padding: 2vh
+  position: fixed
+  width: 100vw
+  z-index: 1
+
+
 
 .hs-hero--header.transform
   background-color: #000
@@ -29,11 +39,6 @@
 
 .button-area .ui.buttons
   margin: 10px
-
-
-
-
-
 
 
 
@@ -76,20 +81,10 @@
 
 .has-setumei
   margin: auto
-  margin-bottom: 35px
+  margin-bottom: 8vh
+  margin-top: 12vh
   text-shadow: 2px 2px 3px #7d9a97
 
-.has-setumei2
-  color: #fff
-  font-size: 30px
-  margin: auto
-  margin-top: 35px
-  margin-bottom: 35px
-  text-shadow: 2px 2px 3px #7d9a97
-  //background-color: rgba(255,255,255,0.2)
-  //border-top: solid 2px white
-  //border-bottom: solid 2px white
-  //text-shadow: 1px 1px 6px #000000
 
 .has-setumei p
   color: #fff
@@ -100,6 +95,25 @@
   margin: auto
   text-align: center
 
+.buttonman
+    font-family: 'Tahoma',sans-serif
+    color: white
+    background-color: inherit
+    width: auto
+    font-size: 3vh
+    border-radius: 8px
+    border: solid 2px white
+    padding: 9px
+    font-weight: 700
+    text-shadow: 2px 2px 3px #7d9a97
+    box-shadow: 6px 6px 34px -4px #7d9a97
+
+
+.buttonman:hover
+    background-color: white
+    color: #3c3f57
+    border-color: white
+    text-shadow: 0px 0px 0px #000000
 
 .button.ui.inverted.button
     font-size: 4vh
@@ -107,10 +121,51 @@
     width: auto
     height: 10vh
 
+
 .learnmore-button
   color: #fff
   font-size: 4vh
   margin-top: 50px
+
+
+.hs-m--has_what
+  height: 100vh
+
+  background-image: image-url('haikeisample.png')
+  background-repeat: no-repeat
+  background-size: cover
+
+.has_what_title
+  padding-top: 5%
+  color: rgb(115, 115, 115)
+  font-size: 50px
+  text-align: center
+
+
+.has-setumei2
+  color: rgb(115, 115, 115)
+  font-size: 30px
+  margin: auto
+  margin-top: 35px
+  margin-bottom: 35px
+  text-align: center
+  //text-shadow: 2px 2px 3px #7d9a97
+  //background-color: rgba(255,255,255,0.2)
+  //border-top: solid 2px white
+  //border-bottom: solid 2px white
+  //text-shadow: 1px 1px 6px #000000
+
+.hs-m--feature
+  height: 100vh
+
+  background-image: image-url('haikeisample.png')
+  background-repeat: no-repeat
+  background-size: cover
+
+.has_feature_title
+  color: rgb(115, 115, 115)
+  font-size: 50px
+  text-align: center
 
 .hs-m--commit
   height: 100vh
@@ -168,10 +223,16 @@
   background-image: image-url('haikeisample.png')
   background-repeat: no-repeat
   background-size: cover
-.learnmore-button
-  .massive.angle.double.down.icon
-    color: rgb(255, 255, 255)
 
+.learnmore-button
+  margin-top: 6vh
+  color: rgb(255, 255, 255)
+
+.goat_button
+    color: rgb(71, 106, 113)
+
+.Github_link_img
+  height: 30vh
 
 .learnmore-exam
 
