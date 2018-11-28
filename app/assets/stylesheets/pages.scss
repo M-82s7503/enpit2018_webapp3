@@ -33,25 +33,36 @@
   color: #285c76;
 }
 
+
+
+.user-photo{
+
+  height: 250px;
+  width: 100%;
+  margin:auto;
+  border: solid 1px #D9D9D9;
+  background-color: white;
+  align-items: center;
+	display: flex;
+  img{
+    margin:auto;
+    width: 100%;
+    //height:250px;
+    background-color:fff;
+  }
+
+}
+
 .user-name{
   text-align: center;
   margin:auto;
   margin-bottom: 1vh;
-  width: 180px;
+  width: 100%;
   background-color: white;
   color: rgb(125, 125, 125);
   border: solid 1px #D9D9D9;
 }
 
-.user-photo{
-  background-image: image-url('Rerere.jpg');
-  background-size:contain;
-  height: 180px;
-  width: 180px;
-  margin:auto;
-  border: solid 1px #D9D9D9;
-
-}
 .button-logout{
   margin: auto;
   padding-top: 2vw;
@@ -103,28 +114,57 @@
 .hs-users-table-project{
   width: 45vw;
   margin: 2vh  2vh ;
-  border: solid 1px #D9D9D9;
   padding: auto;
+
+  .projects_flame{
+    border: solid 2px #99e8da;
+    border-radius: 10px;
+    height: 50vh;
+    overflow: auto;
+    a:link { color: #477df2; }
+    a:visited { color: #372a63; }
+    a:hover { color: #18c8ae; }
+    a:active { color: #10889d; }
+  }
+  .project_name{
+    font-size: 20px;
+  }
+  .project_commit_num{
+    font-size: 20px;
+    text-align: center;
+  }
+  .delete{
+    font-size: 20px;
+    text-align: center;
+  }
+  .change{
+    font-size: 20px;
+    text-align: center;
+  }
 }
 
 .list_title{
   padding-top: 9px;
   padding-left: 9px;
 }
-.protects_TB{
-  border: solid 1px #D9D9D9;
 
-}
 .hs-users-pictures{
-  border: solid 1px #D9D9D9;
   display: block;
   flex: 1;
   margin: 2vh  2vh ;
   width: 15vw;
-  img{
-    width: 10vw;
+
+  .pictures{
+    border: solid 2px #99e8da;
+    border-radius: 10px;
+    height: 50vh;
+    img{
+      margin: 3px;
+      width: 10vw;
+    }
   }
 }
+
 
 .ui.button.sidebar{
 

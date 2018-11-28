@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 2018_11_23_072712) do
     t.index ["trophy_id"], name: "index_achieve_trophies_on_trophy_id"
   end
 
-
   create_table "github_commit_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "users_id"
     t.bigint "project_id"

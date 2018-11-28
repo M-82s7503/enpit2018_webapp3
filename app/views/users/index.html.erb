@@ -19,6 +19,7 @@
     <!-- 左側：ユーザー情報 -->
     <div class = "hs-users-sidebar">
         <div class = "user-photo">
+          <%= image_tag('syu-ru_yagi_user.png') %>
         </div>
         <div class = "user-name">
           <h1><%= current_user.username %></h1>
@@ -67,14 +68,14 @@
           <div class = "hs-users-table-project">
             <div class="hs-m--table normal">
               <h2 class="list_title">プロジェクト一覧</h2>
-
-                <table class="protects_TB">
+              <div class="projects_flame">
+                <table>
                   <thead>
                     <tr>
-                      <th width="260">プロジェクト名</th>
-                      <th width="30">エサ</th>
-                      <th width="30">削除</th>
-                      <th width="30">編集</th>
+                      <th width="230">プロジェクト名</th>
+                      <th width="40">エサ</th>
+                      <th width="40">削除</th>
+                      <th width="40">編集</th>
                     </tr>
                   </thead>
 
@@ -82,11 +83,15 @@
                     <% @projects.reverse_each do |t| %>
                       <tr>
                         <td><a href="https://github.com/<%= t.owner %>/<%= t.name %>/">
-                          <%= t.name %>
+                          <div class = "project_name">
+                            <%= t.name %>
+                          </div>
                         </a>
                         </td>
                         <td>
-                          <%= link_to t.commit_num, projects_show_path(id: t.id) %>
+                          <div class = "project_commit_num">
+                            <%= link_to t.commit_num, projects_show_path(id: t.id) %>
+                          </div>
                         </td>
                         <td>
                           <%= link_to projects_entry_path(project_id: t.id), method: :delete do %>
@@ -106,12 +111,14 @@
                     <% end %>
                   </tbody>
                 </table>
+              </div>
             </div>
           </div>
           <div class = "hs-users-pictures">
             <h2 class="list_title">獲得絵画</h2>
-
+            <div class = "pictures">
               <%= image_tag('Mojiyagi.png') %>
+            </div>
           </div>
         </div>
     </div>
