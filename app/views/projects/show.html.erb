@@ -1,33 +1,31 @@
-<a href="<%= url_for(home_path) %>">
-  <h1>HAS</h1>
-</a>
-<div class="hs-m--table normal">
-  <h2>Your Rpository commits</h2>
 
-    <table>
-      <thead>
-        <tr>
-          <th width="100">ID</th>
-          <th width="150">Message</th>
-        </tr>
-      </thead>
+<div class = "hs-user">
 
-      <tbody>
-        <% @commit_logs.reverse_each do |t| %>
-          <tr>
-            <td>
-              <div style="color:black;">
-                <%= t.commit_id %>
-              </div>
-            </td>
-            <td>
-              <div style="color:black;">
-                <%= t.message %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
+  <div class="hs-user--header">
+    <div class = "has-logo">
+      <a href="<%= url_for(home_path) %>">
+        <h1>HAS</h1>
+      </a>
+    </div>
+    <div class = "button-project">
+      <a href="<%= url_for(users_path) %>">
+        <button class="ui button return">
+          ユーザーページへ戻る
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+  <div class="hs-m--table normal">
+  <h2>これまで獲得した実績</h2>
+    <div class="achives-area">
+      <% 5.times do |t| %>
+        <div class="an-achive-area">
+          <div class="achive-picture">
+          </div>
+          <p class="achive-name">石の上にもヤギ </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>

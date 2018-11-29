@@ -71,8 +71,9 @@
                 <table class="protects_TB">
                   <thead>
                     <tr>
-                      <th width="260">プロジェクト名</th>
+                      <th width="230">プロジェクト名</th>
                       <th width="30">エサ</th>
+                      <th width="30">実績</th>
                       <th width="30">削除</th>
                       <th width="30">編集</th>
                     </tr>
@@ -86,7 +87,13 @@
                         </a>
                         </td>
                         <td>
-                          <%= link_to t.commit_num, projects_show_path(id: t.id) %>
+                          <%= t.commit_num %>
+                        </td>
+                        <td>
+                          <%= link_to projects_show_path(t) do %>
+                            <i class="trophy icon">
+                            </i>
+                          <% end %>
                         </td>
                         <td>
                           <%= link_to projects_entry_path(project_id: t.id), method: :delete do %>
