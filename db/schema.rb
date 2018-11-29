@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_23_072712) do
+ActiveRecord::Schema.define(version: 2018_11_29_121822) do
 
   create_table "achieve_trophies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "trophy_id"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 2018_11_23_072712) do
     t.datetime "updated_at", null: false
     t.index ["trophy_id"], name: "index_achieve_trophies_on_trophy_id"
   end
-
 
   create_table "github_commit_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "users_id"
@@ -34,6 +33,15 @@ ActiveRecord::Schema.define(version: 2018_11_23_072712) do
     t.integer "stats_del"
     t.index ["project_id"], name: "index_github_commit_logs_on_project_id"
     t.index ["users_id"], name: "index_github_commit_logs_on_users_id"
+  end
+
+  create_table "mails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "mail_type", null: false
+    t.string "img_path"
+    t.string "sentence"
+    t.integer "contents_id", default: -9
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -58,7 +66,6 @@ ActiveRecord::Schema.define(version: 2018_11_23_072712) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "img_path", default: "TrophyYagis/futu_yagi.png", null: false
-    t.integer "mail_type", default: 0, null: false
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

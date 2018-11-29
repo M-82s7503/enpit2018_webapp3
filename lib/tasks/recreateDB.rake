@@ -98,10 +98,15 @@ namespace :recreateDB do
     end
 
 
-    desc "CSV を Trophy テーブルに取り込む。"
-    task :trophies => :environment do
-        require 'csv'
+    desc "Trophy と mail テーブルを初期化後、CSVデータを取り込む。"
+    task :mail_and_trophy => :environment do
+        Rake::Task["recreateDB:mail_and_trophy__delete_all"].invoke
+        Rake::Task["recreateDB:trophy"].invoke
+        Rake::Task["recreateDB:mail"].invoke
+    end
 
+    task :mail_and_trophy__delete_all => :environment do
+        # 最初の１回のみ、トロフィーとメールのコンテンツを全削除する
         @trophies = Trophy.all
         @trophies.each do |trophy|
             # 削除しないtrophyの場合は 飛ばす。
@@ -109,21 +114,58 @@ namespace :recreateDB do
             print("  delete for trophy : #{trophy.id}:  #{trophy.name}\n")
             trophy.delete()
         end
+        puts
+        @mails = Mail.all
+        @mails.each do |mail|
+            # 削除しないmailの場合は 飛ばす。
+            # next if mail. != 
+            print("  delete for mail : #{mail.id}:  #{mail.mail_type}\n")
+            mail.delete()
+        end
+    end
 
-        @mail_patterns = CSV.table("#{Rails.root}/app/assets/mail_contents.csv")
-        @mail_patterns.each do |row|
-            puts
-            puts( "#{row[:type]} : #{row[:title]}" )
-            puts( "#{row[:yagi_message]}" )
-            puts( "#{row[:yagi_img]}" )
-            Trophy.create!(
-                mail_type: row[:type],
-                name: row[:title],
-                sentence: row[:yagi_message],
-                img_path: row[:yagi_img]
+    task :trophy => :environment do
+        require 'csv'
+        # CSV から取り込み
+        puts("\n\n【Trophy テーブルにデータ取り込み中...】")
+        @trophy_patterns = CSV.table("#{Rails.root}/app/assets/trophy_contents.csv")
+        @trophy_patterns.each do |row|
+            puts( "・#{row[:name]}" )
+            puts( "    #{row[:img_path]}" )
+            puts( "    #{row[:sentence]}" )
+            # トロフィーを作成
+            @trophy = Trophy.create!(
+                name: row[:name],
+                sentence: row[:sentence],
+                img_path: row[:img_path]
+            )
+            # メールも同時に作成する
+            # とりあえず、メール：トロフィー ＝ １：１ で。
+            @mail =  Mail.create!(
+                mail_type: Mail.mail_types['trophy'],
+                contents_id: @trophy.id
             )
         end
-        puts
+    end
+
+    task :mail => :environment do
+        require 'csv'
+        puts("\n\n【Mail データ取り込み中...】")
+        # CSV から追加
+        puts("Mail.mail_types : #{Mail.mail_types}")
+        @mail_patterns = CSV.table("#{Rails.root}/app/assets/mail_contents.csv")
+        @mail_patterns.each do |row|
+            puts( "・#{row[:type]} : #{row[:title]}" )
+            puts( "    #{row[:yagi_img]}" )
+            puts( "    #{row[:yagi_message]}" )
+            Mail.create!(
+                mail_type: row[:type],
+                #name: row[:title],
+                sentence: row[:yagi_message],
+                img_path: row[:yagi_img],
+                #trophy_id: Trophy.find_by(name:'dummy').id
+            )
+        end
     end
 
 end
