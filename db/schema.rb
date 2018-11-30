@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_29_121822) do
+ActiveRecord::Schema.define(version: 2018_11_30_035648) do
 
   create_table "achieve_trophies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "trophy_id"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2018_11_29_121822) do
     t.index ["users_id"], name: "index_github_commit_logs_on_users_id"
   end
 
-  create_table "mails", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "mail_contents", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.integer "mail_type", null: false
     t.string "img_path"
     t.string "sentence"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2018_11_29_121822) do
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "github_token"
+    t.string "github_token", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

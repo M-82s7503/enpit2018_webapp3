@@ -1,4 +1,4 @@
-class Mail < ApplicationRecord
+class MailContent < ApplicationRecord
   enum mail_type:{
     trophy: -1,
     no_feed: 0,

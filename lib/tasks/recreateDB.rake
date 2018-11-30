@@ -115,7 +115,7 @@ namespace :recreateDB do
             trophy.delete()
         end
         puts
-        @mails = Mail.all
+        @mails = MailContent.all
         @mails.each do |mail|
             # 削除しないmailの場合は 飛ばす。
             # next if mail. != 
@@ -141,8 +141,8 @@ namespace :recreateDB do
             )
             # メールも同時に作成する
             # とりあえず、メール：トロフィー ＝ １：１ で。
-            @mail =  Mail.create!(
-                mail_type: Mail.mail_types['trophy'],
+            @mail =  MailContent.create!(
+                mail_type: MailContent.mail_types['trophy'],
                 contents_id: @trophy.id
             )
         end
@@ -152,13 +152,13 @@ namespace :recreateDB do
         require 'csv'
         puts("\n\n【Mail データ取り込み中...】")
         # CSV から追加
-        puts("Mail.mail_types : #{Mail.mail_types}")
+        puts("MailContent.mail_types : #{MailContent.mail_types}")
         @mail_patterns = CSV.table("#{Rails.root}/app/assets/mail_contents.csv")
         @mail_patterns.each do |row|
             puts( "・#{row[:type]} : #{row[:title]}" )
             puts( "    #{row[:yagi_img]}" )
             puts( "    #{row[:yagi_message]}" )
-            Mail.create!(
+            MailContent.create!(
                 mail_type: row[:type],
                 #name: row[:title],
                 sentence: row[:yagi_message],
