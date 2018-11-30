@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_035648) do
+ActiveRecord::Schema.define(version: 2018_11_30_072511) do
 
   create_table "achieve_trophies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "trophy_id"
     t.date "achieve_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "project_id"
+    t.index ["project_id"], name: "index_achieve_trophies_on_project_id"
     t.index ["trophy_id"], name: "index_achieve_trophies_on_trophy_id"
   end
 
@@ -71,7 +73,7 @@ ActiveRecord::Schema.define(version: 2018_11_30_035648) do
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "github_token", null: false
+    t.string "github_token"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -99,6 +101,7 @@ ActiveRecord::Schema.define(version: 2018_11_30_035648) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "achieve_trophies", "projects"
   add_foreign_key "achieve_trophies", "trophies"
   add_foreign_key "github_commit_logs", "projects"
   add_foreign_key "github_commit_logs", "users", column: "users_id"

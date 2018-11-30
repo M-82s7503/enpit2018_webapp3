@@ -19,11 +19,13 @@
   <div class="hs-m--table normal">
   <h2>これまで獲得した実績</h2>
     <div class="achives-area">
-      <% 5.times do |t| %>
+      <% @trophy_list.each do |trophy| %>
         <div class="an-achive-area">
           <div class="achive-picture">
           </div>
-          <p class="achive-name">石の上にもヤギ </p>
+          <p class="achive-name"> <%= trophy.name %> </p>
+          <!--  トロフィー画像： <%= @img_dir_path + trophy.img_path %>   -->
+          <!--  トロフィー説明文？： <%= trophy.sentence %>   -->
         </div>
       <% end %>
     </div>
