@@ -23,5 +23,4 @@ namespace :updateDB_and_mail do
     end
     puts
   end
-  puts
 end

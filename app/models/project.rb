@@ -33,6 +33,7 @@ class Project < ApplicationRecord
     # webhook までのつなぎ。
     # 30以上も取得しようと思えばできるが、めんどくさくてやってない。（えさの鮮度的に、30でよくね？説はある）
     added_commit_num = get_added_commit_num(@new_commit_logs, self.user.username)
+    check_achieve_trophy()
     if added_commit_num > 0
       self.commit_num += added_commit_num
       # github_commit_log を差分更新
@@ -96,5 +97,28 @@ class Project < ApplicationRecord
     params['users_id'] = user.id
     params['project_id'] = id
     return params
+  end
+
+
+  def check_achieve_trophy()
+    # テスト用データ
+    puts("self.achieve_trophy : #{self.achieve_trophy}")
+    self.achieve_trophy.each do |ach_trophy|
+      puts("ach_trophy : #{ach_trophy}")
+      ach_trophy.delete
+    end
+    AchieveTrophy.create!(
+      trophy_id: Trophy.find_by(name: 'unachieve').id,
+      project_id: self.id,
+      achieve_date: Date.today  # created_at で良くね？説(笑)
+    )
+    @trophies = Trophy.all
+    @ach_t_ids = self.achieve_trophy_ids
+    puts("self.achieve_trophy_ids : #{@ach_t_ids}")
+    puts("Trophy.find(@ach_t_ids[0]).trophy_id : #{Trophy.find(@ach_t_ids[0]).trophy_id}")
+    @unachieve_trophies = []
+    @trophies.each do |trophy|
+      #next if self.achieve_trophy_ids
+    end
   end
 end
