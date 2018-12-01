@@ -33,7 +33,7 @@ class Project < ApplicationRecord
     # webhook までのつなぎ。
     # 30以上も取得しようと思えばできるが、めんどくさくてやってない。（えさの鮮度的に、30でよくね？説はある）
     added_commit_num = get_added_commit_num(@new_commit_logs, self.user.username)
-    check_achieve_trophy()
+    check_achieve_trophy(added_commit_num)
     if added_commit_num > 0
       self.commit_num += added_commit_num
       # github_commit_log を差分更新
@@ -100,25 +100,46 @@ class Project < ApplicationRecord
   end
 
 
-  def check_achieve_trophy()
+  def check_achieve_trophy(added_commit_num)
     # テスト用データ
-    puts("self.achieve_trophy : #{self.achieve_trophy}")
-    self.achieve_trophy.each do |ach_trophy|
-      puts("ach_trophy : #{ach_trophy}")
-      ach_trophy.delete
-    end
     AchieveTrophy.create!(
-      trophy_id: Trophy.find_by(name: 'unachieve').id,
+      trophy_id: Trophy.find_by(name: '『はじめてのエサ』').id,
       project_id: self.id,
       achieve_date: Date.today  # created_at で良くね？説(笑)
     )
+    self.achieve_trophy.each do |ach_trophy|
+      puts("ach_trophy : #{ach_trophy}")
+      puts("ach_trophy.id : #{ach_trophy.id}")
+    end
     @trophies = Trophy.all
     @ach_t_ids = self.achieve_trophy_ids
-    puts("self.achieve_trophy_ids : #{@ach_t_ids}")
-    puts("Trophy.find(@ach_t_ids[0]).trophy_id : #{Trophy.find(@ach_t_ids[0]).trophy_id}")
+    puts
+    puts("self.achieve_trophy_ids : #{@ach_t_ids}")  #=> [100, 101]
+    
+    ## 未獲得のトロフィー一覧を出す。（ActiveRecode → Array への変換の意味も兼ねて）
     @unachieve_trophies = []
     @trophies.each do |trophy|
-      #next if self.achieve_trophy_ids
+      # 獲得済みは飛ばす！
+      next if self.achieve_trophy_ids.include?(trophy.id)
+      next if trophy.name = 'unachieve'
+      @unachieve_trophies.push(trophy)
     end
+    #puts(@unachieve_trophies)
+    ## 条件を満たしたかどうかを確認する。
+=begin
+    @unachieve_trophies.each do |unach_trophy|
+      if unach_trophy
+        
+      elsif 
+        
+      end
+    end
+=end
+ 
+    # 初期化
+    self.achieve_trophy.each do |ach_trophy|
+      ach_trophy.destroy
+    end
+    puts
   end
 end
