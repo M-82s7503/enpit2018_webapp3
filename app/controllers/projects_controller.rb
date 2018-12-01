@@ -25,10 +25,10 @@ class ProjectsController < ApplicationController
 
     # 2. 獲得済み trophy を取得
     @project = Project.find(params[:id])
-    @ach_trophies = @project.achieve_trophy_ids
+    @ach_trophy_ids = @project.achieve_trophy.pluck(:trophy_id)
     # 3. 1.に代入する
-    @ach_trophies.each do |ach_trophy|
-      @trophy_list[ach_trophy.trophy_id] = ach_trophy.trophy
+    @ach_trophy_ids.each do |ach_t_id|
+      @trophy_list[ach_t_id-unach_trophy.id-1] = Trophy.find(ach_t_id)
     end
 
     ###  画像パスの取得： @img_dir_path + @trophy_list[ach_trophy.trophy_id].img_path

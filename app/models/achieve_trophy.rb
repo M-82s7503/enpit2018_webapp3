@@ -1,4 +1,4 @@
 class AchieveTrophy < ApplicationRecord
-  has_one :trophy
+  belongs_to :trophy
   belongs_to :project
 end

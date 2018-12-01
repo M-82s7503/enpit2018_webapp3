@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_072511) do
+ActiveRecord::Schema.define(version: 2018_12_01_052026) do
 
   create_table "achieve_trophies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "trophy_id"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(version: 2018_11_30_072511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "img_path", default: "TrophyYagis/futu_yagi.png", null: false
+    t.bigint "achieve_trophies_id"
+    t.index ["achieve_trophies_id"], name: "index_trophies_on_achieve_trophies_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -107,4 +109,5 @@ ActiveRecord::Schema.define(version: 2018_11_30_072511) do
   add_foreign_key "github_commit_logs", "users", column: "users_id"
   add_foreign_key "projects", "achieve_trophies"
   add_foreign_key "projects", "users", column: "users_id"
+  add_foreign_key "trophies", "achieve_trophies", column: "achieve_trophies_id"
 end

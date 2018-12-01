@@ -1,3 +1,4 @@
+# coding: utf-8
 class Project < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -102,44 +103,65 @@ class Project < ApplicationRecord
 
   def check_achieve_trophy(added_commit_num)
     # テスト用データ
+    added_commit_num = 1
+=begin
     AchieveTrophy.create!(
       trophy_id: Trophy.find_by(name: '『はじめてのエサ』').id,
       project_id: self.id,
       achieve_date: Date.today  # created_at で良くね？説(笑)
     )
+=end
+    puts("      ●  トロフィー 獲得状況")
     self.achieve_trophy.each do |ach_trophy|
-      puts("ach_trophy : #{ach_trophy}")
-      puts("ach_trophy.id : #{ach_trophy.id}")
+      puts("            OK : #{ach_trophy.trophy.name}")
     end
-    @trophies = Trophy.all
-    @ach_t_ids = self.achieve_trophy_ids
-    puts
-    puts("self.achieve_trophy_ids : #{@ach_t_ids}")  #=> [100, 101]
-    
+
+    #puts("self.achieve_trophy.pluck(:trophy_id) : #{self.achieve_trophy.pluck(:trophy_id)}")
+    @ach_trophy_ids = self.achieve_trophy.pluck(:trophy_id)
     ## 未獲得のトロフィー一覧を出す。（ActiveRecode → Array への変換の意味も兼ねて）
     @unachieve_trophies = []
+    @trophies = Trophy.all
     @trophies.each do |trophy|
-      # 獲得済みは飛ばす！
-      next if self.achieve_trophy_ids.include?(trophy.id)
-      next if trophy.name = 'unachieve'
+      # 「獲得済み」を飛ばす
+      next if @ach_trophy_ids.include?(trophy.id)
+      next if trophy.name == 'unachieve'
+      puts("            未 : #{trophy.name}")
       @unachieve_trophies.push(trophy)
     end
     #puts(@unachieve_trophies)
     ## 条件を満たしたかどうかを確認する。
-=begin
+#=begin
     @unachieve_trophies.each do |unach_trophy|
-      if unach_trophy
-        
-      elsif 
-        
+      # 通常のトロフィーが id==0 として登録される可能性はない。
+      add_ach_trophy_id = 0
+
+      case unach_trophy.name
+      # 一度獲得すれば、↑の「獲得済み」を飛ばすで自動的に対象外になる。
+      when '『はじめてのエサ』' then
+        if added_commit_num > 0  #獲得条件
+          add_ach_trophy_id = Trophy.find_by(name: '『はじめてのエサ』').id
+          puts("        → トロフィー『はじめてのエサ』が獲得されました！")
+        end
+      when '『エサの山！』' then
+        if false
+          add_ach_trophy_id = Trophy.find_by(name: '『エサの山！』').id
+        end
+      when '『落ち着きヤギ』' then
+        if false
+          add_ach_trophy_id = Trophy.find_by(name: '『エサの山！』').id
+        end
+      end      
+
+      # 獲得条件が達成されたものは、achieve trophy に追加する。
+      if add_ach_trophy_id != 0
+        AchieveTrophy.create!(
+          trophy_id: add_ach_trophy_id,
+          project_id: self.id,
+        )
       end
     end
-=end
+#=end
  
-    # 初期化
-    self.achieve_trophy.each do |ach_trophy|
-      ach_trophy.destroy
-    end
     puts
   end
 end

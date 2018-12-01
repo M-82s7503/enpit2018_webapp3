@@ -112,7 +112,7 @@ namespace :recreateDB do
             # 削除しないtrophyの場合は 飛ばす。
             # next if trophy. != 
             print("  delete for trophy : #{trophy.id}:  #{trophy.name}\n")
-            trophy.delete()
+            trophy.destroy()
         end
         puts
         @mails = MailContent.all
@@ -120,7 +120,7 @@ namespace :recreateDB do
             # 削除しないmailの場合は 飛ばす。
             # next if mail. != 
             print("  delete for mail : #{mail.id}:  #{mail.mail_type}\n")
-            mail.delete()
+            mail.destroy()
         end
     end
 
@@ -165,6 +165,14 @@ namespace :recreateDB do
                 img_path: row[:yagi_img],
                 #trophy_id: Trophy.find_by(name:'dummy').id
             )
+        end
+    end
+
+    task :achieve_trophy__delete_all => :environment do
+        # 初期化
+        AchieveTrophy.all.each do |ach_trophy|
+            puts("ach_trophy: project_id, trophy_id = #{ach_trophy.project_id}, #{ach_trophy.trophy_id}")
+            ach_trophy.destroy
         end
     end
 
