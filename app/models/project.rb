@@ -148,12 +148,14 @@ class Project < ApplicationRecord
           puts("        → トロフィー『エサの山！』解放")
         end
       when '『落ち着きヤギ』' then
-        t_id = Trophy.find_by(name: '『落ち着きヤギ』').id
+        t_id = Trophy.find_by(name: '『はじめてのエサ』').id
+        # 『はじめてのエサ』 を取得済みかをまず確認。
         if self.achieve_trophy.exists?(:trophy_id => t_id)
-          ach_trophy = self.achieve_trophy.exists?(:trophy_id => t_id)
-          p (Date.today - ach_trophy.created_at).to_i
-          if added_commit_num > 0 && (Date.today - ach_trophy.created_at).to_i > 0
-            add_ach_trophy_id = t_id
+          ach_trophy = self.achieve_trophy.find_by(:trophy_id => t_id)
+          # 「コミットした」 かつ 「１日以上経っている」
+          if added_commit_num > 0 && (Time.zone.now - ach_trophy.created_at + 1.day) > 23.hour
+          #if true  # テスト用
+            add_ach_trophy_id = Trophy.find_by(name: '『落ち着きヤギ』').id
             puts("        → トロフィー『落ち着きヤギ』解放")
           end
         end
