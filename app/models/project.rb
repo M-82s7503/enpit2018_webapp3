@@ -103,7 +103,7 @@ class Project < ApplicationRecord
 
   def check_achieve_trophy(added_commit_num)
     # テスト用データ
-    added_commit_num = 1
+    #added_commit_num = 5
 =begin
     AchieveTrophy.create!(
       trophy_id: Trophy.find_by(name: '『はじめてのエサ』').id,
@@ -140,15 +140,22 @@ class Project < ApplicationRecord
       when '『はじめてのエサ』' then
         if added_commit_num > 0  #獲得条件
           add_ach_trophy_id = Trophy.find_by(name: '『はじめてのエサ』').id
-          puts("        → トロフィー『はじめてのエサ』が獲得されました！")
+          puts("        → トロフィー『はじめてのエサ』解放")
         end
       when '『エサの山！』' then
-        if false
+        if added_commit_num > 4
           add_ach_trophy_id = Trophy.find_by(name: '『エサの山！』').id
+          puts("        → トロフィー『エサの山！』解放")
         end
       when '『落ち着きヤギ』' then
-        if false
-          add_ach_trophy_id = Trophy.find_by(name: '『エサの山！』').id
+        t_id = Trophy.find_by(name: '『落ち着きヤギ』').id
+        if self.achieve_trophy.exists?(:trophy_id => t_id)
+          ach_trophy = self.achieve_trophy.exists?(:trophy_id => t_id)
+          p (Date.today - ach_trophy.created_at).to_i
+          if added_commit_num > 0 && (Date.today - ach_trophy.created_at).to_i > 0
+            add_ach_trophy_id = t_id
+            puts("        → トロフィー『落ち着きヤギ』解放")
+          end
         end
       end      
 
