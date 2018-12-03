@@ -18,9 +18,23 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    id = params[:id]
-    @commit_logs = GithubCommitLog.where(project_id: id)
+    # 1. 要素を全て「未獲得」で埋めたリストを作る： @trophy_list
+    unach_trophy = Trophy.find_by(name: 'unachieve')
+    @trophy_list = Array.new(Trophy.count-1, unach_trophy) # unachieve は除く。
+    puts("unach_trophy : #{unach_trophy}")
+
+    # 2. 獲得済み trophy を取得
+    @project = Project.find(params[:id])
+    @ach_trophy_ids = @project.achieve_trophy.pluck(:trophy_id)
+    # 3. 1.に代入する
+    @ach_trophy_ids.each do |ach_t_id|
+      @trophy_list[ach_t_id-unach_trophy.id-1] = Trophy.find(ach_t_id)
+    end
+
+    ###  画像パスの取得： @img_dir_path + @trophy_list[ach_trophy.trophy_id].img_path
+    @img_dir_path = "#{Rails.root}/app/assets/images/"
   end
+
 
   def create
     if params[:project]['name'].nil?
