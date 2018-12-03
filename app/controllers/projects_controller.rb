@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
     end
 
     ###  画像パスの取得： @img_dir_path + @trophy_list[ach_trophy.trophy_id].img_path
-    @img_dir_path = "#{Rails.root}/app/assets/images/"
+    # @img_dir_path = "TrophyYagis/"
   end
 
 
