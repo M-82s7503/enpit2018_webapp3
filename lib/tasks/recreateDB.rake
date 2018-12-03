@@ -199,7 +199,7 @@ namespace :recreateDB do
                     # 「獲得済み」を飛ばす
                     next if @ach_trophy_ids.include?(trophy.id)
                     next if trophy.name == 'unachieve'
-                    puts("            未 : #{trophy.name}")
+                    puts("            OK : #{trophy.name}")
                     @unachieve_trophies.push(trophy)
                     AchieveTrophy.create!(
                         trophy_id: trophy.id,
@@ -207,9 +207,6 @@ namespace :recreateDB do
                     )
                 end
                 puts
-                project.achieve_trophy.each do |ach_trophy|
-                    puts("            OK : #{ach_trophy.trophy.name}")
-                end        
             end
         end
     end
