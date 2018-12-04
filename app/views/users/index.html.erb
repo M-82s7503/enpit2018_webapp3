@@ -59,8 +59,13 @@
       <div class = "hs-users-main_contents">
         <div class = "hs-users-renewal">
           <h2>更新状況</h2>
-          <p><br><br><br><br></p>
-
+          <p>
+            <% @recent_commit_logs.reverse_each do |log| %>
+              <div class="aa" >
+                <%= log.message %>
+              </div><br>
+            <% end %>
+          </p>
           <!--ここに更新状況を書く-->
         </div>
 

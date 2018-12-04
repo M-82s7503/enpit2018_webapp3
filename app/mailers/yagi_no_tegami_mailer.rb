@@ -19,6 +19,7 @@ class YagiNoTegamiMailer < ApplicationMailer
     attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/#{mail_pattern['img_path']}")
     #puts("attachments  attachments")
     @sentences = mail_pattern['sentence'].split('\n')
+    @trophy_title = mail_pattern['img_path']
     @user = user  # メール本文で使う
     mail(to: user.email, from:'from@example.com', subject: "【HAS】Project : #{project.name} のヤギから手紙が届きました！")
   end
