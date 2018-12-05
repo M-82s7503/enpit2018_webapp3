@@ -155,15 +155,14 @@ namespace :recreateDB do
         puts("MailContent.mail_types : #{MailContent.mail_types}")
         @mail_patterns = CSV.table("#{Rails.root}/app/assets/mail_contents.csv")
         @mail_patterns.each do |row|
-            puts( "・#{row[:type]} : #{row[:title]}" )
-            puts( "    #{row[:yagi_img]}" )
-            puts( "    #{row[:yagi_message]}" )
+            puts( "・#{row[:type]}" )
+            puts( "    #{row[:img_path]}" )
+            puts( "    #{row[:sentence]}" )
             MailContent.create!(
                 mail_type: row[:type],
                 #name: row[:title],
-                sentence: row[:yagi_message],
-                img_path: row[:yagi_img],
-                #trophy_id: Trophy.find_by(name:'dummy').id
+                sentence: row[:sentence],
+                img_path: row[:img_path],
             )
         end
     end

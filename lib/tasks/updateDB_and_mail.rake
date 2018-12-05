@@ -17,7 +17,7 @@ namespace :updateDB_and_mail do
         next unless project.update_count_and_check
         project.update_commit_num()
         puts "      ● 現在の エサの量 : #{project.commit_num}"
-        #YagiNoTegamiMailer.regular_mail(user, project).deliver
+        YagiNoTegamiMailer.regular_mail(user, project).deliver
       end
       puts
     end
