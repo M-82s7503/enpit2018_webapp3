@@ -1,5 +1,71 @@
-<h1>YagiNoTegami#special_mail</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style type="text/css">
+      p {
+        text-shadow: 1px 1px 2px #80a7a3;
+        font-size: 4vh;
+        line-height:1.5;
+        font-family: 'Verdana',sans-serif;
+        }
+      .bg {
+        background-color: #5dc8b5;
+        text-align: center;
+      }
+      .canvas {
+        width: 80%;
+        background-color: rgba(255,255,255,1);
+        text-align: center;
+        margin-left: 10%;
+      }
+      image {
+        width: 70%;
+        height: 50%;
+        border : solid 10px #FFF ;
+      }
+      .mail {
+        color:#535353;
+          //text-shadow: 1px 1px 2px #80a7a3;
+          font-size: 4vh;
+          line-height:1.5;
+          font-family: 'Yukyokasho',sans-serif;
+          width: 80%;
+          margin-left: 10%;
+          text-decoration: underline #5dc8b5;
+      }
+      .mail- {
+        font-size: 3vh;
+      }
 
-<p>
-  <%= @greeting %>, find me in app/views/yagi_no_tegami_mailer/special_mail.html.erb
-</p>
+    </style>
+  </head>
+
+  <body>
+
+
+<div class ="bg">
+  <div class ="canvas">
+
+        <br>
+        <div class="mail">
+        <div class = "mail-">
+        Dear:<%= @user.username %> From:<%= @project.name %>Goat
+        </div>
+        <div class="image">
+        <%= image_tag attachments[@attach_name].url %>
+        </div>
+
+        <% @sentences.each do |sentence| %>
+          <%= sentence %> <br>
+        <% end %>
+      </div>
+
+
+    <br>
+  </div>
+
+</div>
+
+  </body>
+</html>

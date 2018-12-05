@@ -31,16 +31,23 @@ class Project < ApplicationRecord
     @new_commit_logs = JSON.parse(RestClient.get('https://api.github.com/repos/' + owner + '/' + name + '/commits',
                               {:params => {:access_token => self.user.github_token}}))
     # @new_commit_logs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" https://api.github.com/repos/#{owner}/#{name}/commits`)
+
+    ###  追加分を取得  ###
     # webhook までのつなぎ。
-    # 30以上も取得しようと思えばできるが、めんどくさくてやってない。（えさの鮮度的に、30でよくね？説はある）
+    # 30以上も取得しようと思えばできるが、めんどくさくてやってない。
     added_commit_num = get_added_commit_num(@new_commit_logs, self.user.username)
-    check_achieve_trophy(added_commit_num)
     if added_commit_num > 0
       self.commit_num += added_commit_num
       # github_commit_log を差分更新
       save_commit_log(@new_commit_logs[0, added_commit_num])
     end
     save
+
+    ###  トロフィー  ###
+    check_achieve_trophy(added_commit_num)
+
+    ###  定期メール  ###
+    YagiNoTegamiMailer.regular_mail(user, self).deliver
   end
 
 
@@ -104,22 +111,14 @@ class Project < ApplicationRecord
   def check_achieve_trophy(added_commit_num)
     # テスト用データ
     #added_commit_num = 5
-=begin
-    AchieveTrophy.create!(
-      trophy_id: Trophy.find_by(name: '『はじめてのエサ』').id,
-      project_id: self.id,
-      achieve_date: Date.today  # created_at で良くね？説(笑)
-    )
-=end
     puts("      ●  トロフィー 獲得状況")
     self.achieve_trophy.each do |ach_trophy|
       puts("            OK : #{ach_trophy.trophy.name}")
     end
 
-    #puts("self.achieve_trophy.pluck(:trophy_id) : #{self.achieve_trophy.pluck(:trophy_id)}")
-    @ach_trophy_ids = self.achieve_trophy.pluck(:trophy_id)
     ## 未獲得のトロフィー一覧を出す。（ActiveRecode → Array への変換の意味も兼ねて）
     @unachieve_trophies = []
+    @ach_trophy_ids = self.achieve_trophy.pluck(:trophy_id)
     @trophies = Trophy.all
     @trophies.each do |trophy|
       # 「獲得済み」を飛ばす
@@ -128,9 +127,8 @@ class Project < ApplicationRecord
       puts("            未 : #{trophy.name}")
       @unachieve_trophies.push(trophy)
     end
-    #puts(@unachieve_trophies)
-    ## 条件を満たしたかどうかを確認する。
-#=begin
+    
+    ## トロフィー獲得条件を満たしたか確認する。
     @unachieve_trophies.each do |unach_trophy|
       # 通常のトロフィーが id==0 として登録される可能性はない。
       add_ach_trophy_id = 0
@@ -159,17 +157,18 @@ class Project < ApplicationRecord
             puts("        → トロフィー『落ち着きヤギ』解放")
           end
         end
-      end      
+      end
 
       # 獲得条件が達成されたものは、achieve trophy に追加する。
       if add_ach_trophy_id != 0
-        AchieveTrophy.create!(
+        @new_trophy = AchieveTrophy.create!(
           trophy_id: add_ach_trophy_id,
           project_id: self.id,
         )
+        ###  実績解除メール  ###
+        YagiNoTegamiMailer.special_mail(user, self).deliver
       end
     end
-#=end
  
     puts
   end

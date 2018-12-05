@@ -2,31 +2,52 @@
 
 class YagiNoTegamiMailer < ApplicationMailer
 
+  ###  通常メール  ###
   def regular_mail(user, project)
+    @user = user  # メール本文で使う
     @project = project
-    # コミット数：0 になったプロジェクトに、メールを送る。
+    mail_content = 0
     if @project.commit_num == 0
-      puts("          →   (0なので)メール送信中...\n\n")
-      send_mail(user, project, MailContent.no_feed.sample)
+      # 「コミット数：0」
+      mail_content = MailContent.no_feed.sample
     elsif @project.commit_num == -1  # こんな感じで増やしていく予定。（もう少しうまい方法がありそうだけど...。）
-      puts("          →   (0なので)メール送信中...\n\n")
-      send_mail(user, project, MailContent.test_feed.sample)
+      mail_content = MailContent.test_feed.sample
+    end
+    # メール送信
+    if mail_content != 0
+      puts("          →   通常メール 送信中...\n\n")
+      send_mail(mail_content)
     end
   end
 
-  def send_mail(user, project, mail_pattern)
-    @attach_name = 'yagi_img_attach.png'
-    attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/#{mail_pattern['img_path']}")
-    #puts("attachments  attachments")
-    @sentences = mail_pattern['sentence'].split('\n')
+  ###  特殊メール  ###
+  # とりあえず、今はトロフィーだけ。
+  # また増えたら、メーラーを増やすか、ここを拡張するか考える。
+  def special_mail(user, project, trophy_n)
     @user = user  # メール本文で使う
-    mail(to: user.email, from:'from@example.com', subject: "【HAS】Project : #{project.name} のヤギから手紙が届きました！")
+    @project = project
+    @trophy = trophy_n
+    puts("          →   実績解除メール 送信中...\n\n")
+    send_mail(user, project, MailContent.trophy.sample)
   end
 
 
-  def special_mail
-    @greeting = "Hi"
+  def send_mail(mail_content)
+    #puts("mail_content.mail_type : #{mail_content.mail_type}")
+    #puts("['no_feed', 'test_feed'].include? : #{['no_feed', 'test_feed'].include?(mail_content.mail_type)}")
+    @attach_name = 'yagi_img.png'
+    if ['no_feed', 'test_feed'].include?(mail_content.mail_type)
+      attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/#{mail_content['img_path']}")
+      @sentences = mail_content['sentence'].split('\n')
+      # subject = 
+    elsif 'trophy' == mail_content.mail_type
+      attachments.inline[@attach_name] = File.read("#{Rails.root}/app/assets/images/#{@trophy['img_path']}")
+      @sentences = @trophy['sentence'].split('\n')
+      # subject = 
+    end
 
-    mail to: "to@example.org"
+    ## メールデータ作成？
+    mail(to: @user.email, from:'from@example.com', subject: "【HAS】Project : #{@project.name} のヤギから手紙が届きました！")
   end
+
 end
