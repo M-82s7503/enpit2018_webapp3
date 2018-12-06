@@ -15,7 +15,7 @@ class YagiNoTegamiMailer < ApplicationMailer
     end
     # メール送信
     if mail_content != 0
-      puts("          →   通常メール 送信中...\n\n")
+      puts("          →   通常メール 送信中...\n")
       send_mail(mail_content)
     end
   end
@@ -27,7 +27,7 @@ class YagiNoTegamiMailer < ApplicationMailer
     @user = user  # メール本文で使う
     @project = project
     @trophy = trophy_n
-    puts("          →   実績解除メール 送信中...\n\n")
+    puts("          →   実績解除メール 送信中...\n")
     send_mail(MailContent.trophy.sample)
   end
 

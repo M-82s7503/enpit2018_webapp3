@@ -3,52 +3,26 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style type="text/css">
-      body {
-        margin: 0;
-      }
-
       p {
         text-shadow: 1px 1px 2px #80a7a3;
         font-size: 4vh;
         line-height:1.5;
         font-family: 'Verdana',sans-serif;
         }
-      img{
-          max-width: 100%;
-          vertical-align: bottom;
-          height: auto;
-      }
       .bg {
-        background-color: #85BE4E;
+        background-color: #5dc8b5;
         text-align: center;
       }
       .canvas {
         width: 80%;
-        background-color: #f3f2ea;
+        background-color: rgba(255,255,255,1);
         text-align: center;
         margin-left: 10%;
       }
-      .achive_picture {
-        /* width: 200px; */
-        margin: 13px;
-        /* padding: .3em; */
-
-        /* background-repeat: no-repeat
-        background-size: cover
-        flex-direction: column
-        flex: 1 */
-        border: solid 3px #666600;
-        box-shadow: 0px 0px 0px 7px #663300;
-      }
-      .achive_name{
-        margin-left: 20%;
-        margin-right: 20%;
-        margin-top: 3%;
-        border-radius: 0.4vw;
-        text-align: center;
-        font-size: 3vh;
-        background: #b49531;
-        color: #f9f9f4;
+      image {
+        width: 70%;
+        height: 50%;
+        border : solid 10px #FFF ;
       }
       .mail {
         color:#535353;
@@ -60,12 +34,8 @@
           margin-left: 10%;
           text-decoration: underline #5dc8b5;
       }
-      .mail-header {
+      .mail- {
         font-size: 3vh;
-      }
-      .sentence_area{
-        margin: 4vh;
-        font-size: 2.7vh;
       }
 
     </style>
@@ -79,23 +49,18 @@
 
         <br>
         <div class="mail">
-          <div class = "mail-header">
-            <%= @project.name %> プロジェクト
-          </div>
-
-        <div class="achive_picture">
-            <%= image_tag attachments[@attach_name].url %>
+        <div class = "mail-">
+        Dear:<%= @user.username %> From:<%= @project.name %>Goat
         </div>
-        </div>
-        <div class="achive_name">
-          実績解除 : <%= @trophy_title %>
+        <div class="image">
+        <%= image_tag attachments[@attach_name].url %>
         </div>
 
-        <div class="sentence_area">
-          <% @sentences.each do |sentence| %>
+        <% @sentences.each do |sentence| %>
           <%= sentence %> <br>
-          <% end %>
-        </div>
+        <% end %>
+      </div>
+
 
     <br>
   </div>
@@ -104,3 +69,4 @@
 
   </body>
 </html>
+

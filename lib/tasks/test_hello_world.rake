@@ -41,4 +41,33 @@ namespace :test_hello_world do
         end
     end
 
+
+    desc "引数：トロフィー名。引数で指定したトロフィーの獲得メールを、指定したメルアドに送信する。"
+    task :test_send_trophy_mail, ['trophy_name', 'to_email'] => :environment do |task, args|
+        # 引数で指定したユーザーの全プロジェクトを削除・初期化し、その後、ユーザー情報も削除する。
+        @test_trophy = Trophy.find_by(name: args[:trophy_name])
+        ###  実績解除メール  ###
+        @user = User.new()
+        @user.email = args[:to_email]
+
+        @project = Project.new()
+        @project.name = 'dummy_project'
+
+        YagiNoTegamiMailer.special_mail(@user, @project, @test_trophy).deliver
+    end
+
+    desc "引数：type 番号。引数で指定したtypeの定期メールを、指定したメルアドに送信する。"
+    task :test_send_trophy_mail, ['type', 'to_email'] => :environment do |task, args|
+        # 引数で指定したユーザーの全プロジェクトを削除・初期化し、その後、ユーザー情報も削除する。
+        @test_trophy = Trophy.find_by(name: args[:trophy_name])
+        ###  実績解除メール  ###
+        @user = User.new()
+        @user.email = args[:to_email]
+
+        @project = Project.new()
+        @project.name = 'dummy_project'
+
+        YagiNoTegamiMailer.special_mail(@user, @project, @test_trophy).deliver
+    end
+
 end
