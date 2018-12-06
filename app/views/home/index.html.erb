@@ -6,38 +6,17 @@
         <h1>HAS</h1>
       </a>
     </div>
-    <div class = "hs-header-home">
-      <a href="<%= url_for(home_path) %>">
-        <h1>HOME</h1>
-
-      </a>
-    </div>
-    <div class = "hs-header-release">
-      <h1>RELEASE</h1>
-    </div>
     <div class="button-area">
 
       <% if user_signed_in? %>
         <div class="ui buttons">
-          <a href="<%= url_for(users_path) %>">
-            <button class="buttonman">
-              <%= current_user.username %>
-            </button>
-          </a>
+          <%= link_to current_user.username, users_path, class: "buttonman" %>
           <div class="or"></div>
-          <%= link_to destroy_user_session_path, method: :delete do %>
-          <button class="buttonman" >
-            ログアウト
-          </button>
-          <% end %>
+          <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "buttonman" %>
         </div>
       <% else %>
         <div class="ui buttons">
-          <a href="<%= url_for(user_github_omniauth_authorize_path) %>">
-            <button class="buttonman">
-              Github ログイン
-            </button>
-          <a>
+        <%= link_to 'Githubログイン', user_github_omniauth_authorize_path, class: "ui buttonman" %>
         </div>
       <% end %>
     </div>

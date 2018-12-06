@@ -90,21 +90,21 @@ class Project < ApplicationRecord
     params['commit_id'] = log['sha']
     params['message'] = log['commit']['message'][0, 244] # 文字数上限を追加。
     # 空なら取得しない。
-    if log['parents'] != []
-      @c_diffs_url = log['parents'][0]['url']
-      # 差分情報を取得
-      # @commit_diffs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" #{@c_diffs_url}`)
-      @commit_diffs = JSON.parse(RestClient.get(@c_diffs_url,
-                                {:params => {:access_token => self.user.github_token}}))
-      #puts(@commit_diffs)
-      puts("\n      ● @commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n")
-      params['stats_total'] = @commit_diffs['stats']['total']
-      params['stats_add'] = @commit_diffs['stats']['additions']
-      params['stats_del'] = @commit_diffs['stats']['deletions']
-    end
+    # if log['parents'] != []
+    #   @c_diffs_url = log['parents'][0]['url']
+    #   # 差分情報を取得
+    #   # @commit_diffs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" #{@c_diffs_url}`)
+    #   @commit_diffs = JSON.parse(RestClient.get(@c_diffs_url,
+    #                             {:params => {:access_token => self.user.github_token}}))
+    #   #puts(@commit_diffs)
+    #   puts("\n      ● @commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n")
+    #   params['stats_total'] = @commit_diffs['stats']['total']
+    #   params['stats_add'] = @commit_diffs['stats']['additions']
+    #   params['stats_del'] = @commit_diffs['stats']['deletions']
+    # end
     params['users_id'] = user.id
     params['project_id'] = id
-    return params
+    params
   end
 
 
