@@ -28,7 +28,7 @@ class YagiNoTegamiMailer < ApplicationMailer
     @project = project
     @trophy = trophy_n
     puts("          →   実績解除メール 送信中...\n\n")
-    send_mail(user, project, MailContent.trophy.sample)
+    send_mail(MailContent.trophy.sample)
   end
 
 

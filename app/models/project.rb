@@ -123,7 +123,7 @@ class Project < ApplicationRecord
     @trophies.each do |trophy|
       # 「獲得済み」を飛ばす
       next if @ach_trophy_ids.include?(trophy.id)
-      next if trophy.name == 'unachieve'
+      next if trophy.name == '？'
       puts("            未 : #{trophy.name}")
       @unachieve_trophies.push(trophy)
     end
@@ -151,7 +151,7 @@ class Project < ApplicationRecord
         if self.achieve_trophy.exists?(:trophy_id => t_id)
           ach_trophy = self.achieve_trophy.find_by(:trophy_id => t_id)
           # 「コミットした」 かつ 「１日以上経っている」
-          if added_commit_num > 0 && (Time.zone.now - ach_trophy.created_at + 1.day) > 23.hour
+          if added_commit_num > 0 && (Time.zone.now - ach_trophy.created_at) > 23.hour# - 1.day
           #if true  # テスト用
             add_ach_trophy_id = Trophy.find_by(name: '『落ち着きヤギ』').id
             puts("        → トロフィー『落ち着きヤギ』解放")
@@ -166,7 +166,7 @@ class Project < ApplicationRecord
           project_id: self.id,
         )
         ###  実績解除メール  ###
-        YagiNoTegamiMailer.special_mail(user, self).deliver
+        YagiNoTegamiMailer.special_mail(user, self, Trophy.find(add_ach_trophy_id)).deliver
       end
     end
  
