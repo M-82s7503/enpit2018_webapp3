@@ -2,8 +2,8 @@
 class Project < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  has_many :github_commit_logs, foreign_key: :project_id
-  has_many :achieve_trophy
+  has_many :github_commit_logs, foreign_key: :project_id, dependent: :destroy
+  has_many :achieve_trophy, dependent: :destroy
 
   belongs_to :user, foreign_key: :users_id
 
@@ -127,7 +127,7 @@ class Project < ApplicationRecord
       puts("            未 : #{trophy.name}")
       @unachieve_trophies.push(trophy)
     end
-    
+
     ## トロフィー獲得条件を満たしたか確認する。
     @unachieve_trophies.each do |unach_trophy|
       # 通常のトロフィーが id==0 として登録される可能性はない。
@@ -169,7 +169,7 @@ class Project < ApplicationRecord
         YagiNoTegamiMailer.special_mail(user, self, Trophy.find(add_ach_trophy_id)).deliver
       end
     end
- 
+
     puts
   end
 end

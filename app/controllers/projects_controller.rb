@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
 
   def show
     # 1. 要素を全て「未獲得」で埋めたリストを作る： @trophy_list
-    unach_trophy = Trophy.find_by(name: '？')
+    unach_trophy = Trophy.find_by(name: 'unachieve')
     @trophy_list = Array.new(Trophy.count-1, unach_trophy) # unachieve は除く。
     puts("unach_trophy : #{unach_trophy}")
 
