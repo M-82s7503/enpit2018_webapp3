@@ -33,9 +33,9 @@
     <div class="button-area2">
 
       <% if user_signed_in? %>
-          <a href="<%= url_for(users_path) %>">
+          <a href="<%= url_for(users_path) %>" class="userbutton">
             <button class="ui inverted button">
-              User page
+            ユーザページ
             </button>
           </a>
       <% else %>
@@ -57,86 +57,41 @@
     HASってなに？
   </div>
   <div class = "has-setumei2">
-    <p>HASは趣味で開発している人向けの支援サービスです。<br>
-    開発を先延ばしにしてしまう状況を改善し，<br>
-    進めるように促すことができます</p>
+    <p>
+      HASは開発を楽しいものにする新しい仕組みです。<br>
+      趣味で開発をしていると、目標の期限を先延ばしにしたりと<br>
+      ついつい忘れがちになりませんか？<br>
+      HASはそのようなあなたの悩みを解消します。<br>
+      プロジェクトを進めることでヤギの実績が解除され，<br>
+      あなたのプロジェクトも彩ることでしょう。
+    </p>
   </div>
 </div>
-<div class = "hs-m--has_what">
-  <div class= "has_what_title">
-    使い方
-  </div>
-  <div class = "has-setumei2">
-    <p>下のログインボタンから<br>
-    Githubと連携しよう</p>
-    <a href="<%= url_for(user_github_omniauth_authorize_path) %>">
-      <button class="ui inverted blue button">
-        Githubログインではじめる
-      </button>
-    </a>
-    <h1>↓↓連携系の画像↓↓</h1>
-    <div class = "Github_link_img">
-    </div>
-    <div class = "goat_button">
-      <i class="big angle double down icon"></i>ヤギについて知る
-    </div>
-  </div>
-</div>
-
 
 <div class = "hs-m--commit">
-  <div class = "userpage-setumei">
-    <br>
-    HASにプロダクトを登録することで進捗状況を確認できます
+  <<div class= "has_pro_title">
+    プロジェクトを登録するとヤギからの手紙が届きます
   </div>
   <div class = "userpage-setumei-wrapper">
+    <div class = "has-setumei3">
+      <p>
+      手紙は進捗状況によって変化します。<br>
+      プロジェクトが進んでいれば，<br>
+      ヤギからの喜びの手紙が届きます。<br>
+      <br>
+      <br>
+      一方でプロジェクトが<br>
+        進んでいない場合は…
+        </p>
+    </div>
     <div class = "userpage-gazou">
-      <%= image_tag('userpage.png') %>
-    </div>
-    <div class = "userpage-setumei2">
-      ユーザーページにて<br>
-      コミット数の確認ができます
-
-
+      <%= image_tag('comiyagi_yama_mozs.png') %>
     </div>
   </div>
 </div>
 
-<div class="hs-m--yagi">
-  <div class="hs-m--yagi-exam">
-    <p><br>ヤギはあなたに際限なくコミットを求めるでしょう<br>
-      プロジェクトを開発しコミットをすることで<br>
-      ヤギに餌を与えましょう<p>
-  </div>
-  <div class="yagi-gazou">
-    <%= image_tag('Mojiyagi.png') %>
-  </div>
-</div>
-
-<div class = "hs-m--learnmore">
-  <div class = "learnmore-exam">
-    <p><br>あなたのコミット状況によって，ヤギから届くメールの内容が変化します。<br>
-ヤギからのメールはあなたにコミットをするように促すでしょう。<br>
-ヤギを満足させるために，プロジェクトを進めましょう。</p>
-  </div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-  $(function(){
-    var _window = $(window),
-        _header = $('#hs-hero--header'),
-        heroBottom;
-    _window.on('scroll', function(){
-
-        heroBottom = $('.hs-m--hero').height();
-        if (_window.scrollTop() > heroBottom) {
-              _header.addClass('scrolled');
-          } else {
-              _header.removeClass('scrolled');
-          }
 
 
-    });
-    _window.trigger('scroll');
-  });
-</script>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<script src="app/assets/javascripts/header.js"></script>

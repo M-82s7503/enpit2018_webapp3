@@ -124,8 +124,9 @@
     a:link { color: #477df2; }
     a:visited { color: #372a63; }
     a:hover { color: #18c8ae; }
-    a:active { color: #10889d; }
+    a:active { color: #10889d;}
   }
+
   .project_name{
     font-size: 20px;
   }
@@ -148,6 +149,7 @@
   }
 }
 
+
 .list_title{
   padding-top: 9px;
   padding-left: 9px;
@@ -168,9 +170,4 @@
       width: 10vw;
     }
   }
-}
-
-
-.ui.button.sidebar{
-
 }
