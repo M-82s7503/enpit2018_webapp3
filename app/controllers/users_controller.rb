@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   def index
     @projects = current_user.projects
+    @recent_commit_logs = GithubCommitLog.where(users_id: current_user.id).last(3)
   end
 
   def show; end

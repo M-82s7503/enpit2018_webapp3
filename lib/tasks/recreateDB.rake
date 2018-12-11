@@ -155,15 +155,14 @@ namespace :recreateDB do
         puts("MailContent.mail_types : #{MailContent.mail_types}")
         @mail_patterns = CSV.table("#{Rails.root}/app/assets/mail_contents.csv")
         @mail_patterns.each do |row|
-            puts( "・#{row[:type]} : #{row[:title]}" )
-            puts( "    #{row[:yagi_img]}" )
-            puts( "    #{row[:yagi_message]}" )
+            puts( "・#{row[:type]}" )
+            puts( "    #{row[:img_path]}" )
+            puts( "    #{row[:sentence]}" )
             MailContent.create!(
                 mail_type: row[:type],
                 #name: row[:title],
-                sentence: row[:yagi_message],
-                img_path: row[:yagi_img],
-                #trophy_id: Trophy.find_by(name:'dummy').id
+                sentence: row[:sentence],
+                img_path: row[:img_path],
             )
         end
     end
@@ -173,6 +172,41 @@ namespace :recreateDB do
         AchieveTrophy.all.each do |ach_trophy|
             puts("ach_trophy: project_id, trophy_id = #{ach_trophy.project_id}, #{ach_trophy.trophy_id}")
             ach_trophy.destroy
+        end
+    end
+
+    desc "引数で指定したユーザーのプロジェクトのトロフィーを全部獲得済みにする。"
+    task :achieve_trophy__all_achieve, ['name', 'project'] => :environment do |task, args|
+        # 引数で指定したユーザーの全プロジェクトを削除・初期化し、その後、ユーザー情報も削除する。
+        @users = User.all
+        @users.each do |user|
+            # ユーザー名が違う場合は 飛ばす。
+            next if user.username != args[:name]
+            @projects = user.projects
+            @projects.each do |project|
+                next if project.name != args[:project]
+                print("\n  user : #{user.username} project : #{project.name} のトロフィーを全て達成済みにします \n")
+                # 全解除
+                project.achieve_trophy.each do |ach_trophy|
+                    puts("            OK : #{ach_trophy.trophy.name}")
+                end
+                @ach_trophy_ids = project.achieve_trophy.pluck(:trophy_id)
+                ## 未獲得のトロフィー一覧を出す。（ActiveRecode → Array への変換の意味も兼ねて）
+                @unachieve_trophies = []
+                @trophies = Trophy.all
+                @trophies.each do |trophy|
+                    # 「獲得済み」を飛ばす
+                    next if @ach_trophy_ids.include?(trophy.id)
+                    next if trophy.name == 'unachieve'
+                    puts("            OK : #{trophy.name}")
+                    @unachieve_trophies.push(trophy)
+                    AchieveTrophy.create!(
+                        trophy_id: trophy.id,
+                        project_id: project.id,
+                    )
+                end
+                puts
+            end
         end
     end
 
