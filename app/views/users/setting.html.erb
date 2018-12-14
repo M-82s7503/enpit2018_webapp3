@@ -19,16 +19,17 @@
 
   <div class = "hs-project">
     <p> 通知先のメールアドレス </p>
-    <div> <%= current_user.email %> </div>
-
+    <!-- 文字がずれてたので応急処置 -->
+　　　　　　　<%= current_user.email %>
     <br><br>
 
     <p> アカウントを削除する </p>
     <div>
-      ユーザー情報を全て削除、初期化します。<br>
-      一度削除すると、元には戻せません。
+　　　　　　　ユーザー情報を全て削除、初期化します。<br>
+　　　　　　　一度削除すると、元には戻せません。
     </div>
     <br>
+　<!--  ← スペース（全角）  -->
     <!-- ただのダイアログで見てくれが悪いので、UI を少しいじってほしい！
         良さそうな参考：https://qiita.com/ihatov08/items/a0b3b043ba809fdc2cd6 -->
     <%= link_to "削除する", users_setting_path, method: :delete,
