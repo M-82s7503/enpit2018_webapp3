@@ -1,4 +1,4 @@
-name,img_path,sentence,trophy_condition
+name,img_path,sentence,condition
 ？,TrophyYagis/futu_yagi.png,まだ みれません,
 『はじめてのエサ』,TrophyYagis/egao_yagi.png,初めてのエサを食べるヤギ,次の更新日までに、1回以上コミットする。
 『エサの山！』,TrophyYagis/comit_yagi_yama.png,大量のエサをみて喜ぶヤギ,次の更新日までに、5回以上コミットする。

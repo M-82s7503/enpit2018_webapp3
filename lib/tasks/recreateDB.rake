@@ -133,13 +133,13 @@ namespace :recreateDB do
             puts( "・#{row[:name]}" )
             puts( "    #{row[:img_path]}" )
             puts( "    #{row[:sentence]}" )
-            puts( "    #{row[:trophy_condition]}" )
+            puts( "    #{row[:condition]}" )
             # トロフィーを作成
             @trophy = Trophy.create!(
                 name: row[:name],
                 sentence: row[:sentence],
                 img_path: row[:img_path],
-                trophy_condition: row[:trophy_condition]
+                condition: row[:condition]
             )
             # メールも同時に作成する
             # とりあえず、メール：トロフィー ＝ １：１ で。

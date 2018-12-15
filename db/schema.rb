@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2018_12_15_060933) do
     t.datetime "updated_at", null: false
     t.string "img_path", default: "TrophyYagis/futu_yagi.png", null: false
     t.bigint "achieve_trophies_id"
-    t.string "trophy_condition"
+    t.string "condition"
     t.index ["achieve_trophies_id"], name: "index_trophies_on_achieve_trophies_id"
   end
 
