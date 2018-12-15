@@ -38,8 +38,17 @@ class Project < ApplicationRecord
     added_commit_num = get_added_commit_num(@new_commit_logs, self.user.username)
     if added_commit_num > 0
       self.commit_num += added_commit_num
+      self.commit_sum += added_commit_num
       # github_commit_log を差分更新
       save_commit_log(@new_commit_logs[0, added_commit_num])
+      # 連続スプリント達成記録 更新
+      self.sprint_continue_tmp += 1
+      if self.sprint_continue_tmp > self.sprint_continue_record
+        self.sprint_continue_record = self.sprint_continue_tmp
+      end
+    else
+      # 連続スプリント達成記録 を 0に戻す。
+      self.sprint_continue_tmp = 0
     end
     save
 

@@ -77,6 +77,9 @@
                       <th width="30">実績</th>
                       <th width="30">削除</th>
                       <th width="30">編集</th>
+                      <th width="30">累計</th>
+                      <th width="40">連続記録(現在)</th>
+                      <th width="40">連続記録(最高)</th>
                     </tr>
                   </thead>
 
@@ -111,6 +114,15 @@
                             <i class="edit icon"></i>
                           </div>
                           <% end %>
+                        </td>
+                        <td>
+                          <%= t.commit_sum %>
+                        </td>
+                        <td>
+                          <%= t.sprint_continue_tmp %>
+                        </td>
+                        <td>
+                          <%= t.sprint_continue_record %>
                         </td>
                       </tr>
                     <% end %>
