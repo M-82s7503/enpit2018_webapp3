@@ -144,28 +144,33 @@ class Project < ApplicationRecord
 
       case unach_trophy.name
       # 一度獲得すれば、↑の「獲得済み」を飛ばすで自動的に対象外になる。
-      when '『はじめてのエサ』' then
-        if added_commit_num > 0  #獲得条件
-          add_ach_trophy_id = Trophy.find_by(name: '『はじめてのエサ』').id
-          puts("        → トロフィー『はじめてのエサ』解放")
-        end
-      when '『エサの山！』' then
-        if added_commit_num > 4
-          add_ach_trophy_id = Trophy.find_by(name: '『エサの山！』').id
-          puts("        → トロフィー『エサの山！』解放")
-        end
-      when '『落ち着きヤギ』' then
-        t_id = Trophy.find_by(name: '『はじめてのエサ』').id
-        # 『はじめてのエサ』 を取得済みかをまず確認。
-        if self.achieve_trophy.exists?(:trophy_id => t_id)
-          ach_trophy = self.achieve_trophy.find_by(:trophy_id => t_id)
-          # 「コミットした」 かつ 「１日以上経っている」
-          if added_commit_num > 0 && (Time.zone.now - ach_trophy.created_at) > 23.hour# - 1.day
-          #if true  # テスト用
-            add_ach_trophy_id = Trophy.find_by(name: '『落ち着きヤギ』').id
-            puts("        → トロフィー『落ち着きヤギ』解放")
+        when '『はじめてのエサ』' then
+          if added_commit_num > 0  #獲得条件
+            add_ach_trophy_id = Trophy.find_by(name: '『はじめてのエサ』').id
+            puts("        → トロフィー『はじめてのエサ』解放")
           end
-        end
+        when '『エサの山！』' then
+          if added_commit_num > 4
+            add_ach_trophy_id = Trophy.find_by(name: '『エサの山！』').id
+            puts("        → トロフィー『エサの山！』解放")
+          end
+        when '『落ち着きヤギ』' then
+          t_id = Trophy.find_by(name: '『はじめてのエサ』').id
+          # 『はじめてのエサ』 を取得済みかをまず確認。
+          if self.achieve_trophy.exists?(:trophy_id => t_id)
+            ach_trophy = self.achieve_trophy.find_by(:trophy_id => t_id)
+            # 「コミットした」 かつ 「１日以上経っている」
+            if added_commit_num > 0 && (Time.zone.now - ach_trophy.created_at) > 23.hour# - 1.day
+            #if true  # テスト用
+              add_ach_trophy_id = Trophy.find_by(name: '『落ち着きヤギ』').id
+              puts("        → トロフィー『落ち着きヤギ』解放")
+            end
+          end
+        when '『モナリザヤギ』' then
+          if self.commit_sum > 9  # 累計コミット数が 10以上。
+            add_ach_trophy_id = Trophy.find_by(name: '『モナリザヤギ』').id
+            puts("        → トロフィー『モナリザヤギ』解放")
+          end
       end
 
       # 獲得条件が達成されたものは、achieve trophy に追加する。
