@@ -6,7 +6,7 @@
         <h1>HAS</h1>
       </a>
     </div>
-    <div class="button-area">
+    <div class="button-project">
         <div class="ui buttons">
           <a href="<%= url_for(users_path) %>">
             <button class="ui button">
@@ -22,7 +22,7 @@
     <div> <%= current_user.email %> </div>
 
     <br><br>
-    
+
     <p> アカウントを削除する </p>
     <div>
       ユーザー情報を全て削除、初期化します。<br>
@@ -31,11 +31,11 @@
     <br>
     <!-- ただのダイアログで見てくれが悪いので、UI を少しいじってほしい！
         良さそうな参考：https://qiita.com/ihatov08/items/a0b3b043ba809fdc2cd6 -->
-    <%= link_to "削除する", users_setting_path, method: :delete, 
-        data: { 
-          title: "削除の確認", 
+    <%= link_to "削除する", users_setting_path, method: :delete,
+        data: {
+          title: "削除の確認",
           confirm: "一度削除すると、元には戻せません。\n本当によろしいですか？"
-        } %>
+        }, class: "ui button"%>
     <!--button class="ui button">
       解約する
     </button-->

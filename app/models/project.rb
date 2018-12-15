@@ -2,8 +2,8 @@
 class Project < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  has_many :github_commit_logs, foreign_key: :project_id
-  has_many :achieve_trophy
+  has_many :github_commit_logs, foreign_key: :project_id, dependent: :destroy
+  has_many :achieve_trophy, dependent: :destroy
 
   belongs_to :user, foreign_key: :users_id
 
@@ -99,21 +99,21 @@ class Project < ApplicationRecord
     params['commit_id'] = log['sha']
     params['message'] = log['commit']['message'][0, 244] # 文字数上限を追加。
     # 空なら取得しない。
-    if log['parents'] != []
-      @c_diffs_url = log['parents'][0]['url']
-      # 差分情報を取得
-      # @commit_diffs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" #{@c_diffs_url}`)
-      @commit_diffs = JSON.parse(RestClient.get(@c_diffs_url,
-                                {:params => {:access_token => self.user.github_token}}))
-      #puts(@commit_diffs)
-      puts("\n      ● @commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n")
-      params['stats_total'] = @commit_diffs['stats']['total']
-      params['stats_add'] = @commit_diffs['stats']['additions']
-      params['stats_del'] = @commit_diffs['stats']['deletions']
-    end
+    # if log['parents'] != []
+    #   @c_diffs_url = log['parents'][0]['url']
+    #   # 差分情報を取得
+    #   # @commit_diffs = JSON.parse(`curl -H "Authorization: token #{self.user.github_token}" #{@c_diffs_url}`)
+    #   @commit_diffs = JSON.parse(RestClient.get(@c_diffs_url,
+    #                             {:params => {:access_token => self.user.github_token}}))
+    #   #puts(@commit_diffs)
+    #   puts("\n      ● @commit_diffs['stats'] : #{@commit_diffs['stats']}\n\n")
+    #   params['stats_total'] = @commit_diffs['stats']['total']
+    #   params['stats_add'] = @commit_diffs['stats']['additions']
+    #   params['stats_del'] = @commit_diffs['stats']['deletions']
+    # end
     params['users_id'] = user.id
     params['project_id'] = id
-    return params
+    params
   end
 
 
@@ -132,11 +132,11 @@ class Project < ApplicationRecord
     @trophies.each do |trophy|
       # 「獲得済み」を飛ばす
       next if @ach_trophy_ids.include?(trophy.id)
-      next if trophy.name == 'unachieve'
+      next if trophy.name == '？'
       puts("            未 : #{trophy.name}")
       @unachieve_trophies.push(trophy)
     end
-    
+
     ## トロフィー獲得条件を満たしたか確認する。
     @unachieve_trophies.each do |unach_trophy|
       # 通常のトロフィーが id==0 として登録される可能性はない。
@@ -160,7 +160,7 @@ class Project < ApplicationRecord
         if self.achieve_trophy.exists?(:trophy_id => t_id)
           ach_trophy = self.achieve_trophy.find_by(:trophy_id => t_id)
           # 「コミットした」 かつ 「１日以上経っている」
-          if added_commit_num > 0 && (Time.zone.now - ach_trophy.created_at + 1.day) > 23.hour
+          if added_commit_num > 0 && (Time.zone.now - ach_trophy.created_at) > 23.hour# - 1.day
           #if true  # テスト用
             add_ach_trophy_id = Trophy.find_by(name: '『落ち着きヤギ』').id
             puts("        → トロフィー『落ち着きヤギ』解放")
@@ -175,10 +175,10 @@ class Project < ApplicationRecord
           project_id: self.id,
         )
         ###  実績解除メール  ###
-        YagiNoTegamiMailer.special_mail(user, self).deliver
+        YagiNoTegamiMailer.special_mail(user, self, Trophy.find(add_ach_trophy_id)).deliver
       end
     end
- 
+
     puts
   end
 end
