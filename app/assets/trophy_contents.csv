@@ -1,6 +1,6 @@
-name,img_path,sentence
-？,TrophyYagis/futu_yagi.png,まだ みれません
-『はじめてのエサ』,TrophyYagis/egao_yagi.png,初めてのエサを食べるヤギ
-『エサの山！』,TrophyYagis/comit_yagi_yama.png,大量のエサをみて喜ぶヤギ
-『落ち着きヤギ』,TrophyYagis/otitukiy_yagi.png,環境にも慣れてきたヤギ
-『モナリザヤギ』,TrophyYagis/MonnaLisa_yagi.png,モナリザヤギ
+name,img_path,sentence,trophy_condition
+？,TrophyYagis/futu_yagi.png,まだ みれません,
+『はじめてのエサ』,TrophyYagis/egao_yagi.png,初めてのエサを食べるヤギ,次の更新日までに、1回以上コミットする。
+『エサの山！』,TrophyYagis/comit_yagi_yama.png,大量のエサをみて喜ぶヤギ,次の更新日までに、5回以上コミットする。
+『落ち着きヤギ』,TrophyYagis/otitukiy_yagi.png,環境にも慣れてきたヤギ,２週連続でコミットする。
+『モナリザヤギ』,TrophyYagis/MonnaLisa_yagi.png,モナリザヤギ,累計コミット数が10以上である。
