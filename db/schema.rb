@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_01_052026) do
+ActiveRecord::Schema.define(version: 2018_12_15_060933) do
 
   create_table "achieve_trophies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "trophy_id"
@@ -58,6 +58,9 @@ ActiveRecord::Schema.define(version: 2018_12_01_052026) do
     t.integer "day_counter", default: 0, null: false
     t.string "newest_commit_id"
     t.bigint "achieve_trophy_id"
+    t.integer "commit_sum", default: 0
+    t.integer "sprint_continue_tmp", default: 0
+    t.integer "sprint_continue_record", default: 0
     t.index ["achieve_trophy_id"], name: "index_projects_on_achieve_trophy_id"
     t.index ["users_id"], name: "index_projects_on_users_id"
   end
@@ -69,13 +72,14 @@ ActiveRecord::Schema.define(version: 2018_12_01_052026) do
     t.datetime "updated_at", null: false
     t.string "img_path", default: "TrophyYagis/futu_yagi.png", null: false
     t.bigint "achieve_trophies_id"
+    t.string "condition"
     t.index ["achieve_trophies_id"], name: "index_trophies_on_achieve_trophies_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "github_token", null: false
+    t.string "github_token"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

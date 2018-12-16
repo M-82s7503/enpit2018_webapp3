@@ -58,6 +58,7 @@
     <!-- 右側：プロジェクト一覧 -->
       <div class = "hs-users-main_contents">
         <div class = "hs-users-renewal">
+          <!--ここに更新状況を書く-->
           <h2>更新状況</h2>
           <p>
             <% @recent_commit_logs.reverse_each do |log| %>
@@ -66,7 +67,6 @@
               </div><br>
             <% end %>
           </p>
-          <!--ここに更新状況を書く-->
         </div>
 
         <div class = "hs-project-pictures-wrapper">
@@ -79,9 +79,13 @@
                     <tr>
                       <th width="230">プロジェクト名</th>
                       <th width="30">エサ</th>
+                      <th width="50">次の更新</th>
                       <th width="30">実績</th>
                       <th width="30">削除</th>
                       <th width="30">編集</th>
+                      <th width="30">累計</th>
+                      <th width="40">連続記録(現在)</th>
+                      <th width="40">連続記録(最高)</th>
                     </tr>
                   </thead>
 
@@ -96,6 +100,9 @@
                         </td>
                         <td>
                           <%= t.commit_num %>
+                        </td>
+                        <td>
+                          <%= t.day_counter %> 日後 <br>AM9:00
                         </td>
                         <td>
                           <%= link_to projects_show_path(t) do %>
@@ -117,6 +124,15 @@
                           </div>
                           <% end %>
                         </td>
+                        <td>
+                          <%= t.commit_sum %>
+                        </td>
+                        <td>
+                          <%= t.sprint_continue_tmp %>
+                        </td>
+                        <td>
+                          <%= t.sprint_continue_record %>
+                        </td>
                       </tr>
                     <% end %>
                   </tbody>
@@ -124,12 +140,12 @@
               </div>
             </div>
           </div>
-          <div class = "hs-users-pictures">
+          <!--div class = "hs-users-pictures">
             <h2 class="list_title">獲得絵画</h2>
             <div class = "pictures">
               <%= image_tag('Mojiyagi.png') %>
             </div>
-          </div>
+          </div-->
         </div>
     </div>
   </div>
