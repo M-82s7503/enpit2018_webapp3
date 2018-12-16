@@ -33,20 +33,6 @@
       <p>通知の間隔</p>
       <%= f.select :day_interval, (1..7).to_a.map{|n| [n.to_s + '日ごと', n-1]}, {}, { class: "ui dropdown"} %>
     </div>
-    <div class = "hs-project--commit-inform-model">
-          <p>通知モデル</p>
-          <!-- <%= f.select(:name, @form_repos, {}, { class: "ui dropdown"} )%> -->
-          <select class="ui dropdown">
-            <option value="0">ヤギ</option>
-          </select>
-    </div>
-    <div class = "hs-project--commit-inform-type">
-
-          <p>通知タイプ</p>
-          <select class="ui dropdown">
-            <option value="0">メール</option>
-          </select>
-    </div>
     <!-- ※twitterアカウントを登録していない方はコチラ　なんかリンク貼って -->
     <%= submit_tag('追加する', class: "ui button") %>
   <% end %>
