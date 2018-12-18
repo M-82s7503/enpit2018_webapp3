@@ -35,7 +35,7 @@
                 <% end %>
               </p>
               <!--  トロフィー説明文？： <%= trophy.sentence %>   -->
-              <p class="date"> ????/??/??</p>
+              <p class="date"> <%= trophy.created_at.strftime("%Y/%m/%d") %>  </p>
             </div>
           </div>
         <% end %>
