@@ -19,20 +19,37 @@ class ProjectsController < ApplicationController
 
   def show
     # 1. 要素を全て「未獲得」で埋めたリストを作る： @trophy_list
-    unach_trophy = Trophy.find_by(name: '？')
-    @trophy_list = Array.new(Trophy.count-1, unach_trophy) # unachieve は除く。
-    puts("unach_trophy : #{unach_trophy}")
+    trophies = Trophy.all
+    trophy_num = trophies.count
+
+    @trophy_list = Array.new()
+    @trophy_date_list = Array.new()
 
     # 2. 獲得済み trophy を取得
     @project = Project.find(params[:id])
     @ach_trophy_ids = @project.achieve_trophy.pluck(:trophy_id)
-    # 3. 1.に代入する
-    @ach_trophy_ids.each do |ach_t_id|
-      @trophy_list[ach_t_id-unach_trophy.id-1] = Trophy.find(ach_t_id)
-    end
 
-    ###  画像パスの取得： @img_dir_path + @trophy_list[ach_trophy.trophy_id].img_path
-    # @img_dir_path = "TrophyYagis/"
+    # 3. 1.に代入する
+    trophy_num.times do |t_No|
+      if @ach_trophy_ids.include?(trophies[t_No].id)
+        # 獲得済み
+        @trophy_list.push(
+            [trophies[t_No], 
+              trophies[t_No].created_at.in_time_zone('Tokyo').strftime('%Y/%m/%d')]
+          )
+      else
+        # 未獲得
+        @trophy_list.push( [Trophy.new(
+            name: "『？』",
+            img_path: "TrophyYagis/futu_yagi.png",
+            sentence: trophies[t_No].condition,
+            condition: ""
+          ), 
+          '????/??/??']
+        )
+      end
+      #@trophy_list[ach_t_id-unach_trophy.id] = Trophy.find(ach_t_id)
+    end
   end
 
 
