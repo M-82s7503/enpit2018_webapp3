@@ -69,6 +69,7 @@ class ProjectsController < ApplicationController
     project.owner = own_pro_name_list[0]
     project.users_id = current_user.id
     project.day_interval = params[:project]["day_interval"]
+    project.day_counter = params[:project]["day_interval"]
     project.goat_eat_speed = params[:project]["goat_eat_speed"]
     project.commit_num = get_commit_num(commit_logs, current_user.username)
 
