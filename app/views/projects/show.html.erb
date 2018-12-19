@@ -16,30 +16,29 @@
     </div>
   </div>
 </div>
-<div class="page__inner">
-    <div class="achive-content">
-    <div class="achive-headline"><i class="trophy icon"></i>これまでの実績</div>
-      <div class="achives-area">
-        <% @trophy_list.each do |trophy| %>
-          <div class="an-achive-area">
-            <div class="inner">
-              <div class="achive-picture" >
-                <%= image_tag(trophy.img_path)%>
-                <!-- <div class="achive-picture" > -->
-              </div>
-              <p class="achive-name"> <%= trophy.name %> </p>
-              <!--  トロフィー画像： <%= trophy.img_path %>   -->
-              <p class="sentence">
-                <% trophy.sentence.split('\n').each do |t| %>
-                 <%= t %><br>
-                <% end %>
-              </p>
-              <!--  トロフィー説明文？： <%= trophy.sentence %>   -->
-              <p class="date"> <%= trophy.created_at.strftime("%Y/%m/%d") %>  </p>
+  <div class="achive-content">
+  <div class="achive-headline"><i class="trophy icon"></i>これまでの実績</div>
+    <div class="achives-area">
+      <% @trophy_list.each do |trophy| %>
+        <div class="an-achive-area">
+          <div class="inner">
+            <div class="achive-picture" >
+              <%= image_tag(trophy.img_path)%>
+              <!-- <div class="achive-picture" > -->
             </div>
+            <p class="achive-name"> <%= trophy.name %> </p>
+            <!--  トロフィー画像： <%= trophy.img_path %>   -->
+            <p class="sentence">
+              <% trophy.sentence.split('\n').each do |t| %>
+               <%= t %><br>
+              <% end %>
+            </p>
+            <!--  トロフィー説明文？： <%= trophy.sentence %>   -->
+            <p class="date"> <%= trophy.created_at.strftime("%Y/%m/%d") %>  </p>
           </div>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   </div>
+
 </div>

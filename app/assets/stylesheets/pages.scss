@@ -1,3 +1,14 @@
+@mixin pc-layout($min-width:761px) {
+  @media screen and (min-width: $min-width) {
+    @content;
+  }
+}
+
+@mixin sp-layout($max-width:760px) {
+  @media screen and (max-width: $max-width) {
+    @content;
+  }
+}
 
 .hs-user--header {
   background-color: #6cd8c5;
@@ -135,7 +146,7 @@
     text-align: center;
   }
   .trophy{
-    color : #b49531;
+    color : #CCBB00;
     font-size: 20px;
     text-align: center;
   }
@@ -171,3 +182,103 @@
     }
   }
 }
+
+/**
+ * decoration
+ */
+.page__decoration {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  @include pc-layout { top: 60px; height: calc(100% - 60px); }
+  @include sp-layout { top: 40px; height: calc(100% - 40px); }
+}
+/**
+ * frame
+ */
+.page__frame {
+  position: absolute;
+  box-sizing: border-box;
+  // opacity: 0;
+  @include pc-layout {
+    top: 30px; left: 30px;
+    width: calc(100% - 60px); height: calc(100% - 60px);
+    border: dashed 2.5px #283c5f;
+    border-radius: 40px;
+  }
+  @include sp-layout {
+    top: 10px; left: 10px;
+    width: calc(100% - 20px); height: calc(100% - 20px);
+    border: dashed 1.5px #283c5f;
+    border-radius: 30px;
+  }
+}
+
+/**
+ * inner
+ */
+.page__inner {
+  position: absolute;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  @include pc-layout {
+    top: 60px; left: 40px;
+    width: calc(100% - 80px); height: calc(100% - 120px);
+  }
+  @include sp-layout {
+    top: 60px; left: 20px;
+    width: calc(100% - 40px); height: calc(100% - 80px);
+  }
+}
+
+
+/**
+ * close-btn
+ */
+.page__close-btn {
+  display: block;
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  // transform: translateX(100%);
+  cursor: pointer;
+  // transition: all 0.5s ease 0s;
+  @include pc-layout {
+    top: 5px; right: 30px;
+    width: 100px; height: 100px;
+  }
+  @include sp-layout {
+    top: -15px; right: -15px;
+    width: 80px; height: 80px;
+  }
+
+  div {
+    position: absolute;
+    background-color: #283c5f;
+    @include pc-layout {
+      top: calc(50% - 1.5px); left: 30px;
+      width: calc(100% - 60px); height: 3px;
+      border-radius: 10px;
+    }
+    @include sp-layout {
+      top: calc(50% - 1.5px); left: 20px;
+      width: calc(100% - 40px); height: 3px;
+      border-radius: 10px;
+    }
+  }
+  div:nth-child(1) { transform: rotate(45deg); }
+  div:nth-child(2) { transform: rotate(-45deg); }
+
+  &::after {
+    content: ""; display: block;
+    position: absolute;
+    top: 5px; left: 5px;
+    width: calc(100% - 10px); height: calc(100% - 10px);
+    border-radius: 50%;
+    box-sizing: border-box;
+    border: dashed 1px #283c5f;
+  }
+}
+.page__close-btn:hover { box-shadow: 0 0 40px rgba(0,0,0,0.7); }
