@@ -15,6 +15,7 @@ namespace :updateDB_and_mail do
         puts "      ● interval : #{project.day_interval}"
         puts "      ● day_counter : #{project.day_counter}"
         next unless project.update_count_and_check
+        puts "      ● 前回までの エサの量 : #{project.commit_num}"
         project.update_commit_num()
         puts "      ● 現在の エサの量 : #{project.commit_num}"
       end
