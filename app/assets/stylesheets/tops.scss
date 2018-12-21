@@ -58,8 +58,9 @@
   // margin-right: 20%;
 text-align: center;
 line-height: 2.2;
-// opacity: 0;
+background-color: white;
 color: #283c5f;
+box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 @include pc-layout {
   width: 550px;
   font-size: 16px;
@@ -103,6 +104,7 @@ padding: 50px;
     padding: 0.25em 0.5em;
     background-color: white;
     margin:20px;
+    margin-top: 0px;
     margin-left: 0px;
     // margin: 20px;
     border-bottom: dashed 1px #283c5f;

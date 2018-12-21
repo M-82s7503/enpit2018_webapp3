@@ -14,6 +14,7 @@
   background-color: #6cd8c5;
   color: #000;
   display: flex;
+  height: 10vh;
   padding: 2vh;
 
   width: 100%;
@@ -231,13 +232,14 @@
 .page__inner {
   position: absolute;
   overflow: auto;
+  background-color: #faf7d9;
   -webkit-overflow-scrolling: touch;
   @include pc-layout {
     top: 60px; left: 40px;
     width: calc(100% - 80px); height: calc(100% - 120px);
   }
   @include sp-layout {
-    top: 60px; left: 20px;
+    top: 40px; left: 20px;
     width: calc(100% - 40px); height: calc(100% - 80px);
   }
 }

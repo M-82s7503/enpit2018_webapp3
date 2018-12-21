@@ -4,7 +4,9 @@
   <div class="page__inner">
     <div class = "hs-project">
       <%= form_for @project, url: { controller: 'projects', action: "update" } do |f| %>
-
+        <div class='chenge_title'>
+          <%= @project.name %> の変更
+        </div>
         <div class = "hs-project--commit-speed">
           <p>ヤギが一度に食べるコミットの数</p>
           <%= f.select :goat_eat_speed, (1..5).to_a.map{|n| [n, n]}, {}, { class: "ui dropdown"} %>
